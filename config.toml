@@ -21,7 +21,7 @@ enableRobotsTXT = true
 
 ## Site Settings
 [params]
-author = "Matthew Henderson"
+author = "Dr. M. J. Henderson"
 intro = "Data Scientist"
 description = ""
 #authorimage = "headshot.jpg"
@@ -37,14 +37,14 @@ keywords = "minimalist,blog,goa,hugo,developer"
 github = "MHenderson"
 #instagram = "<username>"
 #xing = "<username>"
-linkedin = "<username>"
+linkedin = "matthew-henderson-2a5b26193"
 twitter = "dorsetdata"
 #facebook = "<username>"
 #google = "<username>"
-googlescholar = "<account_id>"
+googlescholar = "S4a1LGAAAAAJ"
 #stackoverflow = "<username>"
 #lastfm = "<username>"
-goodreads = "<username>"
+goodreads = "4560489-matthew-henderson"
 gitlab = "MHenderson1"
 bitbucket = "matthew"
 #fivehundredpx = "<username>"
@@ -75,21 +75,11 @@ poweredby = true
 highlightjs = true
 socialmarkup = true
 toc = true
-displayrssicon = true
+displayrssicon = false
 
 ## Main Menu
-[[menu.main]]
-    name = "blog"
-    weight = 100
-    identifier = "blog"
-    url = "/blog/"
 [[menu.main]]
     name = "about"
     identifier = "about"
     weight = 200
     url = "/about/"
-[[menu.main]]
-    name = "coderag"
-    identifier = "coderag"
-    weight = 300
-    url = "/coderag/"
