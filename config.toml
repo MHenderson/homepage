@@ -10,27 +10,11 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     post = "/:year/:month/:day/:slug/"
 
 [[menu.main]]
+    name = "Home"
+    url = "/"
+[[menu.main]]
     name = "About"
     url = "/about/"
-[[menu.main]]
-    name = "Blog"
-    url = "https://www.dorsetdata.com/"
-[[menu.main]]
-    name = "Twitter"
-    url = "https://twitter.com/dorsetdata"
-[[menu.main]]
-    name = "LinkedIn"
-    url = "https://www.linkedin.com/in/matthew-henderson-2a5b26193"
-[[menu.main]]
-    name = "Google Scholar"
-    url = "https://scholar.google.com/citations?hl=en&user=S4a1LGAAAAAJ"
-[[menu.main]]
-    name = "Orcid"
-    url = "https://orcid.org/0000-0001-7949-8208"
-[[menu.main]]
-    name = "Gitlab"
-    url = "https://gitlab.com/MHenderson1"
-
 
 [params]
     description = "My Personal Website"
@@ -52,4 +36,3 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     width = 50
     height = 50
     alt = "Logo"
-

@@ -1,0 +1,66 @@
+---
+title: Matthew Henderson
+---
+
+```{r, eval=TRUE, include=FALSE, echo=FALSE, message=FALSE}
+library(glue)
+library(shiny)
+library(tidyverse)
+library(readxl)
+
+X <- here::here("content", "data-raw", "cv.xlsx") %>%
+  read_excel(sheet = "contact") %>%
+  pivot_wider(names_from = key, values_from = value)
+```
+
+## Contact
+
+```{r, eval=TRUE, results='asis', echo=FALSE, message=FALSE}
+X %>%
+  glue_data(
+    "* {email}",
+    "\n",
+    "* {twitter}",
+    "\n",
+    "* {linkedin}",
+    "\n"
+  )
+```
+
+## Software
+
+```{r, eval=TRUE, results='asis', echo=FALSE, message=FALSE}
+X %>%
+  glue_data(
+    "* {github}",
+    "\n",
+    "* {gitlab}",
+    "\n",
+    "* {bitbucket}",
+    "\n",
+    "* {srht}",
+    "\n",
+    "* {kaggle}",
+    "\n",
+  )
+```
+
+## Writings
+
+```{r, eval=TRUE, results='asis', echo=FALSE, message=FALSE}
+here::here("content", "data-raw", "cv.xlsx") %>%
+  read_excel(sheet = "contact") %>%
+  pivot_wider(names_from = key, values_from = value) %>%
+  glue_data(
+    "* {blog}",
+    "\n",
+    "* {old_blog}",
+    "\n",
+    "* {rpubs}",
+    "\n"
+  )
+```
+
+## Other
+
+<div id="w48a7582efa703ca5879a3f7d12f5e606"></div><script type="text/javascript" charset="UTF-8" src="https://www.librarything.com/widget_get.php?userid=matthew.henderson&theID=w48a7582efa703ca5879a3f7d12f5e606"></script><noscript><a href="http://www.librarything.com/profile/matthew.henderson">My Library</a> at <a href="http://www.librarything.com">LibraryThing</a></noscript>
