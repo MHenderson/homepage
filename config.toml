@@ -15,7 +15,7 @@ title = "Matthew Henderson"
 theme = "hugo-goa"
 
 ## Hugo Built-in Features
-disqusShortname = "https-shenoybr-github-io-hugo-goa-demo" # Comment out to disable Disqus.
+#disqusShortname = "https-shenoybr-github-io-hugo-goa-demo" # Comment out to disable Disqus.
 googleAnalytics = "XYZ"
 enableRobotsTXT = true
 
@@ -44,7 +44,7 @@ twitter = "dorsetdata"
 googlescholar = "S4a1LGAAAAAJ"
 #stackoverflow = "<username>"
 #lastfm = "<username>"
-goodreads = "4560489-matthew-henderson"
+goodreads = "user/show/4560489-matthew-henderson"
 gitlab = "MHenderson1"
 bitbucket = "matthew"
 #fivehundredpx = "<username>"
