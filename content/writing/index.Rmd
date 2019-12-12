@@ -72,7 +72,17 @@ library(readxl)
 here("content", "writing", "data-raw", "writings.xlsx") %>%
   read_xlsx("notes") %>%
   glue_data(
-    "* {title}"
+    "* [{title}]({url}) - {description}"
+  )
+```
+
+## Notebooks
+
+```{r, results='asis'}
+here("content", "writing", "data-raw", "writings.xlsx") %>%
+  read_xlsx("notebooks") %>%
+  glue_data(
+    "* [{title}]({url}) - {description}"
   )
 ```
 
@@ -81,13 +91,3 @@ here("content", "writing", "data-raw", "writings.xlsx") %>%
 * scipy 2010
 
 ## Lecture notes?
-
-## Notebooks
-
-```{r, results='asis'}
-here("content", "writing", "data-raw", "writings.xlsx") %>%
-  read_xlsx("notebooks") %>%
-  glue_data(
-    "* {title}"
-  )
-```
