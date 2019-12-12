@@ -79,7 +79,15 @@ displayrssicon = false
 
 ## Main Menu
 [[menu.main]]
+    name = "writings"
+    weight = 100
+    url = "/writing/"
+[[menu.main]]
+    name = "software"
+    weight = 200
+    url = "/software/"
+[[menu.main]]
     name = "about"
     identifier = "about"
-    weight = 200
+    weight = 300
     url = "/about/"
