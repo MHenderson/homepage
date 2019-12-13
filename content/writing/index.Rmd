@@ -56,23 +56,25 @@ My PhD thesis in bookdown format: https://mjh-phd.netlify.com/
 library(tidyverse)
 library(glue)
 library(here)
+library(readxl)
 
-here("data-raw", "citations.csv") %>%
-  read_csv() %>%
+here("data-raw", "works.xlsx") %>%
+  read_xlsx("publications") %>%
   glue_data(
-    "* {Title}"
+    "{Year}",
+    "\n\n",
+    ":    {Title} by {Authors} in {Publication}",
+    "\n\n"
   )
 ```
 
 ## Notes
 
 ```{r, results='asis'}
-library(readxl)
-
 here("data-raw", "works.xlsx") %>%
   read_xlsx("notes") %>%
   glue_data(
-    "* [{title}]({url}) - {description}"
+    "* [{title}]({url_short}) - {description}"
   )
 ```
 
