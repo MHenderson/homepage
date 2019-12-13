@@ -57,7 +57,7 @@ library(tidyverse)
 library(glue)
 library(here)
 
-here("content", "writing", "data-raw", "citations.csv") %>%
+here("data-raw", "citations.csv") %>%
   read_csv() %>%
   glue_data(
     "* {Title}"
@@ -69,7 +69,7 @@ here("content", "writing", "data-raw", "citations.csv") %>%
 ```{r, results='asis'}
 library(readxl)
 
-here("content", "writing", "data-raw", "writings.xlsx") %>%
+here("data-raw", "works.xlsx") %>%
   read_xlsx("notes") %>%
   glue_data(
     "* [{title}]({url}) - {description}"
@@ -79,7 +79,7 @@ here("content", "writing", "data-raw", "writings.xlsx") %>%
 ## Notebooks
 
 ```{r, results='asis'}
-here("content", "writing", "data-raw", "writings.xlsx") %>%
+here("data-raw", "works.xlsx") %>%
   read_xlsx("notebooks") %>%
   glue_data(
     "* [{title}]({url}) - {description}"
@@ -88,6 +88,6 @@ here("content", "writing", "data-raw", "writings.xlsx") %>%
 
 ## Slides
 
-* scipy 2010
+* http://conference.scipy.org/scipy2010/slides/matthew_henderson_sudoku.pdf
 
 ## Lecture notes?
