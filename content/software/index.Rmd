@@ -1,0 +1,69 @@
+---
+title: Software 
+author: Matthew Henderson
+date: '2019-12-10'
+slug:
+categories: []
+tags: []
+publishdate: '2019-12-10'
+lastmod: '2019-12-10'
+editor_options: 
+  chunk_output_type: console
+description: Week 50
+images:
+- post/2019-12-10-replicating-plots-in-r/index_files/figure-html/murders-cover-1.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+        echo = FALSE,
+     message = FALSE,
+     warning = FALSE,
+     comment = "#>",
+    collapse = TRUE,
+   fig.width = 8,
+  fig.height = 8
+)
+
+ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
+```
+
+
+```{r, results='asis'}
+library(tidyverse)
+library(glue)
+library(here)
+library(readxl)
+
+X <- here("data-raw", "works.xlsx") %>%
+  read_xlsx("software")
+
+X %>%
+  mutate(
+    repo = case_when(
+      !is.na(github) ~ github,
+      !is.na(gitlab) ~ gitlab,
+      !is.na(bitbucket) ~ bitbucket,
+      TRUE ~ github
+    )
+  ) %>%
+  glue_data(
+    "\n\n",
+    "## {title}",
+    "\n\n",
+    "{description}",
+    "\n\n",
+    paste(shiny::icon("home"), "{homepage}"),
+    "\n\n",
+    paste(shiny::icon("github"), "{repo}"),
+    "\n\n"
+  )
+```
+
+## Other
+
+* https://www.dorsetdata.com/2018/01/17/functional-geometry-in-r/
+* https://gist.github.com/MHenderson/67f4d8c0d57c0bb1834370c0e8df0e70
+* Essence' of PSSSODLS https://gist.github.com/MHenderson/6200476.
+* Custom [generator][psssodlspy] script (in Python) for PSSSODLS in
+  [Minion][minion] format. https://gist.github.com/MHenderson/375a2122f1b77f90e5df
