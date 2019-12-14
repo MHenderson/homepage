@@ -44,11 +44,7 @@ be found here: https://coding-with-graphs.netlify.com/
 
 ## Room Squares
 
-A book about Room Squares: https://room-squares.netlify.com/
-
-## PhD Thesis
-
-My PhD thesis in bookdown format: https://mjh-phd.netlify.com/
+A book on Room Squares: https://room-squares.netlify.com/
 
 ## Selected Publications
 
@@ -63,7 +59,7 @@ here("data-raw", "works.xlsx") %>%
   glue_data(
     "{Year}",
     "\n\n",
-    ":    {Title} by {Authors} in {Publication}",
+    ":    [{Title}]({url}) by {Authors} in {Publication}",
     "\n\n"
   )
 ```
@@ -91,5 +87,3 @@ here("data-raw", "works.xlsx") %>%
 ## Slides
 
 * http://conference.scipy.org/scipy2010/slides/matthew_henderson_sudoku.pdf
-
-## Lecture notes?
