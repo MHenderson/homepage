@@ -28,17 +28,14 @@ knitr::opts_chunk$set(
 ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
 ```
 
-
-```{r, results='asis'}
+```{r, include=FALSE}
 library(tidyverse)
 library(glue)
 library(here)
 library(readxl)
 
 X <- here("data-raw", "works.xlsx") %>%
-  read_xlsx("software")
-
-X %>%
+  read_xlsx("software") %>%
   mutate(
     repo = case_when(
       !is.na(github) ~ github,
@@ -46,7 +43,12 @@ X %>%
       !is.na(bitbucket) ~ bitbucket,
       TRUE ~ github
     )
-  ) %>%
+  )
+```
+
+```{r, results='asis'}
+X %>%
+  filter(!is.na(homepage)) %>%
   glue_data(
     "\n\n",
     "## {title}",
@@ -60,10 +62,18 @@ X %>%
   )
 ```
 
-## Other
+dogh
 
-* https://www.dorsetdata.com/2018/01/17/functional-geometry-in-r/
-* https://gist.github.com/MHenderson/67f4d8c0d57c0bb1834370c0e8df0e70
-* Essence' of PSSSODLS https://gist.github.com/MHenderson/6200476.
-* Custom [generator][psssodlspy] script (in Python) for PSSSODLS in
-  [Minion][minion] format. https://gist.github.com/MHenderson/375a2122f1b77f90e5df
+```{r, results='asis'}
+X %>%
+  filter(is.na(homepage)) %>%
+  glue_data(
+    "\n\n",
+    "## {title}",
+    "\n\n",
+    "{description}",
+    "\n\n",
+    paste(shiny::icon("github"), "{repo}"),
+    "\n\n"
+  )
+```
