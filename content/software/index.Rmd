@@ -2,7 +2,7 @@
 title: Software 
 author: Matthew Henderson
 date: '2019-12-10'
-slug: software
+slug:
 categories: []
 tags: []
 publishdate: '2019-12-10'
