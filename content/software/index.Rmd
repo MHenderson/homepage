@@ -62,8 +62,6 @@ X %>%
   )
 ```
 
-dogh
-
 ```{r, results='asis'}
 X %>%
   filter(is.na(homepage)) %>%
