@@ -46,6 +46,11 @@ be found here: https://coding-with-graphs.netlify.com/
 
 A book on Room Squares: https://room-squares.netlify.com/
 
+## Embedding Latin Squares
+
+Updated version of my PhD thesis:
+https://mjh-phd.netlify.com/
+
 ## Selected Publications
 
 ```{r, results='asis'}
