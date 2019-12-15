@@ -10,6 +10,8 @@ lastmod: '2019-12-10'
 editor_options: 
   chunk_output_type: console
 description: Week 50
+bibliography: [yours_truly.bib]
+link-citations: true
 images:
 - post/2019-12-10-replicating-plots-in-r/index_files/figure-html/murders-cover-1.png
 ---
@@ -28,13 +30,13 @@ knitr::opts_chunk$set(
 ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
 ```
 
-```{r, include=FALSE}
+```{r software, include=FALSE}
 library(tidyverse)
 library(glue)
 library(here)
 library(readxl)
 
-X <- here("data-raw", "works.xlsx") %>%
+software <- here("data-raw", "works.xlsx") %>%
   read_xlsx("software") %>%
   mutate(
     repo = case_when(
@@ -46,8 +48,8 @@ X <- here("data-raw", "works.xlsx") %>%
   )
 ```
 
-```{r, results='asis'}
-X %>%
+```{r with_homepage, results='asis'}
+software %>%
   filter(!is.na(homepage)) %>%
   glue_data(
     "\n\n",
@@ -62,8 +64,8 @@ X %>%
   )
 ```
 
-```{r, results='asis'}
-X %>%
+```{r no_homepage, results='asis'}
+software %>%
   filter(is.na(homepage)) %>%
   glue_data(
     "\n\n",
@@ -75,3 +77,5 @@ X %>%
     "\n\n"
   )
 ```
+
+## References
