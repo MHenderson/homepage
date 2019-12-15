@@ -1,6 +1,6 @@
 ## Basic Configuration
 
-baseurl = "https://mjh.netlify.com"
+baseurl = "https://mjh.netlify.com/"
 builddrafts = false
 canonifyurls = false
 languageCode = "en-US"
