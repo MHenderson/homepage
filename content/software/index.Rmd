@@ -30,15 +30,28 @@ knitr::opts_chunk$set(
 ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
 ```
 
-```{r software, include=FALSE}
+```{r packages, include=FALSE}
 library(tidyverse)
 library(glue)
 library(here)
 library(readxl)
 
-software <- here("data-raw", "works.xlsx") %>%
-  read_xlsx("software") %>%
+packages <- here("data-raw", "works.xlsx") %>%
+  read_xlsx("packages") %>%
   mutate(
+    repo = case_when(
+      !is.na(github) ~ github,
+      !is.na(gitlab) ~ gitlab,
+      !is.na(bitbucket) ~ bitbucket,
+      TRUE ~ github
+    )
+  )
+
+applications <-  here("data-raw", "works.xlsx") %>%
+  read_xlsx("applications") %>%
+  filter(title!="htmlwidgets") %>%
+  mutate(
+    bitbucket = as.character(bitbucket),
     repo = case_when(
       !is.na(github) ~ github,
       !is.na(gitlab) ~ gitlab,
@@ -48,8 +61,28 @@ software <- here("data-raw", "works.xlsx") %>%
   )
 ```
 
+## Applications
+
+```{r applications, results='asis'}
+applications %>%
+  filter(!is.na(homepage)) %>%
+  glue_data(
+    "\n\n",
+    "## {title}",
+    "\n\n",
+    "{description}",
+    "\n\n",
+    paste(shiny::icon("home"), "{homepage}"),
+    "\n\n",
+    paste(shiny::icon("github"), "{repo}"),
+    "\n\n"
+  )
+```
+
+## Packages
+
 ```{r with_homepage, results='asis'}
-software %>%
+packages %>%
   filter(!is.na(homepage)) %>%
   glue_data(
     "\n\n",
@@ -65,7 +98,7 @@ software %>%
 ```
 
 ```{r no_homepage, results='asis'}
-software %>%
+packages %>%
   filter(is.na(homepage)) %>%
   glue_data(
     "\n\n",
