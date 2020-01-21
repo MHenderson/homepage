@@ -70,7 +70,7 @@ email = "mjhenderson@mail.com"
 
 ## Extras
 [params.extra]
-copyright = "© 2019. Matthew Henderson. [Some Rights Reserved](http://creativecommons.org/licenses/by/3.0/)."
+copyright = "© 2020. Matthew Henderson. [Some Rights Reserved](http://creativecommons.org/licenses/by/3.0/)."
 poweredby = true
 highlightjs = true
 socialmarkup = true
@@ -79,15 +79,19 @@ displayrssicon = false
 
 ## Main Menu
 [[menu.main]]
-    name = "writings"
+    name = "blog"
     weight = 100
+    url = "/post/"
+[[menu.main]]
+    name = "writings"
+    weight = 200
     url = "/writing/"
 [[menu.main]]
     name = "software"
-    weight = 200
+    weight = 300
     url = "/software/"
 [[menu.main]]
     name = "about"
     identifier = "about"
-    weight = 300
+    weight = 400
     url = "/about/"
