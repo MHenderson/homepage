@@ -1,0 +1,73 @@
+---
+title: "MarkovifyR"
+author: "Matthew Henderson"
+date: "2018-01-04T20:33:50+00:00"
+categories: ["R"]
+tags: ["markovify"]
+draft: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  error = FALSE,
+  fig.height = 4,
+  fig.width = 8
+)
+```
+
+# MarkovifyR
+
+My first post is all about the R package [**markovifyR**](https://github.com/abresler/markovifyR) by
+Alex Bresler.
+
+```{r}
+library(gutenbergr)
+
+leaves_of_grass <- gutenberg_download("1322")
+```
+
+```{r}
+library(tidyverse)
+library(tidytext)
+
+(tidyleaves <- tibble(txt = leaves_of_grass$text) %>%
+  unnest_tokens(sentence, txt, token = "sentences"))
+```
+
+```{r}
+library(markovifyR)
+
+markov_model <-
+  generate_markovify_model(
+    input_text = tidyleaves %>% pull(sentence),
+    markov_state_size = 2L,
+    max_overlap_total = 5,
+    max_overlap_ratio = .4
+  )
+```
+
+```{r}
+results <- markovify_text(
+  markov_model = markov_model,
+  maximum_sentence_length = NULL,
+  output_column_name = 'waltWhitman',
+  count = 5,
+  tries = 300,
+  only_distinct = TRUE,
+  return_message = FALSE
+)
+```
+
+```{r}
+library(glue)
+library(htmltools)
+
+results %>%
+  glue_data("{waltWhitman}") %>%
+  glue_collapse(sep = " ") %>%
+  tags$p()
+```
