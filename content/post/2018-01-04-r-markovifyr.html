@@ -1,0 +1,63 @@
+---
+title: "MarkovifyR"
+author: "Matthew Henderson"
+date: "2018-01-04T20:33:50+00:00"
+categories: ["R"]
+tags: ["markovify"]
+---
+
+
+
+<div id="markovifyr" class="section level1">
+<h1>MarkovifyR</h1>
+<p>My first post is all about the R package <a href="https://github.com/abresler/markovifyR"><strong>markovifyR</strong></a> by
+Alex Bresler.</p>
+<pre class="r"><code>library(gutenbergr)
+
+leaves_of_grass &lt;- gutenberg_download(&quot;1322&quot;)</code></pre>
+<pre class="r"><code>library(tidyverse)
+library(tidytext)
+
+(tidyleaves &lt;- tibble(txt = leaves_of_grass$text) %&gt;%
+  unnest_tokens(sentence, txt, token = &quot;sentences&quot;))
+#&gt; # A tibble: 3,838 x 1
+#&gt;    sentence                                                                
+#&gt;    &lt;chr&gt;                                                                   
+#&gt;  1 leaves of grass  by walt whitman         come, said my soul,      such …
+#&gt;  2 inscriptions     one&#39;s-self i sing    one&#39;s-self i sing, a simple separ…
+#&gt;  3 of physiology from top to toe i sing,   not physiognomy alone nor brain…
+#&gt;  4 of life immense in passion, pulse, and power,   cheerful, for freest ac…
+#&gt;  5 as i ponder&#39;d in silence    as i ponder&#39;d in silence,   returning upon …
+#&gt;  6 it said,   know&#39;st thou not there is but one theme for ever-enduring ba…
+#&gt;  7 and that is the theme of war, the fortune of battles,   the making of p…
+#&gt;  8 be it so, then i answer&#39;d,   i too haughty shade also sing war, and a l…
+#&gt;  9 in cabin&#39;d ships at sea    in cabin&#39;d ships at sea,   the boundless blu…
+#&gt; 10 here are our thoughts, voyagers&#39; thoughts,   here not the land, firm la…
+#&gt; # … with 3,828 more rows</code></pre>
+<pre class="r"><code>library(markovifyR)
+
+markov_model &lt;-
+  generate_markovify_model(
+    input_text = tidyleaves %&gt;% pull(sentence),
+    markov_state_size = 2L,
+    max_overlap_total = 5,
+    max_overlap_ratio = .4
+  )</code></pre>
+<pre class="r"><code>results &lt;- markovify_text(
+  markov_model = markov_model,
+  maximum_sentence_length = NULL,
+  output_column_name = &#39;waltWhitman&#39;,
+  count = 5,
+  tries = 300,
+  only_distinct = TRUE,
+  return_message = FALSE
+)</code></pre>
+<pre class="r"><code>library(glue)
+library(htmltools)
+
+results %&gt;%
+  glue_data(&quot;{waltWhitman}&quot;) %&gt;%
+  glue_collapse(sep = &quot; &quot;) %&gt;%
+  tags$p()</code></pre>
+<p>the mockeries are not for trade or employment but the equal fascinations of youth and steadily roll'd. 8 i see him swim in it and from within a thought of you, my love! joy in the realms of space is a mathematician. behold, in the body just as good as myself. 15 to the east--america is provided in the crowded line of battle; no more with me!</p>
+</div>
