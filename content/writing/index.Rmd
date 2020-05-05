@@ -52,6 +52,8 @@ here("works", "works.xlsx") %>%
 ```{r notes, results='asis'}
 here("works", "works.xlsx") %>%
   read_xlsx("notes") %>%
+  filter(include == 1) %>%
+  arrange(desc(creation_date)) %>%
   glue_data(
     "* [{title}]({url_short}) - {description}"
   )
