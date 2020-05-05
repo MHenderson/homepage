@@ -1,0 +1,162 @@
+---
+title: Replicating Plots in R
+author: Matthew Henderson
+date: '2019-12-10'
+slug: replicating-plots-in-r
+categories: []
+tags: []
+publishdate: '2019-12-10'
+lastmod: '2019-12-10'
+editor_options: 
+  chunk_output_type: console
+description: Week 50
+images:
+- post/2019-12-10-replicating-plots-in-r/index_files/figure-html/murders-cover-1.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+        echo = TRUE,
+     message = FALSE,
+     warning = FALSE,
+     comment = "#>",
+    collapse = TRUE,
+   fig.width = 8,
+  fig.height = 8
+)
+
+ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
+tuesdata <- readr::read_rds(here::here("content", "post", "2019-12-10-replicating-plots-in-r", "tuesdata.rds"))
+```
+
+## G8 Homicide
+
+```{r murders-cover, fig.height=7}
+library(tidyverse)
+library(ggflags)
+library(countrycode)
+
+tuesdata$international_murders %>%
+  mutate(
+    country = reorder(country, count)
+  ) %>%
+  ggplot(aes(country, count, label = label)) +
+  geom_flag(aes(country = code), size = 10) +
+  labs(
+       title = "Homicide in the G8",
+    subtitle = "Rates of homicide in G8 member countries.",
+     caption = "source: United Nations Office on Drugs and Crime",
+           x = "",
+           y = "Gun-related homicides\nper 100,000 people"
+  ) +
+  coord_flip()
+```
+
+## Diseases
+
+```{r diseases, fig.height=10}
+tuesdata$diseases %>%
+  filter(disease == "Measles") %>%
+  mutate(rate = count / population * 10000 * 52 / weeks_reporting) %>%
+  mutate(state = reorder(state, desc(state))) %>%
+  ggplot(aes(year, state, fill = rate)) +
+  geom_tile(color = "white", size = 0.35) +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_fill_gradient(
+         low = "azure2",
+        high = "darkslategrey",
+    na.value = 'white'
+  ) +
+  labs(
+           x = "",
+           y = "",
+       title = "Battling Measles in the 20th Century",
+    subtitle = "The Impact of Vaccines",
+     caption = ""
+  )
+```
+
+```{r nyc_regents, include=FALSE}
+nyc_regents_scores <- tuesdata$nyc_regents
+
+nyc_regents_scores$total <- rowSums(nyc_regents_scores[,-1], na.rm=TRUE)
+
+nyc_regents_scores %>% 
+  filter(!is.na(score)) %>%
+  ggplot(aes(score, total)) + 
+  annotate("rect", xmin = 65, xmax = 99, ymin = 0, ymax = 35000, alpha = .5) +
+  geom_bar(stat = "identity", color = "black", fill = "#C4843C") + 
+  annotate("text", x = 66, y = 28000, label = "MINIMUM\nREGENTS DIPLOMA\nSCORE IS 65", hjust = 0, size = 3) +
+  annotate("text", x = 0, y = 12000, label = "2010 Regents scores on\nthe five most common tests", hjust = 0, size = 3) +
+  scale_x_continuous(breaks = seq(5, 95, 5), limit = c(0,99)) + 
+  scale_y_continuous(position = "right") +
+  ggtitle("Scraping By") + 
+  xlab("") + ylab("Number of tests") + 
+  theme_minimal() + 
+  theme(panel.grid.major.x = element_blank(), 
+        panel.grid.minor.x = element_blank(),
+        axis.ticks.length = unit(-0.2, "cm"),
+        plot.title = element_text(face = "bold"))
+```
+
+```{r elections, include=FALSE}
+my_dgamma <- function(x, mean = 1, sd = 1){
+  shape = mean^2/sd^2
+  scale = sd^2 / mean
+  dgamma(x, shape = shape, scale = scale)
+}
+
+my_qgamma <- function(mean = 1, sd = 1){
+  shape = mean^2/sd^2
+  scale = sd^2 / mean
+  qgamma(c(0.1,0.9), shape = shape, scale = scale)
+}
+
+tmp <- tibble(candidate = c("Clinton", "Trump", "Johnson"), 
+              avg = c(48.5, 44.9, 5.0), 
+              avg_txt = c("48.5%", "44.9%", "5.0%"), 
+              sd = rep(2, 3), 
+              m = my_dgamma(avg, avg, sd)) %>%
+  mutate(candidate = reorder(candidate, -avg))
+
+xx <- seq(0, 75, len = 300)
+
+tmp_2 <- map_df(1:3, function(i){
+  tibble(candidate = tmp$candidate[i],
+         avg = tmp$avg[i],
+         sd = tmp$sd[i],
+         x = xx,
+         y = my_dgamma(xx, tmp$avg[i], tmp$sd[i]))
+})
+
+tmp_3 <- map_df(1:3, function(i){
+  qq <- my_qgamma(tmp$avg[i], tmp$sd[i])
+  xx <- seq(qq[1], qq[2], len = 200)
+  tibble(candidate = tmp$candidate[i],
+         avg = tmp$avg[i],
+         sd = tmp$sd[i],
+         x = xx,
+         y = my_dgamma(xx, tmp$avg[i], tmp$sd[i]))
+})
+         
+tmp_2 %>% 
+  ggplot(aes(x, ymax = y, ymin = 0)) +
+  geom_ribbon(fill = "grey") + 
+  facet_grid(candidate~., switch = "y") +
+  scale_x_continuous(breaks = seq(0, 75, 25), position = "top",
+                     label = paste0(seq(0, 75, 25), "%")) +
+  geom_abline(intercept = 0, slope = 0) +
+  xlab("") + ylab("") + 
+  theme_minimal() + 
+  theme(panel.grid.major.y = element_blank(), 
+        panel.grid.minor.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        strip.text.y = element_text(angle = 180, size = 11, vjust = 0.2)) + 
+  geom_ribbon(data = tmp_3, mapping = aes(x = x, ymax = y, ymin = 0, fill = candidate), inherit.aes = FALSE, show.legend = FALSE) +
+  scale_fill_manual(values = c("#3cace4", "#fc5c34", "#fccc2c")) +
+  geom_point(data = tmp, mapping = aes(x = avg, y = m), inherit.aes = FALSE) + 
+  geom_text(data = tmp, mapping = aes(x = avg, y = m, label = avg_txt), inherit.aes = FALSE, hjust = 0, nudge_x = 1)
+```
+

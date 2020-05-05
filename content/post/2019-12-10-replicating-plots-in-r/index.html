@@ -1,0 +1,63 @@
+---
+title: Replicating Plots in R
+author: Matthew Henderson
+date: '2019-12-10'
+slug: replicating-plots-in-r
+categories: []
+tags: []
+publishdate: '2019-12-10'
+lastmod: '2019-12-10'
+editor_options: 
+  chunk_output_type: console
+description: Week 50
+images:
+- post/2019-12-10-replicating-plots-in-r/index_files/figure-html/murders-cover-1.png
+---
+
+
+
+<div id="g8-homicide" class="section level2">
+<h2>G8 Homicide</h2>
+<pre class="r"><code>library(tidyverse)
+library(ggflags)
+library(countrycode)
+
+tuesdata$international_murders %&gt;%
+  mutate(
+    country = reorder(country, count)
+  ) %&gt;%
+  ggplot(aes(country, count, label = label)) +
+  geom_flag(aes(country = code), size = 10) +
+  labs(
+       title = &quot;Homicide in the G8&quot;,
+    subtitle = &quot;Rates of homicide in G8 member countries.&quot;,
+     caption = &quot;source: United Nations Office on Drugs and Crime&quot;,
+           x = &quot;&quot;,
+           y = &quot;Gun-related homicides\nper 100,000 people&quot;
+  ) +
+  coord_flip()</code></pre>
+<p><img src="/post/2019-12-10-replicating-plots-in-r/index_files/figure-html/murders-cover-1.png" width="768" /></p>
+</div>
+<div id="diseases" class="section level2">
+<h2>Diseases</h2>
+<pre class="r"><code>tuesdata$diseases %&gt;%
+  filter(disease == &quot;Measles&quot;) %&gt;%
+  mutate(rate = count / population * 10000 * 52 / weeks_reporting) %&gt;%
+  mutate(state = reorder(state, desc(state))) %&gt;%
+  ggplot(aes(year, state, fill = rate)) +
+  geom_tile(color = &quot;white&quot;, size = 0.35) +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_fill_gradient(
+         low = &quot;azure2&quot;,
+        high = &quot;darkslategrey&quot;,
+    na.value = &#39;white&#39;
+  ) +
+  labs(
+           x = &quot;&quot;,
+           y = &quot;&quot;,
+       title = &quot;Battling Measles in the 20th Century&quot;,
+    subtitle = &quot;The Impact of Vaccines&quot;,
+     caption = &quot;&quot;
+  )</code></pre>
+<p><img src="/post/2019-12-10-replicating-plots-in-r/index_files/figure-html/diseases-1.png" width="768" /></p>
+</div>
