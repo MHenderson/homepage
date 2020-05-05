@@ -9,7 +9,7 @@ publishdate: '2019-02-04'
 lastmod: '2019-02-04'
 editor_options: 
   chunk_output_type: console
-description: Week 5
+description: Tidy Tuesday Week 5
 ---
 
 ```{r setup, include=FALSE}
@@ -21,17 +21,22 @@ knitr::opts_chunk$set(
   collapse = TRUE
 )
 
-ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
-
-attendance_standings <- readr::read_rds(here::here("content", "post", "2020-02-04-nfl-attendance", "attendance_standings.rds"))
+ggplot2::theme_set(hrbrthemes::theme_ipsum_pub())
 
 options("scipen"=100, "digits"=4)
 ```
 
-```{r duration}
+```{r duration, fig.width=15, fig.height=10}
 library(tidyverse)
 
-attendance_standings %>%
+attendance <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/attendance.csv')
+
+standings <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/standings.csv')
+
+games <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/games.csv')
+
+attendance %>%
+  left_join(standings, by = c("year", "team_name", "team")) %>%
   mutate(team = paste(team, team_name)) %>%
   filter(year==2003) %>%
   ggplot(aes(week, weekly_attendance)) +

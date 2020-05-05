@@ -9,18 +9,25 @@ publishdate: '2019-02-04'
 lastmod: '2019-02-04'
 editor_options: 
   chunk_output_type: console
-description: Week 5
+description: Tidy Tuesday Week 5
 ---
 
 
 
 <pre class="r"><code>library(tidyverse)
 
-attendance_standings %&gt;%
+attendance &lt;- read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/attendance.csv&#39;)
+
+standings &lt;- read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/standings.csv&#39;)
+
+games &lt;- read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/games.csv&#39;)
+
+attendance %&gt;%
+  left_join(standings, by = c(&quot;year&quot;, &quot;team_name&quot;, &quot;team&quot;)) %&gt;%
   mutate(team = paste(team, team_name)) %&gt;%
   filter(year==2003) %&gt;%
   ggplot(aes(week, weekly_attendance)) +
   geom_step() +
   geom_smooth() +
   facet_wrap(~team)</code></pre>
-<p><img src="/post/2020-02-04-nfl-attendance/index_files/figure-html/duration-1.png" width="672" /></p>
+<p><img src="/post/2020-02-04-nfl-attendance/index_files/figure-html/duration-1.png" width="1440" /></p>
