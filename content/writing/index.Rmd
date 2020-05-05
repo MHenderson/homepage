@@ -50,7 +50,7 @@ https://mjh-phd.netlify.com/
 
 ## Selected Publications
 
-```{r, results='asis'}
+```{r publications, results='asis'}
 library(tidyverse)
 library(glue)
 library(here)
@@ -68,7 +68,7 @@ here("data-raw", "works.xlsx") %>%
 
 ## Notes
 
-```{r, results='asis'}
+```{r notes, results='asis'}
 here("data-raw", "works.xlsx") %>%
   read_xlsx("notes") %>%
   glue_data(
@@ -78,7 +78,7 @@ here("data-raw", "works.xlsx") %>%
 
 ## Notebooks
 
-```{r, results='asis'}
+```{r notebooks, results='asis'}
 here("data-raw", "works.xlsx") %>%
   read_xlsx("notebooks") %>%
   glue_data(
