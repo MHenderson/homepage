@@ -1,0 +1,90 @@
+---
+title: Adoptable Dogs
+author: Matthew Henderson
+date: '2019-12-16'
+slug: adoptable-dogs
+categories: []
+tags: []
+publishdate: '2019-12-16'
+lastmod: '2019-12-16'
+editor_options: 
+  chunk_output_type: console
+description: Week 51
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+        echo = TRUE,
+     message = FALSE,
+     warning = FALSE,
+     comment = "#>",
+    collapse = TRUE,
+   fig.width = 8,
+  fig.height = 8
+)
+
+ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
+tuesdata <- readr::read_rds(here::here("content", "post", "2019-12-16-adoptable-dogs", "tuesdata.rds"))
+```
+
+```{r names}
+library(tidyverse)
+
+tuesdata$dog_descriptions %>%
+  mutate(
+    name = tolower(name)
+  ) %>% 
+  group_by(name) %>%
+  count() %>%
+  arrange(desc(n)) %>%
+  head(30) %>%
+  ggplot(aes(reorder(name, n), n)) +
+    geom_point() +
+    coord_flip() +
+    labs(
+      x = "",
+      y = ""
+    )
+```
+
+```{r imports, include=FALSE}
+library(statebins)
+
+tuesdata$dog_moves %>%
+  ggplot(aes(state = location, fill = imported)) +
+    geom_statebins() +
+    theme_statebins() +
+    coord_equal()
+```
+
+```{r exports, include=FALSE}
+tuesdata$dog_moves %>%
+  ggplot(aes(state = location, fill = exported, )) +
+    geom_statebins() +
+    theme_statebins() +
+    coord_equal()
+```
+
+```{r net_exports, include=FALSE}
+tuesdata$dog_moves %>%
+  replace_na(list(exported = 0, imported = 0)) %>%
+  ggplot(aes(state = location, fill = (exported - imported))) +
+    geom_statebins() +
+    viridis::scale_fill_viridis(
+     option = "magma", direction = -1
+    ) +
+    theme_statebins() +
+    coord_equal()
+```
+
+```{r net_exports_std}
+tuesdata$dog_moves %>%
+  replace_na(list(exported = 0, imported = 0)) %>%
+  ggplot(aes(state = location, fill = (exported - imported)/total)) +
+    geom_statebins() +
+    viridis::scale_fill_viridis(
+     option = "magma", direction = -1
+    ) +
+    theme_statebins() +
+    coord_equal()
+```
