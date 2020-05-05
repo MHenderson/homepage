@@ -36,7 +36,7 @@ library(glue)
 library(here)
 library(readxl)
 
-packages <- here("data-raw", "works.xlsx") %>%
+packages <- here("works", "works.xlsx") %>%
   read_xlsx("packages") %>%
   mutate(
     repo = case_when(
@@ -47,7 +47,7 @@ packages <- here("data-raw", "works.xlsx") %>%
     )
   )
 
-applications <-  here("data-raw", "works.xlsx") %>%
+applications <-  here("works", "works.xlsx") %>%
   read_xlsx("applications") %>%
   filter(title!="htmlwidgets") %>%
   mutate(
