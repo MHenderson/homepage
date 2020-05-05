@@ -1,0 +1,26 @@
+---
+title: NFL Attendance 
+author: Matthew Henderson
+date: '2020-02-04'
+slug: nfl-attendance
+categories: []
+tags: []
+publishdate: '2019-02-04'
+lastmod: '2019-02-04'
+editor_options: 
+  chunk_output_type: console
+description: Week 5
+---
+
+
+
+<pre class="r"><code>library(tidyverse)
+
+attendance_standings %&gt;%
+  mutate(team = paste(team, team_name)) %&gt;%
+  filter(year==2003) %&gt;%
+  ggplot(aes(week, weekly_attendance)) +
+  geom_step() +
+  geom_smooth() +
+  facet_wrap(~team)</code></pre>
+<p><img src="/post/2020-02-04-nfl-attendance/index_files/figure-html/duration-1.png" width="672" /></p>
