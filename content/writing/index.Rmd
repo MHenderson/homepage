@@ -29,25 +29,6 @@ knitr::opts_chunk$set(
 ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
 ```
 
-## Tidy Tuesday
-
-My work for Tidy Tuesday can be found here: https://mjh-tidy-tuesday.netlify.com/
-
-## Coding with Graphs
-
-A blog I wrote in 2014 about using data pipelines
-involving Python and Maxima to work with graphs cab
-be found here: https://coding-with-graphs.netlify.com/
-
-## Room Squares
-
-A book on Room Squares: https://room-squares.netlify.com/
-
-## Embedding Latin Squares
-
-Updated version of my PhD thesis:
-https://mjh-phd.netlify.com/
-
 ## Selected Publications
 
 ```{r publications, results='asis'}
@@ -56,7 +37,7 @@ library(glue)
 library(here)
 library(readxl)
 
-here("data-raw", "works.xlsx") %>%
+here("works", "works.xlsx") %>%
   read_xlsx("publications") %>%
   glue_data(
     "{Year}",
@@ -69,7 +50,7 @@ here("data-raw", "works.xlsx") %>%
 ## Notes
 
 ```{r notes, results='asis'}
-here("data-raw", "works.xlsx") %>%
+here("works", "works.xlsx") %>%
   read_xlsx("notes") %>%
   glue_data(
     "* [{title}]({url_short}) - {description}"
@@ -79,7 +60,7 @@ here("data-raw", "works.xlsx") %>%
 ## Notebooks
 
 ```{r notebooks, results='asis'}
-here("data-raw", "works.xlsx") %>%
+here("works", "works.xlsx") %>%
   read_xlsx("notebooks") %>%
   glue_data(
     "* [{title}]({url}) - {description}"
