@@ -45,9 +45,14 @@ url = "/software"
 weight = 4
 
 [[menu.main]]
+name = "Writing"
+url = "/writing"
+weight = 5
+
+[[menu.main]]
 name = "Tags"
 url = "/tags"
-weight = 5
+weight = 6
 
 [[params.social]]
 name = "Github"
