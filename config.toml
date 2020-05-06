@@ -1,81 +1,66 @@
-## Basic Configuration
+# theme.toml template for a Hugo theme
+# See https://github.com/gohugoio/hugoThemes#themetoml for an example
 
 baseurl = "https://mjh.netlify.com/"
-builddrafts = false
-canonifyurls = false
-languageCode = "en-US"
-
-contentdir = "content"
-layoutdir = "layouts"
-publishdir = "public"
-
-author = "Matthew Henderson"
-title = "Matthew Henderson"
-
-theme = "hugo-goa"
-
-## Hugo Built-in Features
-#disqusShortname = "https-shenoybr-github-io-hugo-goa-demo" # Comment out to disable Disqus.
-googleAnalytics = "XYZ"
-enableRobotsTXT = true
-
-## Site Settings
-[params]
-author = "Dr. M. J. Henderson"
-intro = "Data Scientist"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+name = "Ezhil"
+license = "MIT"
+licenselink = "https://github.com/vividvilla/ezhil/blob/master/LICENSE.md"
 description = ""
-#authorimage = "headshot.jpg"
-dateformat = "Jan 2, 2006"
+homepage = "https://github.com/vividvilla/ezhil"
+tags = ["minimal", "clean", "blog", "responsive", "personal", "simple", "minimalist", "portfolio", "dark"]
+features = ["blog", "Clean and minimal", "Responsive", "Social media links", "Syntax highlighting"]
+min_version = "0.37.0"
 
-## Site Meta Settings
-[params.meta]
-description = "Simple minimalist theme"
-keywords = "minimalist,blog,goa,hugo,developer"
+copyright = "© Copyright notice"
 
-## Social Accounts
-[params.social]
-github = "MHenderson"
-#instagram = "<username>"
-#xing = "<username>"
-linkedin = "matthew-henderson-2a5b26193"
-twitter = "dorsetdata"
-#facebook = "<username>"
-#google = "<username>"
-googlescholar = "S4a1LGAAAAAJ"
-#stackoverflow = "<username>"
-#lastfm = "<username>"
-goodreads = "user/show/4560489-matthew-henderson"
-gitlab = "MHenderson1"
-bitbucket = "matthew"
-#fivehundredpx = "<username>"
-#flickr = "<username>"
-#foursquare = "<username>"
-#hackernews = "<username>"
-#kickstarter = "<username>"
-#patreon = "<username>"
-#pintrest = "<username>"
-#steam = "<username>"
-#reddit = "<username>"
-#snapchat = "<username>"
-#youtube = "<channelid>"
-#keybase = "<username>"
-#twitch = "<username>"
-#soundcloud = "<username>"
-#tumblr = "<username>"
-#strava = "<username>"
-#skype = "<username>"
-#telegram = "<username>"
-#whatsapp = "<username>"
-email = "mjhenderson@mail.com"
+# Enable syntax highlighting.
+#pygmentsstyle = "solarized-dark"
+#pygmentscodefences = true
+#pygmentscodefencesguesssyntax = true
 
-## Extras
-[params.extra]
-copyright = "© 2020. Matthew Henderson. [Some Rights Reserved](http://creativecommons.org/licenses/by/3.0/)."
-poweredby = true
-highlightjs = true
-socialmarkup = true
-toc = true
-displayrssicon = false
+# Your Google analytics code.
+#googleAnalytics = "UA-123-45"
+# Your Disqus sortname.
+#disqusShortname = "localhost"
+
+# Number of posts to show in recent posts list (Optional). Defaults to 10.
+paginate = 10
+
+# Number of characters to show in summary.
+summaryLength = 20
+
+[params]
+    # Blog subtitle which appears below blog title. Supports markdown.
+    subtitle = ""
+
+    # Content types which are included in home page recent posts list.
+    mainSections = ["posts"]
+
+    # Content types which are excludes Disqus comments.
+    disableDisqusTypes = ["page"]
+
+    # If social media links are enabled then enable this to fetch icons from CDN instead of hosted on your site.
+    featherIconsCDN = true
+
+    # Specify favicon (icons/i.png maps to static/icons/i.png). No favicon if not defined.
+    favicon = "icons/myicon.png"
+
+    # Switch to dark mode or auto detect mode from OS (Optional).
+    # "dark" will set mode to dark and "auto" will switch to dark mode if OS is in dark mode.
+    #mode = "auto" # "dark" or "auto"
+
+    # Custom CSS added to default styles. Files added to `static` folder is copied as it is to
+    # root by Hugo. For example if you have custom CSS file under `static/css/custom.css` then
+    # you can specify custom css path as `css/custom.css`.
+    #customCSS = "css/custom.css"
+    # Custom CSS added to dark mode style.
+    #customDarkCSS = "css/custom-dark.css"
+
+    # Custom list of Javascript files to load. Just like custom CSS you can place js files under
+    # `static/js` folder and specify path here as `js/script-name.js`. You can also specify full url,
+    # for example you may want to include external JS library.
+    #customJS = ["js/abc.js", "js/xyz.js", "https://code.jquery.com/jquery-3.4.1.js"]
 
 ## Main Menu
 [[menu.main]]
@@ -95,3 +80,19 @@ displayrssicon = false
     identifier = "about"
     weight = 400
     url = "/about/"
+
+# Social media links which shows up on site header.
+# Uses feather icons for icons. You can [search icon names from here](https://feathericons.com/).
+[[params.social]]
+name = "Github"
+icon = "github"
+url = "https://github.com/MHenderson"
+
+[[params.social]]
+name = "Twitter"
+icon = "twitter"
+url = "https://twitter.com/masatthew"
+
+# Enable tags.
+[taxonomies]
+   tag = "tags"
