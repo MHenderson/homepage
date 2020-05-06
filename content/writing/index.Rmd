@@ -39,10 +39,7 @@ library(readxl)
 here("works", "works.xlsx") %>%
   read_xlsx("publications") %>%
   glue_data(
-    "{Year}",
-    "\n\n",
-    ":    [{Title}]({url}) by {Authors} in {Publication}",
-    "\n\n"
+    "* [{Title}]({url}) by {Authors} in {Publication}"
   )
 ```
 
