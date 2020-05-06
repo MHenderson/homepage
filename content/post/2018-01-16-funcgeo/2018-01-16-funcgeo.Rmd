@@ -11,13 +11,14 @@ description: "Draw Escher's Square Limit in R"
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  warning = FALSE,
-  message = FALSE,
-  error = FALSE,
+  comment    = "#>",
+  collapse   = TRUE,
+  warning    = FALSE,
+  message    = FALSE,
+  error      = FALSE,
   fig.height = 3,
-  fig.width = 3
+  fig.width  = 3,
+  fig.align  = "center"
 )
 ```
 
@@ -121,21 +122,11 @@ a `plot` method for
 
 ```{r p, fig.width = 2, fig.height = 2, fig.cap = "Fish P"}
 library(funcgeo)
-library(magrittr)
-library(RColorBrewer)
-
-palette <- brewer.pal(4, "Set2")
-
-fish_p %<>% editGrob(gp = gpar(col = palette[1]))
-fish_r %<>% editGrob(gp = gpar(col = palette[2]))
-fish_s %<>% editGrob(gp = gpar(col = palette[3]))
 
 plot(fish_p)
 ```
 
 ```{r q, fig.width = 2, fig.height = 2, fig.cap = "Fish Q"}
-fish_q %<>% editGrob(gp = gpar(col = palette[4]))
-
 plot(fish_q)
 ```
 
@@ -158,6 +149,7 @@ of Square Limit.
 
 ```{r t, fig.cap = "t"}
 t <- quartet(fish_p, fish_q, fish_r, fish_s)
+
 plot(t)
 ```
 
@@ -170,6 +162,7 @@ are used to create
 
 ```{r u, fig.cap = "u"}
 u <- cycle(rot(fish_q))
+
 plot(u)
 ```
 
@@ -186,6 +179,7 @@ and `nil` empty picture.
 
 ```{r side1, fig.cap = "Side 1"}
 side1 <- quartet(nil, nil, rot(t), t)
+
 plot(side1)
 ```
 
@@ -196,6 +190,7 @@ including `side1`.
 
 ```{r side2, fig.cap = "Side 2"}
 side2 <- quartet(side1, side1, rot(t), t)
+
 plot(side2)
 ```
 
@@ -221,6 +216,7 @@ and `u`.
 
 ```{r corner1, fig.cap = "Corner 1"}
 corner1 <- quartet(nil, nil, nil, u)
+
 plot(corner1)
 ```
 
@@ -232,6 +228,7 @@ and `u`.
 
 ```{r corner2, fig.cap = "Corner 2"}
 corner2 <- quartet(corner1, side1, rot(side1), u)
+
 plot(corner2)
 ```
 
@@ -255,6 +252,7 @@ corner <- nonet(
   rot(side2), u, rot(t),
   rot(side2), rot(t), rot(fish_q)
 )
+
 plot(corner)
 ```
 
@@ -266,6 +264,6 @@ with `corner`.
 
 ```{r squarelimit2, fig.width = 5, fig.height = 5, fig.cap = "Square Limit"}
 squarelimit <- cycle(corner)
+
 plot(squarelimit)
 ```
-

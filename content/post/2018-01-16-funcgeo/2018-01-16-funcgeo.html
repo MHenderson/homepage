@@ -20,8 +20,8 @@ by M. Escher
 (Fig. 1)
 following the approach of
 <span class="citation">Henderson (1982)</span>.</p>
-<div class="figure"><span id="fig:squarelimit"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/squarelimit-1.png" alt="Square Limit" width="480" />
+<div class="figure" style="text-align: center"><span id="fig:squarelimit"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/squarelimit-1.png" alt="Square Limit" width="480" />
 <p class="caption">
 Figure 1: Square Limit
 </p>
@@ -82,27 +82,17 @@ and <strong>funcgeo</strong> implements
 a <code>plot</code> method for
 <code>picture</code>s.</p>
 <pre class="r"><code>library(funcgeo)
-library(magrittr)
-library(RColorBrewer)
-
-palette &lt;- brewer.pal(4, &quot;Set2&quot;)
-
-fish_p %&lt;&gt;% editGrob(gp = gpar(col = palette[1]))
-fish_r %&lt;&gt;% editGrob(gp = gpar(col = palette[2]))
-fish_s %&lt;&gt;% editGrob(gp = gpar(col = palette[3]))
 
 plot(fish_p)</code></pre>
-<div class="figure"><span id="fig:p"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/p-1.png" alt="Fish P" width="192" />
+<div class="figure" style="text-align: center"><span id="fig:p"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/p-1.png" alt="Fish P" width="192" />
 <p class="caption">
 Figure 2: Fish P
 </p>
 </div>
-<pre class="r"><code>fish_q %&lt;&gt;% editGrob(gp = gpar(col = palette[4]))
-
-plot(fish_q)</code></pre>
-<div class="figure"><span id="fig:q"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/q-1.png" alt="Fish Q" width="192" />
+<pre class="r"><code>plot(fish_q)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:q"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/q-1.png" alt="Fish Q" width="192" />
 <p class="caption">
 Figure 3: Fish Q
 </p>
@@ -124,9 +114,10 @@ into <code>t</code>,
 one of the building blocks
 of Square Limit.</p>
 <pre class="r"><code>t &lt;- quartet(fish_p, fish_q, fish_r, fish_s)
+
 plot(t)</code></pre>
-<div class="figure"><span id="fig:t"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/t-1.png" alt="t" width="288" />
+<div class="figure" style="text-align: center"><span id="fig:t"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/t-1.png" alt="t" width="288" />
 <p class="caption">
 Figure 4: t
 </p>
@@ -138,9 +129,10 @@ functions
 are used to create
 <code>u</code> from <code>fish_q</code>.</p>
 <pre class="r"><code>u &lt;- cycle(rot(fish_q))
+
 plot(u)</code></pre>
-<div class="figure"><span id="fig:u"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/u-1.png" alt="u" width="288" />
+<div class="figure" style="text-align: center"><span id="fig:u"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/u-1.png" alt="u" width="288" />
 <p class="caption">
 Figure 5: u
 </p>
@@ -157,9 +149,10 @@ pieces of Square Limit.
 the <code>rot</code> operation
 and <code>nil</code> empty picture.</p>
 <pre class="r"><code>side1 &lt;- quartet(nil, nil, rot(t), t)
+
 plot(side1)</code></pre>
-<div class="figure"><span id="fig:side1"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/side1-1.png" alt="Side 1" width="288" />
+<div class="figure" style="text-align: center"><span id="fig:side1"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/side1-1.png" alt="Side 1" width="288" />
 <p class="caption">
 Figure 6: Side 1
 </p>
@@ -169,9 +162,10 @@ as a <code>quartet</code>
 involving several pictures,
 including <code>side1</code>.</p>
 <pre class="r"><code>side2 &lt;- quartet(side1, side1, rot(t), t)
+
 plot(side2)</code></pre>
-<div class="figure"><span id="fig:side2"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/side2-1.png" alt="Side 2" width="288" />
+<div class="figure" style="text-align: center"><span id="fig:side2"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/side2-1.png" alt="Side 2" width="288" />
 <p class="caption">
 Figure 7: Side 2
 </p>
@@ -197,9 +191,10 @@ which is a <code>quartet</code>
 of three null pictures
 and <code>u</code>.</p>
 <pre class="r"><code>corner1 &lt;- quartet(nil, nil, nil, u)
+
 plot(corner1)</code></pre>
-<div class="figure"><span id="fig:corner1"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/corner1-1.png" alt="Corner 1" width="288" />
+<div class="figure" style="text-align: center"><span id="fig:corner1"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/corner1-1.png" alt="Corner 1" width="288" />
 <p class="caption">
 Figure 8: Corner 1
 </p>
@@ -210,9 +205,10 @@ made from <code>corner1</code>
 <code>side1</code>
 and <code>u</code>.</p>
 <pre class="r"><code>corner2 &lt;- quartet(corner1, side1, rot(side1), u)
+
 plot(corner2)</code></pre>
-<div class="figure"><span id="fig:corner2"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/corner2-1.png" alt="Corner 2" width="288" />
+<div class="figure" style="text-align: center"><span id="fig:corner2"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/corner2-1.png" alt="Corner 2" width="288" />
 <p class="caption">
 Figure 9: Corner 2
 </p>
@@ -235,9 +231,10 @@ Square Limit.</p>
   rot(side2), u, rot(t),
   rot(side2), rot(t), rot(fish_q)
 )
+
 plot(corner)</code></pre>
-<div class="figure"><span id="fig:corner"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/corner-1.png" alt="Corner" width="288" />
+<div class="figure" style="text-align: center"><span id="fig:corner"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/corner-1.png" alt="Corner" width="288" />
 <p class="caption">
 Figure 10: Corner
 </p>
@@ -249,9 +246,10 @@ Figure 10: Corner
 just <code>cycle</code>
 with <code>corner</code>.</p>
 <pre class="r"><code>squarelimit &lt;- cycle(corner)
+
 plot(squarelimit)</code></pre>
-<div class="figure"><span id="fig:squarelimit2"></span>
-<img src="/post/2018-01-16-funcgeo_files/figure-html/squarelimit2-1.png" alt="Square Limit" width="480" />
+<div class="figure" style="text-align: center"><span id="fig:squarelimit2"></span>
+<img src="/post/2018-01-16-funcgeo/2018-01-16-funcgeo_files/figure-html/squarelimit2-1.png" alt="Square Limit" width="480" />
 <p class="caption">
 Figure 11: Square Limit
 </p>
