@@ -2,7 +2,6 @@
 # See https://github.com/gohugoio/hugoThemes#themetoml for an example
 
 baseurl = "/"
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 name = "Ezhil"
 license = "MIT"
@@ -85,15 +84,15 @@ summaryLength = 20
 # Social media links which shows up on site header.
 # Uses feather icons for icons. You can [search icon names from here](https://feathericons.com/).
 [[params.social]]
-name = "Github"
-icon = "github"
-url = "https://github.com/MHenderson"
+    name = "Github"
+    icon = "github"
+    url = "https://github.com/MHenderson"
 
 [[params.social]]
-name = "Twitter"
-icon = "twitter"
-url = "https://twitter.com/masatthew"
+    name = "Twitter"
+    icon = "twitter"
+    url = "https://twitter.com/masatthew"
 
 # Enable tags.
 [taxonomies]
-   tag = "tags"
+    tag = "tags"
