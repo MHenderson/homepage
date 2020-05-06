@@ -1,22 +1,22 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Ezhil"
+title = "Matthew Henderson"
 theme = "ezhil"
 paginate = 5
 
-copyright = "© Copyright notice"
+copyright = "© 2020. Matthew Henderson. [Some Rights Reserved](http://creativecommons.org/licenses/by/3.0/)."
 
 pygmentsstyle = "solarized-dark"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
-googleAnalytics = "UA-123-45"
-disqusShortname = "ezhil-demo"
+#googleAnalytics = "UA-123-45"
+#disqusShortname = "ezhil-demo"
 
 summaryLength = 20
 
 [params]
-	subtitle = "Clean and minimal personal [blog theme for Hugo](https://github.com/vividvilla/ezhil)"
+	subtitle = "I need a title for my blog"
 	disableDisqusTypes = ["page"]
 	featherIconsCDN = true
 	mode = "light" # "dark", "auto", "light"
@@ -47,7 +47,7 @@ weight = 4
 [[params.social]]
 name = "Github"
 icon = "github"
-url = "https://github.com/vividvilla/ezhil"
+url = "https://github.com/MHenderson"
 
 [[params.social]]
 name = "RSS"
