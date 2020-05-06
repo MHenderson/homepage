@@ -20,8 +20,10 @@ knitr::opts_chunk$set(
 
 # MarkovifyR
 
-My first post is all about the R package [**markovifyR**](https://github.com/abresler/markovifyR) by
+This post is all about the R package [**markovifyR**](https://github.com/abresler/markovifyR) by
 Alex Bresler.
+
+Let's use Whitman's *Leaves of Grass* as a starting point.
 
 ```{r}
 library(gutenbergr)
