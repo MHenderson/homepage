@@ -4,6 +4,8 @@ title = "Matthew Henderson"
 theme = "ezhil"
 paginate = 5
 
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
 copyright = "© 2020. Matthew Henderson."
 
 pygmentsstyle = "solarized-dark"
