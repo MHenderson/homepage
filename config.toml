@@ -4,7 +4,7 @@ title = "Matthew Henderson"
 theme = "ezhil"
 paginate = 5
 
-copyright = "© 2020. Matthew Henderson. [Some Rights Reserved](http://creativecommons.org/licenses/by/3.0/)."
+copyright = "© 2020. Matthew Henderson."
 
 pygmentsstyle = "solarized-dark"
 pygmentscodefences = true
