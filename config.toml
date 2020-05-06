@@ -3,6 +3,10 @@
 
 baseurl = "https://mjh.netlify.com/"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+contentdir = "content"
+layoutdir = "layouts"
+publishdir = "public"
+
 name = "Ezhil"
 license = "MIT"
 licenselink = "https://github.com/vividvilla/ezhil/blob/master/LICENSE.md"
