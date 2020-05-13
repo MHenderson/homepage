@@ -1,0 +1,70 @@
+---
+title: Volcano Eruptions
+author: Matthew Henderson
+date: '2020-05-12'
+slug: volcano-eruptions
+categories:
+  - tidy-tuesday
+tags: []
+draft: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  cache      = FALSE,
+  echo       = TRUE,
+  warning    = FALSE,
+  message    = FALSE,
+  error      = FALSE,
+  cache.path = "cache/",
+  comment    = "#>",
+  collapse   = TRUE
+)
+
+ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
+```
+
+The data this week comes from The Smithsonian Institution.
+
+Axios put together a lovely plot of volcano eruptions since Krakatoa (after 1883) by elevation and type.
+
+For more information about volcanoes check out the below Wikipedia article or specifically about VEI (Volcano Explosivity Index) see the Wikipedia article here. Lastly, Google Earth has an interactive site on "10,000 Years of Volcanoes"!
+
+```{r eruptions, message = FALSE}
+#volcano <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/volcano.csv')
+eruptions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/eruptions.csv')
+#events <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/events.csv')
+#tree_rings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/tree_rings.csv')
+#sulfur <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/sulfur.csv')
+```
+
+```{r eruptions_sf}
+library(sf)
+library(tidyverse)
+
+eruptions_sf = eruptions %>%
+  st_as_sf(
+    coords = c("longitude", "latitude"), 
+    crs = 4326,
+    agr = "constant"
+  )
+```
+
+```{r world}
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+```
+
+```{r eruptions_plot}
+eruptions_sf %>%
+  filter(start_year  == "2010") %>%
+ggplot() +
+  geom_sf(data = world) +
+  geom_sf(aes(size = vei), alpha = .2, colour = "red") +
+  geom_sf_label(aes(label = volcano_name), data = eruptions_sf %>% filter(start_year == "2010") %>% filter(vei > 3)) +
+  theme_bw()
+```

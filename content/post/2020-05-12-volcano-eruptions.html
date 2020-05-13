@@ -1,0 +1,44 @@
+---
+title: Volcano Eruptions
+author: Matthew Henderson
+date: '2020-05-12'
+slug: volcano-eruptions
+categories:
+  - tidy-tuesday
+tags: []
+draft: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+<p>The data this week comes from The Smithsonian Institution.</p>
+<p>Axios put together a lovely plot of volcano eruptions since Krakatoa (after 1883) by elevation and type.</p>
+<p>For more information about volcanoes check out the below Wikipedia article or specifically about VEI (Volcano Explosivity Index) see the Wikipedia article here. Lastly, Google Earth has an interactive site on “10,000 Years of Volcanoes”!</p>
+<pre class="r"><code>#volcano &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/volcano.csv&#39;)
+eruptions &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/eruptions.csv&#39;)
+#events &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/events.csv&#39;)
+#tree_rings &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/tree_rings.csv&#39;)
+#sulfur &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/sulfur.csv&#39;)</code></pre>
+<pre class="r"><code>library(sf)
+library(tidyverse)
+
+eruptions_sf = eruptions %&gt;%
+  st_as_sf(
+    coords = c(&quot;longitude&quot;, &quot;latitude&quot;), 
+    crs = 4326,
+    agr = &quot;constant&quot;
+  )</code></pre>
+<pre class="r"><code>library(rnaturalearth)
+library(rnaturalearthdata)
+
+world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)</code></pre>
+<pre class="r"><code>eruptions_sf %&gt;%
+  filter(start_year  == &quot;2010&quot;) %&gt;%
+ggplot() +
+  geom_sf(data = world) +
+  geom_sf(aes(size = vei), alpha = .2, colour = &quot;red&quot;) +
+  geom_sf_label(aes(label = volcano_name), data = eruptions_sf %&gt;% filter(start_year == &quot;2010&quot;) %&gt;% filter(vei &gt; 3)) +
+  theme_bw()</code></pre>
+<p><img src="/post/2020-05-12-volcano-eruptions_files/figure-html/eruptions_plot-1.png" width="672" /></p>
