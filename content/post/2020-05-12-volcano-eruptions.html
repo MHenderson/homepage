@@ -33,12 +33,17 @@ eruptions_sf = eruptions %&gt;%
 <pre class="r"><code>library(rnaturalearth)
 library(rnaturalearthdata)
 
-world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)</code></pre>
-<pre class="r"><code>eruptions_sf %&gt;%
-  filter(start_year  == &quot;2010&quot;) %&gt;%
+world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) %&gt;% filter(sovereignt != &quot;Antarctica&quot;)</code></pre>
+<pre class="r"><code>eruptions_to_plot &lt;- eruptions_sf %&gt;%
+  filter(start_year &gt; 1900) %&gt;%
+  filter(start_year &lt; 2020) %&gt;%
+  filter(vei &gt;= 4)
+
+eruptions_to_plot %&gt;%
 ggplot() +
-  geom_sf(data = world) +
-  geom_sf(aes(size = vei), alpha = .2, colour = &quot;red&quot;) +
-  geom_sf_label(aes(label = volcano_name), data = eruptions_sf %&gt;% filter(start_year == &quot;2010&quot;) %&gt;% filter(vei &gt; 3)) +
-  theme_bw()</code></pre>
+  geom_sf(data = world, alpha = .2, size = .2, fill = &quot;green&quot;) +
+  geom_sf(aes(size = vei), alpha = .5, colour = &quot;red&quot;) +
+  #geom_sf_label(aes(label = volcano_name)) +
+  theme_bw() +
+  labs(x =&quot;&quot;, y=&quot;&quot;)</code></pre>
 <p><img src="/post/2020-05-12-volcano-eruptions_files/figure-html/eruptions_plot-1.png" width="672" /></p>

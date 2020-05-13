@@ -56,15 +56,20 @@ eruptions_sf = eruptions %>%
 library(rnaturalearth)
 library(rnaturalearthdata)
 
-world <- ne_countries(scale = "medium", returnclass = "sf")
+world <- ne_countries(scale = "medium", returnclass = "sf") %>% filter(sovereignt != "Antarctica")
 ```
 
 ```{r eruptions_plot}
-eruptions_sf %>%
-  filter(start_year  == "2010") %>%
+eruptions_to_plot <- eruptions_sf %>%
+  filter(start_year > 1900) %>%
+  filter(start_year < 2020) %>%
+  filter(vei >= 4)
+
+eruptions_to_plot %>%
 ggplot() +
-  geom_sf(data = world) +
-  geom_sf(aes(size = vei), alpha = .2, colour = "red") +
-  geom_sf_label(aes(label = volcano_name), data = eruptions_sf %>% filter(start_year == "2010") %>% filter(vei > 3)) +
-  theme_bw()
+  geom_sf(data = world, alpha = .2, size = .2, fill = "green") +
+  geom_sf(aes(size = vei), alpha = .5, colour = "red") +
+  #geom_sf_label(aes(label = volcano_name)) +
+  theme_bw() +
+  labs(x ="", y="")
 ```
