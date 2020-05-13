@@ -3,8 +3,10 @@ title: Student Loan Debt
 author: Matthew Henderson
 date: '2019-11-26'
 slug: student-loan-debt
-categories: []
-tags: []
+categories:
+  - tidy-tuesday
+tags:
+  - ggplot2
 draft: true
 ---
 
@@ -17,38 +19,24 @@ knitr::opts_chunk$set(
   collapse = TRUE
 )
 
-ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
+ggplot2::theme_set(hrbrthemes::theme_ipsum_pub())
 ```
 
+This week's data is from the Department of Education courtesy of Alex Albright.
+
+Data idea comes from Dignity and Debt who is running a contest around data viz for understanding and spreading awareness around Student Loan debt.
+
+There are already some gorgeous plots in the style of DuBois.
+
 ```{r}
+library(readr)
 library(tidyverse)
 library(viridis)
 
-data_root("tidy_student_loans.rds") %>%
-  read_rds() %>%
-  ggplot(aes(
-    x = quarter_year_date,
-    y = total,
-    colour = method)) +
-  geom_line() +
-  scale_fill_viridis(discrete = T) +
-  scale_y_continuous(breaks = seq(0, 8, 1)) +
-  labs(
-       title = "Student Loan Payments",
-    subtitle = "By Quarter : 2015-2018",
-           x = "Year",
-           y = "USD (billion)",
-     caption = "Based on code by @LarissaKostiw. Data: Dep. of Education"
-  ) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-          plot.title = element_text(hjust=0.5, face="bold"),
-       plot.subtitle = element_text(hjust=0.5, face="bold"),
-        plot.caption = element_text(hjust=1),
-         legend.text = element_text(size=9),
-        legend.title = element_text(face="bold"),
-           axis.text = element_text(face="italic"),
-          axis.title = element_text(face="bold", size=12)
-  )
+loans <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-26/loans.csv")
+
+loans %>%
+  ggplot(aes( x = quarter, y = total)) +
+    geom_point() +
+    facet_wrap(~year)
 ```
