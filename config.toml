@@ -57,6 +57,21 @@ icon = "github"
 url = "https://github.com/MHenderson"
 
 [[params.social]]
+name = "Gitlab"
+icon = "gitlab"
+url = "https://gitlab.com/MHenderson1"
+
+[[params.social]]
+name = "Sourcehut"
+icon = "circle"
+url = "https://git.sr.ht/~mhenderson"
+
+[[params.social]]
+name = "Bitbucket"
+icon = "layers"
+url = "https://bitbucket.org/matthew/"
+
+[[params.social]]
 name = "RSS"
 icon = "rss"
 url = "/index.xml"
