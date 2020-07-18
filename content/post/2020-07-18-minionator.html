@@ -1,0 +1,36 @@
+---
+title: Minionator
+author: Matthew Henderson
+date: '2020-07-18'
+slug: minionator
+categories: []
+tags:
+  - packages
+  - minion-r
+  - constraint-programming
+draft: yes
+---
+
+
+
+<p>Minionator is an R package that generates constraint programs for the Minion constraint solver.</p>
+<p>Here’s an example of a 3 x 3 latin square input file for Minion.</p>
+<p>The input file can be used with Minion to find a latin square of order 3.</p>
+<p>Call Minion from R (using system2) demo here.</p>
+<p>It can also be used to enumerate (or even explicitly construct) all latin squares of order 3 (call from within R without using the rminion package).</p>
+<p>Another demo of calling Minion from R.</p>
+<p>Minionator helps you to use R to construct such input files.</p>
+<p>In Minionator, a constraint program is a list with components variables, search, unary_constraints, binary_constraints etc …. For the latin square example we need alldiff constraints on the rows and columns of the input matrix.</p>
+<p>3x3 latin square in Minionator (without any functions).</p>
+<p>To turn this list into a Minion input file we call minion_output(). If we want to write the output to a file as well then we can call write_file() on the output.</p>
+<p>So far there isn’t really much point to this. The Minionator list version of the input file is even longer than the Minion input file itself. So why use Minionator?</p>
+<p>Suppose now you want to find larger latin squares. If you create a Minion input file by hand then you will have to write a lot more code than the Minionator version. A better approach would be to write a function that generates the output. We can easily write functions to generate the row and column constraints from a parameter equal to the order of the latin square. We don’t even need Minionator to do this but if we are using Minionator then we would end up with something like this.</p>
+<p>Code for a parameterised version of the latin square generator.</p>
+<p>The benefits of using Minionator don’t stop at just allowing us to create large input files more easily. Perhaps the greatest benefit is that the use of data frames to represent the variables and constraints makes it easier to compose constraints and also to construct constraints over complex variable ranges.</p>
+<p>As an example, consider the problem of constructing a pair of mutually orthogonal latin squares of order n. If we are working directly with Minion input files then we would have a lot of cutting-and-pasting to do. With Minionator we can just create two discrete matrices and a function that given a matrix returns the latin constraints for that matrix. Now only the orthogonality question remains.</p>
+<p>Code for two latin squares using previously demonstrated latin constraints function.</p>
+<p>One approach is to use a constraint on vectors. We can insist that in our solution the pair (i,j) is different to the pair (k,l) whenever i&lt;&gt;j or k&lt;&gt;l. To reduce the number of constraints (not necessarily advantageous) we can also insist that i &lt; k. Tools from the tidyverse make it easy to construct this set of indices. The purrr package then makes it easy to construct from a dataframe of these variables a new dataframe which represents the vector inequality constraint over every pair of pairs.</p>
+<p>Code for MOLS.</p>
+<p>Calling Minion with this input file we can easily find a pair of mutually orthogonal latin squares of order X. Or even enumerate MOLS of small order.</p>
+<p>Calling Minion via R to generate MOLS.</p>
+<p>We will look at some more examples now and hope to convince you that using Minionator makes life easier in certain cases. I think having your variables and constraints in data frames makes life a lot easier than if you try to write code to do the same thing with strings and loops etc … The main argument is that the tidyverse and related tools makes it easy to build up the data frame of variables and then to subset it in various complicated ways. Of course you could do it all in your own code working with the output strings directly, but you would probably have to rewrite a lot of code similar to what is already available in the tidyverse (or even just base R). A good example is cross_df.</p>
