@@ -11,12 +11,25 @@ tags:
 draft: yes
 ---
 
-In the last few weeks I've been working on a new R package
-for generating constraint programs for the
+Over the past few weeks
+I've been working
+on a new R package
+for generating constraint programs
+for the
 [Minion](https://constraintmodelling.org/minion/)
 constraint solver.
 
-Here’s an example of a 3 x 3 latin square input file for Minion.
+With Minion you specify
+a constraint program
+as an input file
+and use Minion to find
+solutions,
+if any exist.
+
+## A very simple constraint program
+
+Here is an example
+of a simple Minion input file.
 
 ```
 MINION 3
@@ -38,14 +51,55 @@ alldiff(l[_,2])
 **EOF**
 ```
 
+This input file
+is one possible
+way of specifying
+a latin square of order 3.
+
+* In the
+`**VARIABLES**`
+section I specify
+a 3 x 3 matrix
+of discrete variables
+with domain {0 .. 2}.
+
+* In the
+`**SEARCH**`
+section
+I have asked
+Minion to print
+every solution it finds.
+
+* The
+`**CONSTRAINTS**`
+are all
+`alldiff` constraints.
+Here I simply
+asking that the symbols
+in each row
+and each column
+are different from each other.
+This is just
+one way of defining
+a latin square.
+
+## Using Minion to find solutions
+
 If the file `ls.minion` contains
-these lines then calling minion
+this text
+then calling minion
 with `ls.minion` as the only argument
 finds a solution.
 
 ```{r}
 system2("minion", args = "/home/matthew/workspace/minion-demo/ls.minion", stdout = TRUE)
 ```
+
+The solution is given
+by lines 16 - 18 of the output
+and is,
+indeed,
+a latin square of order 3.
 
 It can also be used to enumerate (or even explicitly construct) all latin squares of order 3.
 
@@ -56,35 +110,78 @@ system2("minion", args = "-findallsols -noprintsols /home/matthew/workspace/mini
 Indeed,
 [there are 12 latin squares of order 3](https://oeis.org/A002860).
 
+## The Minionator package
+
 The Minionator package I've been working on
 helps you to use R to construct such input files.
 
-In Minionator, a constraint program is a list with components variables, search, unary_constraints, binary_constraints etc .... For the latin square example we need alldiff constraints on the rows and columns of the input matrix.
+In Minionator, a constraint program is a list with components variables, search, unary_constraints, binary_constraints etc ....
+
+The variables
+and the constraints
+are both data frames.
+
+If we want to repeat
+the latin square example above
+then we need
+to begin with a 3x3 matrix
+of discrete variables
+with domain `{0:2}`.
+
+In Minionator we do
+this with the
+`discrete_matrix`
+function.
 
 ```{r, message=FALSE}
 library(minionator)
 library(tidyverse)
 
-l <- discrete_matrix(3, 3, 0:2)
+(l <- discrete_matrix(3, 3, 0:2))
+```
 
-row_latin <- tribble(
+A constraint in Minionator
+is represented by a data frame
+with two columns,
+`constraint` and `variables`.
+The `constraint` column
+simply names the constraint
+while the `variables`
+column is usually a list
+of subset of the variable
+data frame.
+
+So,
+for example,
+if I want to
+have an alldifferent
+constraint over the variables
+in row 0
+then I can construct
+the data frame
+
+```{r}
+tribble(
+~constraint,             ~variables,
+  "alldiff", l %>% filter(row == 0)
+  )
+```
+
+For the latin square example we need alldiff constraints on the rows and columns of the input matrix.
+
+```{r, message=FALSE}
+L <- list(
+          variables = l,
+             search = "PRINT ALL",
+  unary_constraints = tribble(
   ~constraint,             ~variables,
     "alldiff", l %>% filter(row == 0),
     "alldiff", l %>% filter(row == 1),
-    "alldiff", l %>% filter(row == 2)
-)
-
-column_latin <- tribble(
-  ~constraint,             ~variables,
+    "alldiff", l %>% filter(row == 2),
     "alldiff", l %>% filter(col == 0),
     "alldiff", l %>% filter(col == 1),
     "alldiff", l %>% filter(col == 2)
-)
-
-L <- list(
-  variables = l,
-  search = "PRINT ALL",
-  unary_constraints = bind_rows(row_latin, column_latin)
+  )
 )
 ```
 

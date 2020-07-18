@@ -13,11 +13,23 @@ draft: yes
 
 
 
-<p>In the last few weeks I’ve been working on a new R package
-for generating constraint programs for the
+<p>Over the past few weeks
+I’ve been working
+on a new R package
+for generating constraint programs
+for the
 <a href="https://constraintmodelling.org/minion/">Minion</a>
 constraint solver.</p>
-<p>Here’s an example of a 3 x 3 latin square input file for Minion.</p>
+<p>With Minion you specify
+a constraint program
+as an input file
+and use Minion to find
+solutions,
+if any exist.</p>
+<div id="a-very-simple-constraint-program" class="section level2">
+<h2>A very simple constraint program</h2>
+<p>Here is an example
+of a simple Minion input file.</p>
 <pre><code>MINION 3
 
 **VARIABLES**
@@ -35,15 +47,49 @@ alldiff(l[2,_])
 alldiff(l[_,2])
 
 **EOF**</code></pre>
+<p>This input file
+is one possible
+way of specifying
+a latin square of order 3.</p>
+<ul>
+<li><p>In the
+<code>**VARIABLES**</code>
+section I specify
+a 3 x 3 matrix
+of discrete variables
+with domain {0 .. 2}.</p></li>
+<li><p>In the
+<code>**SEARCH**</code>
+section
+I have asked
+Minion to print
+every solution it finds.</p></li>
+<li><p>The
+<code>**CONSTRAINTS**</code>
+are all
+<code>alldiff</code> constraints.
+Here I simply
+asking that the symbols
+in each row
+and each column
+are different from each other.
+This is just
+one way of defining
+a latin square.</p></li>
+</ul>
+</div>
+<div id="using-minion-to-find-solutions" class="section level2">
+<h2>Using Minion to find solutions</h2>
 <p>If the file <code>ls.minion</code> contains
-these lines then calling minion
+this text
+then calling minion
 with <code>ls.minion</code> as the only argument
 finds a solution.</p>
 <pre class="r"><code>system2(&quot;minion&quot;, args = &quot;/home/matthew/workspace/minion-demo/ls.minion&quot;, stdout = TRUE)</code></pre>
 <pre><code>##  [1] &quot;# Minion Version 1.8&quot;                                                       
 ##  [2] &quot;# HG version: 0&quot;                                                            
 ##  [3] &quot;# HG last changed date: unknown&quot;                                            
-##  [4] &quot;#  Run at: UTC Sat Jul 18 10:55:04 2020&quot;                                    
+##  [4] &quot;#  Run at: UTC Sat Jul 18 16:40:43 2020&quot;                                    
 ##  [5] &quot;&quot;                                                                           
 ##  [6] &quot;#    http://minion.sourceforge.net&quot;                                         
 ##  [7] &quot;# If you have problems with Minion or find any bugs, please tell us!&quot;       
@@ -66,17 +112,22 @@ finds a solution.</p>
 ## [24] &quot;Solve Time: 0.048000&quot;                                                       
 ## [25] &quot;Total Time: 0.048000&quot;                                                       
 ## [26] &quot;Total System Time: 0.000000&quot;                                                
-## [27] &quot;Total Wall Time: 0.050163&quot;                                                  
-## [28] &quot;Maximum RSS (kB): 5948&quot;                                                     
+## [27] &quot;Total Wall Time: 0.050181&quot;                                                  
+## [28] &quot;Maximum RSS (kB): 5944&quot;                                                     
 ## [29] &quot;Total Nodes: 4&quot;                                                             
 ## [30] &quot;Problem solvable?: yes&quot;                                                     
 ## [31] &quot;Solutions Found: 1&quot;</code></pre>
+<p>The solution is given
+by lines 16 - 18 of the output
+and is,
+indeed,
+a latin square of order 3.</p>
 <p>It can also be used to enumerate (or even explicitly construct) all latin squares of order 3.</p>
 <pre class="r"><code>system2(&quot;minion&quot;, args = &quot;-findallsols -noprintsols /home/matthew/workspace/minion-demo/ls.minion&quot;, stdout = TRUE)</code></pre>
 <pre><code>##  [1] &quot;# Minion Version 1.8&quot;                                                                           
 ##  [2] &quot;# HG version: 0&quot;                                                                                
 ##  [3] &quot;# HG last changed date: unknown&quot;                                                                
-##  [4] &quot;#  Run at: UTC Sat Jul 18 10:55:04 2020&quot;                                                        
+##  [4] &quot;#  Run at: UTC Sat Jul 18 16:40:43 2020&quot;                                                        
 ##  [5] &quot;&quot;                                                                                               
 ##  [6] &quot;#    http://minion.sourceforge.net&quot;                                                             
 ##  [7] &quot;# If you have problems with Minion or find any bugs, please tell us!&quot;                           
@@ -91,39 +142,87 @@ finds a solution.</p>
 ## [16] &quot;Solve Time: 0.000000&quot;                                                                           
 ## [17] &quot;Total Time: 0.000000&quot;                                                                           
 ## [18] &quot;Total System Time: 0.000000&quot;                                                                    
-## [19] &quot;Total Wall Time: 0.000523&quot;                                                                      
+## [19] &quot;Total Wall Time: 0.000449&quot;                                                                      
 ## [20] &quot;Maximum RSS (kB): 1004&quot;                                                                         
 ## [21] &quot;Total Nodes: 23&quot;                                                                                
 ## [22] &quot;Problem solvable?: yes&quot;                                                                         
 ## [23] &quot;Solutions Found: 12&quot;</code></pre>
 <p>Indeed,
 <a href="https://oeis.org/A002860">there are 12 latin squares of order 3</a>.</p>
+</div>
+<div id="the-minionator-package" class="section level2">
+<h2>The Minionator package</h2>
 <p>The Minionator package I’ve been working on
 helps you to use R to construct such input files.</p>
-<p>In Minionator, a constraint program is a list with components variables, search, unary_constraints, binary_constraints etc …. For the latin square example we need alldiff constraints on the rows and columns of the input matrix.</p>
+<p>In Minionator, a constraint program is a list with components variables, search, unary_constraints, binary_constraints etc ….</p>
+<p>The variables
+and the constraints
+are both data frames.</p>
+<p>If we want to repeat
+the latin square example above
+then we need
+to begin with a 3x3 matrix
+of discrete variables
+with domain <code>{0:2}</code>.</p>
+<p>In Minionator we do
+this with the
+<code>discrete_matrix</code>
+function.</p>
 <pre class="r"><code>library(minionator)
 library(tidyverse)
 
-l &lt;- discrete_matrix(3, 3, 0:2)
-
-row_latin &lt;- tribble(
+(l &lt;- discrete_matrix(3, 3, 0:2))</code></pre>
+<pre><code>## # A tibble: 9 x 6
+##     row   col lower upper name  type    
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   
+## 1     0     0     0     2 l     DISCRETE
+## 2     1     0     0     2 l     DISCRETE
+## 3     2     0     0     2 l     DISCRETE
+## 4     0     1     0     2 l     DISCRETE
+## 5     1     1     0     2 l     DISCRETE
+## 6     2     1     0     2 l     DISCRETE
+## 7     0     2     0     2 l     DISCRETE
+## 8     1     2     0     2 l     DISCRETE
+## 9     2     2     0     2 l     DISCRETE</code></pre>
+<p>A constraint in Minionator
+is represented by a data frame
+with two columns,
+<code>constraint</code> and <code>variables</code>.
+The <code>constraint</code> column
+simply names the constraint
+while the <code>variables</code>
+column is usually a list
+of subset of the variable
+data frame.</p>
+<p>So,
+for example,
+if I want to
+have an alldifferent
+constraint over the variables
+in row 0
+then I can construct
+the data frame</p>
+<pre class="r"><code>tribble(
+~constraint,             ~variables,
+  &quot;alldiff&quot;, l %&gt;% filter(row == 0)
+  )</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   constraint variables       
+##   &lt;chr&gt;      &lt;list&gt;          
+## 1 alldiff    &lt;tibble [3 × 6]&gt;</code></pre>
+<p>For the latin square example we need alldiff constraints on the rows and columns of the input matrix.</p>
+<pre class="r"><code>L &lt;- list(
+          variables = l,
+             search = &quot;PRINT ALL&quot;,
+  unary_constraints = tribble(
   ~constraint,             ~variables,
     &quot;alldiff&quot;, l %&gt;% filter(row == 0),
     &quot;alldiff&quot;, l %&gt;% filter(row == 1),
-    &quot;alldiff&quot;, l %&gt;% filter(row == 2)
-)
-
-column_latin &lt;- tribble(
-  ~constraint,             ~variables,
+    &quot;alldiff&quot;, l %&gt;% filter(row == 2),
     &quot;alldiff&quot;, l %&gt;% filter(col == 0),
     &quot;alldiff&quot;, l %&gt;% filter(col == 1),
     &quot;alldiff&quot;, l %&gt;% filter(col == 2)
-)
-
-L &lt;- list(
-  variables = l,
-  search = &quot;PRINT ALL&quot;,
-  unary_constraints = bind_rows(row_latin, column_latin)
+  )
 )</code></pre>
 <p>3x3 latin square in Minionator (without any functions).</p>
 <p>To turn this list into a Minion input file we call minion_output(). If we want to write the output to a file as well then we can call write_file() on the output.</p>
@@ -154,3 +253,4 @@ L &lt;- list(
 <p>Calling Minion with this input file we can easily find a pair of mutually orthogonal latin squares of order X. Or even enumerate MOLS of small order.</p>
 <p>Calling Minion via R to generate MOLS.</p>
 <p>We will look at some more examples now and hope to convince you that using Minionator makes life easier in certain cases. I think having your variables and constraints in data frames makes life a lot easier than if you try to write code to do the same thing with strings and loops etc … The main argument is that the tidyverse and related tools makes it easy to build up the data frame of variables and then to subset it in various complicated ways. Of course you could do it all in your own code working with the output strings directly, but you would probably have to rewrite a lot of code similar to what is already available in the tidyverse (or even just base R). A good example is cross_df.</p>
+</div>
