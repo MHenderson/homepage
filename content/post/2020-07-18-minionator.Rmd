@@ -11,25 +11,90 @@ tags:
 draft: yes
 ---
 
-Minionator is an R package that generates constraint programs for the Minion constraint solver.
+In the last few weeks I've been working on a new R package
+for generating constraint programs for the
+[Minion](https://constraintmodelling.org/minion/)
+constraint solver.
 
 Here’s an example of a 3 x 3 latin square input file for Minion.
 
-The input file can be used with Minion to find a latin square of order 3.
+```
+MINION 3
 
-Call Minion from R (using system2) demo here.
+**VARIABLES**
+DISCRETE l[3,3] {0..2}
 
-It can also be used to enumerate (or even explicitly construct) all latin squares of order 3 (call from within R without using the rminion package).
+**SEARCH**
+PRINT ALL
 
-Another demo of calling Minion from R.
+**CONSTRAINTS**
+alldiff(l[0,_])
+alldiff(l[_,0])
+alldiff(l[1,_])
+alldiff(l[_,1])
+alldiff(l[2,_])
+alldiff(l[_,2])
 
-Minionator helps you to use R to construct such input files. 
+**EOF**
+```
+
+If the file `ls.minion` contains
+these lines then calling minion
+with `ls.minion` as the only argument
+finds a solution.
+
+```{r}
+system2("minion", args = "/home/matthew/workspace/minion-demo/ls.minion", stdout = TRUE)
+```
+
+It can also be used to enumerate (or even explicitly construct) all latin squares of order 3.
+
+```{r}
+system2("minion", args = "-findallsols -noprintsols /home/matthew/workspace/minion-demo/ls.minion", stdout = TRUE)
+```
+
+Indeed,
+[there are 12 latin squares of order 3](https://oeis.org/A002860).
+
+The Minionator package I've been working on
+helps you to use R to construct such input files.
 
 In Minionator, a constraint program is a list with components variables, search, unary_constraints, binary_constraints etc .... For the latin square example we need alldiff constraints on the rows and columns of the input matrix.
+
+```{r, message=FALSE}
+library(minionator)
+library(tidyverse)
+
+l <- discrete_matrix(3, 3, 0:2)
+
+row_latin <- tribble(
+  ~constraint,             ~variables,
+    "alldiff", l %>% filter(row == 0),
+    "alldiff", l %>% filter(row == 1),
+    "alldiff", l %>% filter(row == 2)
+)
+
+column_latin <- tribble(
+  ~constraint,             ~variables,
+    "alldiff", l %>% filter(col == 0),
+    "alldiff", l %>% filter(col == 1),
+    "alldiff", l %>% filter(col == 2)
+)
+
+L <- list(
+  variables = l,
+  search = "PRINT ALL",
+  unary_constraints = bind_rows(row_latin, column_latin)
+)
+```
 
 3x3 latin square in Minionator (without any functions).
 
 To turn this list into a Minion input file we call minion_output(). If we want to write the output to a file as well then we can call write_file() on the output.
+
+```{r}
+minion_output(L)
+```
 
 So far there isn’t really much point to this. The Minionator list version of the input file is even longer than the Minion input file itself. So why use Minionator?
 
