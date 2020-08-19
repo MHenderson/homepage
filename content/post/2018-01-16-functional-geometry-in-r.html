@@ -9,6 +9,7 @@ tags:
   - packages
   - fun
   - generative-art
+bibliography: [funcgeo.bib]
 ---
 
 
@@ -21,7 +22,7 @@ by recreating Square Limit
 by M. Escher
 (Fig. 1)
 following the approach of
-<span class="citation">@Henderson:1982:FG</span>.</p>
+<span class="citation">Henderson (1982)</span>.</p>
 <div class="figure"><span id="fig:squarelimit"></span>
 <img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/squarelimit-1.png" alt="Square Limit" width="480" />
 <p class="caption">
@@ -30,9 +31,9 @@ Figure 1: Square Limit
 </div>
 <p>Peter Henderson describes
 Functional Geometry in two papers:
-<span class="citation">@Henderson:1982:FG</span>
+<span class="citation">Henderson (1982)</span>
 and
-<span class="citation">@Henderson:2002:FG</span>.
+<span class="citation">Henderson (2002)</span>.
 In those papers
 he shows
 how to define
@@ -42,7 +43,7 @@ of functional programming.</p>
 <p><a href="https://mhenderson.github.io/funcgeo/"><strong>funcgeo</strong></a>
 implements a picture language
 like the one described in
-<span class="citation">@Henderson:1982:FG</span>.</p>
+<span class="citation">Henderson (1982)</span>.</p>
 <p>To install
 <strong>funcgeo</strong>
 use <code>install_gitlab</code> from
@@ -70,7 +71,7 @@ of Square Limit.</p>
 <div id="fish" class="section level1">
 <h1>Fish</h1>
 <p>The fish from
-<span class="citation">@Henderson:1982:FG</span>
+<span class="citation">Henderson (1982)</span>
 are available in <strong>funcgeo</strong>
 as package data:
 <code>fish_p</code>,
@@ -103,13 +104,13 @@ Figure 3: Fish Q
 <div id="combining-fish" class="section level1">
 <h1>Combining fish</h1>
 <p>Picture operations from
-<span class="citation">@Henderson:1982:FG</span>
+<span class="citation">Henderson (1982)</span>
 like <code>rot</code>, <code>flip</code>
 and <code>cycle</code>
 are implemented in <strong>funcgeo</strong>.</p>
 <p>For example,
 the <code>quartet</code> operation
-described in <span class="citation">@Henderson:1982:FG</span>
+described in <span class="citation">Henderson (1982)</span>
 is used to combine
 the four fish
 into <code>t</code>,
@@ -179,7 +180,7 @@ Figure 7: Side 2
 of this section
 is to reproduce
 <code>corner</code> from
-<span class="citation">@Henderson:1982:FG</span>.
+<span class="citation">Henderson (1982)</span>.
 Square Limit is created
 by calling the <code>cycle</code> operation
 on <code>corner</code>.
@@ -255,5 +256,13 @@ plot(squarelimit)</code></pre>
 <p class="caption">
 Figure 11: Square Limit
 </p>
+</div>
+<div id="refs" class="references">
+<div id="ref-Henderson:1982:FG">
+<p>Henderson, Peter. 1982. “Functional Geometry.” In <em>Proceedings of the 1982 Acm Symposium on Lisp and Functional Programming</em>, 179–87. LFP ’82. New York, NY, USA: ACM. <a href="https://doi.org/10.1145/800068.802148">https://doi.org/10.1145/800068.802148</a>.</p>
+</div>
+<div id="ref-Henderson:2002:FG">
+<p>———. 2002. “Functional Geometry.” <em>Higher-Order and Symbolic Computation</em> 15 (4): 349–65. <a href="https://doi.org/10.1023/A:1022986521797">https://doi.org/10.1023/A:1022986521797</a>.</p>
+</div>
 </div>
 </div>
