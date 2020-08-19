@@ -9,6 +9,7 @@ tags:
   - packages
   - fun
   - generative-art
+bibliography: [funcgeo.bib]
 ---
 
 ```{r setup, include = FALSE}

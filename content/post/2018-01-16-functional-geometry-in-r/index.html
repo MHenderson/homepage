@@ -9,6 +9,7 @@ tags:
   - packages
   - fun
   - generative-art
+bibliography: [funcgeo.bib]
 ---
 
 
@@ -21,18 +22,18 @@ by recreating Square Limit
 by M. Escher
 (Fig. 1)
 following the approach of
-<span class="citation">@Henderson:1982:FG</span>.</p>
+<span class="citation">Henderson (1982)</span>.</p>
 <div class="figure"><span id="fig:squarelimit"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/squarelimit-1.png" alt="Square Limit" width="480" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/squarelimit-1.png" alt="Square Limit" width="480" />
 <p class="caption">
 Figure 1: Square Limit
 </p>
 </div>
 <p>Peter Henderson describes
 Functional Geometry in two papers:
-<span class="citation">@Henderson:1982:FG</span>
+<span class="citation">Henderson (1982)</span>
 and
-<span class="citation">@Henderson:2002:FG</span>.
+<span class="citation">Henderson (2002)</span>.
 In those papers
 he shows
 how to define
@@ -42,7 +43,7 @@ of functional programming.</p>
 <p><a href="https://mhenderson.github.io/funcgeo/"><strong>funcgeo</strong></a>
 implements a picture language
 like the one described in
-<span class="citation">@Henderson:1982:FG</span>.</p>
+<span class="citation">Henderson (1982)</span>.</p>
 <p>To install
 <strong>funcgeo</strong>
 use <code>install_gitlab</code> from
@@ -70,7 +71,7 @@ of Square Limit.</p>
 <div id="fish" class="section level1">
 <h1>Fish</h1>
 <p>The fish from
-<span class="citation">@Henderson:1982:FG</span>
+<span class="citation">Henderson (1982)</span>
 are available in <strong>funcgeo</strong>
 as package data:
 <code>fish_p</code>,
@@ -87,14 +88,14 @@ a <code>plot</code> method for
 
 plot(fish_p)</code></pre>
 <div class="figure"><span id="fig:p"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/p-1.png" alt="Fish P" width="192" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/p-1.png" alt="Fish P" width="192" />
 <p class="caption">
 Figure 2: Fish P
 </p>
 </div>
 <pre class="r"><code>plot(fish_q)</code></pre>
 <div class="figure"><span id="fig:q"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/q-1.png" alt="Fish Q" width="192" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/q-1.png" alt="Fish Q" width="192" />
 <p class="caption">
 Figure 3: Fish Q
 </p>
@@ -103,13 +104,13 @@ Figure 3: Fish Q
 <div id="combining-fish" class="section level1">
 <h1>Combining fish</h1>
 <p>Picture operations from
-<span class="citation">@Henderson:1982:FG</span>
+<span class="citation">Henderson (1982)</span>
 like <code>rot</code>, <code>flip</code>
 and <code>cycle</code>
 are implemented in <strong>funcgeo</strong>.</p>
 <p>For example,
 the <code>quartet</code> operation
-described in <span class="citation">@Henderson:1982:FG</span>
+described in <span class="citation">Henderson (1982)</span>
 is used to combine
 the four fish
 into <code>t</code>,
@@ -119,7 +120,7 @@ of Square Limit.</p>
 
 plot(t)</code></pre>
 <div class="figure"><span id="fig:t"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/t-1.png" alt="t" width="288" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/t-1.png" alt="t" width="288" />
 <p class="caption">
 Figure 4: t
 </p>
@@ -134,7 +135,7 @@ are used to create
 
 plot(u)</code></pre>
 <div class="figure"><span id="fig:u"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/u-1.png" alt="u" width="288" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/u-1.png" alt="u" width="288" />
 <p class="caption">
 Figure 5: u
 </p>
@@ -154,7 +155,7 @@ and <code>nil</code> empty picture.</p>
 
 plot(side1)</code></pre>
 <div class="figure"><span id="fig:side1"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/side1-1.png" alt="Side 1" width="288" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/side1-1.png" alt="Side 1" width="288" />
 <p class="caption">
 Figure 6: Side 1
 </p>
@@ -167,7 +168,7 @@ including <code>side1</code>.</p>
 
 plot(side2)</code></pre>
 <div class="figure"><span id="fig:side2"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/side2-1.png" alt="Side 2" width="288" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/side2-1.png" alt="Side 2" width="288" />
 <p class="caption">
 Figure 7: Side 2
 </p>
@@ -179,7 +180,7 @@ Figure 7: Side 2
 of this section
 is to reproduce
 <code>corner</code> from
-<span class="citation">@Henderson:1982:FG</span>.
+<span class="citation">Henderson (1982)</span>.
 Square Limit is created
 by calling the <code>cycle</code> operation
 on <code>corner</code>.
@@ -196,7 +197,7 @@ and <code>u</code>.</p>
 
 plot(corner1)</code></pre>
 <div class="figure"><span id="fig:corner1"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/corner1-1.png" alt="Corner 1" width="288" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/corner1-1.png" alt="Corner 1" width="288" />
 <p class="caption">
 Figure 8: Corner 1
 </p>
@@ -210,7 +211,7 @@ and <code>u</code>.</p>
 
 plot(corner2)</code></pre>
 <div class="figure"><span id="fig:corner2"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/corner2-1.png" alt="Corner 2" width="288" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/corner2-1.png" alt="Corner 2" width="288" />
 <p class="caption">
 Figure 9: Corner 2
 </p>
@@ -236,7 +237,7 @@ Square Limit.</p>
 
 plot(corner)</code></pre>
 <div class="figure"><span id="fig:corner"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/corner-1.png" alt="Corner" width="288" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/corner-1.png" alt="Corner" width="288" />
 <p class="caption">
 Figure 10: Corner
 </p>
@@ -251,9 +252,17 @@ with <code>corner</code>.</p>
 
 plot(squarelimit)</code></pre>
 <div class="figure"><span id="fig:squarelimit2"></span>
-<img src="/post/2018-01-16-functional-geometry-in-r_files/figure-html/squarelimit2-1.png" alt="Square Limit" width="480" />
+<img src="/post/2018-01-16-functional-geometry-in-r/index_files/figure-html/squarelimit2-1.png" alt="Square Limit" width="480" />
 <p class="caption">
 Figure 11: Square Limit
 </p>
+</div>
+<div id="refs" class="references">
+<div id="ref-Henderson:1982:FG">
+<p>Henderson, Peter. 1982. “Functional Geometry.” In <em>Proceedings of the 1982 Acm Symposium on Lisp and Functional Programming</em>, 179–87. LFP ’82. New York, NY, USA: ACM. <a href="https://doi.org/10.1145/800068.802148">https://doi.org/10.1145/800068.802148</a>.</p>
+</div>
+<div id="ref-Henderson:2002:FG">
+<p>———. 2002. “Functional Geometry.” <em>Higher-Order and Symbolic Computation</em> 15 (4): 349–65. <a href="https://doi.org/10.1023/A:1022986521797">https://doi.org/10.1023/A:1022986521797</a>.</p>
+</div>
 </div>
 </div>
