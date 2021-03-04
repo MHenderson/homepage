@@ -2,15 +2,10 @@
 title: Home
 ---
 
-# Dr. Matthew Henderson
+# Dr. Matthew Henderson [<i class="far fa-envelope"></i>](matthew.james.henderson@gmail.com) [<i class="fab fa-linkedin"></i>](https://www.linkedin.com/in/matthew-henderson-2a5b26193)
 
-[<i class="fab fa-github"></i>](https://github.com/MHenderson)
-[<i class="fab fa-gitlab"></i>](https://gitlab.com/MHenderson1)
-[<i class="fab fa-bitbucket"></i>](https://bitbucket.org/matthew/)
-[<i class="far fa-circle"></i>](https://git.sr.ht/~mhenderson/)
-[<i class="fab fa-linkedin"></i>](https://www.linkedin.com/in/matthew-henderson-2a5b26193)
-[<i class="far fa-envelope"></i>](matthew.james.henderson@gmail.com)
-[<i class="fab fa-orcid"></i>](https://orcid.org/0000-0001-7949-8208)
-[<i class="fab fa-researchgate"></i>](https://www.researchgate.net/profile/Matthew_Henderson13)
+## Code: [<i class="fab fa-github"></i>](https://github.com/MHenderson) [<i class="fab fa-gitlab"></i>](https://gitlab.com/MHenderson1) [<i class="fab fa-bitbucket"></i>](https://bitbucket.org/matthew/) [<i class="far fa-circle"></i>](https://git.sr.ht/~mhenderson/)
+
+## Research: [<i class="fab fa-orcid"></i>](https://orcid.org/0000-0001-7949-8208) [<i class="fab fa-researchgate"></i>](https://www.researchgate.net/profile/Matthew_Henderson13)
 
 # Latest posts
