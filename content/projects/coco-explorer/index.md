@@ -13,3 +13,5 @@ Explore co-occurrences in corpora.
 
 * [coco-explorer](https://mhenderson.shinyapps.io/coco-explorer/) - at shinyapps.io
 * [source](https://github.com/MHenderson/coco-explorer) - on Github
+
+![](screenshot.png)
