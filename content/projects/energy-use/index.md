@@ -7,9 +7,12 @@ slug: energy-use
 tags:
   - energy
 title: Energy Use
+draft: true
 ---
 
 A Shiny dashboard for monitoring home energy usage.
 
 * [energy-use](https://mhenderson.shinyapps.io/energy-use/) - at shinyapps.io
 * [source](https://github.com/MHenderson/energy-use) - on Github
+
+![](screenshot.png)
