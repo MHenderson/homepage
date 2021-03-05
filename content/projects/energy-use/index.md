@@ -7,7 +7,6 @@ slug: energy-use
 tags:
   - energy
 title: Energy Use
-draft: true
 ---
 
 A Shiny dashboard for monitoring home energy usage.
