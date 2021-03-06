@@ -52,6 +52,8 @@ Dinitz and Stinson (1987)
 
 </iframe>
 
+# References
+
 <div id="refs" class="references">
 
 <div id="ref-dinitzHillClimbingAlgorithmConstruction1987">

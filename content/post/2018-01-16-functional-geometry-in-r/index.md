@@ -4,11 +4,10 @@ author: Matthew Henderson
 date: '2018-01-16'
 slug: functional-geometry-in-r
 categories:
-  - R
-tags:
-  - packages
-  - fun
   - generative-art
+tags:
+  - r
+  - r-package
 bibliography: [funcgeo.bib]
 ---
 
@@ -365,6 +364,8 @@ Figure 11: Square Limit
 </p>
 
 </div>
+
+# References
 
 <div id="refs" class="references">
 
