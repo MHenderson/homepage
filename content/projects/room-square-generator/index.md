@@ -48,7 +48,9 @@ Dinitz and Stinson (1987)
 
   - [source](https://github.com/MHenderson/room-square-generator) - on Github
 
-<iframe height="400px" width="100%" src="https://repl.it/@MHenderson1/room-square-generator?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals">
+Run the CLI below (press green button to start):
+
+<iframe height="400px" width="100%" src="https://repl.it/@MHenderson1/room-square-generator?lite=true&amp;outputonly=1" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals">
 
 </iframe>
 
