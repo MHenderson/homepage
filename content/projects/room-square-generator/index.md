@@ -2,11 +2,12 @@
 title: Room Square Generator
 author: Matthew Henderson
 categories:
-  - room-squares
+  - projects
 date: "2021-03-06"
 slug: room-square-generator
 tags:
   - java
+  - room-squares
 references:
 - id: dinitzHillClimbingAlgorithmConstruction1987
   abstract: >-

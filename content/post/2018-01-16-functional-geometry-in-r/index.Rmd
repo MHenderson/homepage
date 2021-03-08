@@ -4,8 +4,9 @@ author: Matthew Henderson
 date: '2018-01-16'
 slug: functional-geometry-in-r
 categories:
-  - generative-art
+  - posts
 tags:
+  - generative-art
   - r
   - r-package
 bibliography: [funcgeo.bib]

@@ -1,11 +1,12 @@
 ---
 author: Matthew Henderson
 categories:
-  - shiny
+  - projects
 date: "2021-03-04"
 slug: energy-use-mobile
 tags:
   - energy
+  - shiny
 title: Energy Use (mobile version)
 ---
 

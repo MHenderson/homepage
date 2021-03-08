@@ -1,10 +1,11 @@
 ---
 author: Matthew Henderson
 categories:
-  - shiny
+  - projects
 date: "2021-03-04"
 slug: bookmark-viewer
 tags:
+  - shiny
   - toys
 title: Bookmark Viewer
 ---
