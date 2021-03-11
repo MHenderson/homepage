@@ -12,7 +12,7 @@ tags:
 ---
 
 A Shiny clone of [clic.bham.ac.uk](https://clic.bham.ac.uk),
-built on [clicclient](/projects/cliclient).
+built on [clicclient](/projects/clicclient).
 
 * [source](https://github.com/MHenderson/shinyclic) - on Github
 
