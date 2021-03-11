@@ -8,6 +8,7 @@ tags:
   - shiny
   - toys
 title: Bookmark Viewer
+draft: true
 ---
 
 Browse images of my collection of paper bookmarks.
