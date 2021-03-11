@@ -7,7 +7,7 @@ date: "2021-03-08"
 slug: rminion
 tags:
   - constraint-satisfaction
-  - r-package
+  - r-packages
   - r
 draft: true
 ---

@@ -8,7 +8,7 @@ categories:
 tags:
   - generative-art
   - r
-  - r-package
+  - r-packages
 bibliography: [funcgeo.bib]
 ---
 
