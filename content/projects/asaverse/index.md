@@ -29,3 +29,9 @@ up-to-date).
 I also have added a large number of fonts and packages for LaTeX
 to make it possible to compile things like my CV without
 having to install anything extra at compile time.
+
+I did a few other useful things by adding a script for running the
+container. It does things like copy over my ssh key, rstudio and git
+configurations as well as make sure that the container has access
+to the renv cache on my laptop by mounting that folder inside the
+container.
