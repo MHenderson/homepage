@@ -75,8 +75,3 @@ tuesdata$diseases %>%
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/diseases-1.png" width="768" />
-
-
-
-
-
