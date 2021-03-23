@@ -1,0 +1,28 @@
+---
+title: Home
+---
+
+# Dr. Matthew Henderson
+
+```{r, echo=FALSE}
+library(htmltools)
+library(magrittr)
+library(shiny)
+
+div(
+  a(
+    icon("envelope"),
+    "matthew.james.henderson@gmail.com",
+    href="mailto:matthew.james.henderson@gmail.com"
+  )
+)
+
+div(
+  a(
+    icon("linkedin"), "https://www.linkedin.com/in/matthew-henderson-2a5b26193",
+    href="https://www.linkedin.com/in/matthew-henderson-2a5b26193"
+  )
+)
+```
+
+# Latest posts
