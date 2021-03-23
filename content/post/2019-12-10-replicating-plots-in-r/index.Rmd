@@ -1,17 +1,16 @@
 ---
-title: Replicating Plots in R
+title: "(WIP) Tidy Tuesday: Replicating Plots in R"
+description: "tt_load(2019, week = 51)"
 author: Matthew Henderson
 date: '2019-12-10'
 slug: replicating-plots-in-r
-categories: []
-tags: []
-publishdate: '2019-12-10'
-lastmod: '2019-12-10'
+categories:
+  - posts
+tags:
+  - tidy-tuesday
 editor_options: 
   chunk_output_type: console
-description: Week 50
-images:
-- post/2019-12-10-replicating-plots-in-r/index_files/figure-html/murders-cover-1.png
+draft: true
 ---
 
 ```{r setup, include=FALSE}
@@ -26,30 +25,31 @@ knitr::opts_chunk$set(
 )
 
 ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
-tuesdata <- readr::read_rds(here::here("content", "post", "2019-12-10-replicating-plots-in-r", "tuesdata.rds"))
+```
+
+```{r tuesdata, cache=TRUE}
+tuesdata <- tidytuesdayR::tt_load(2019, week = 50)
 ```
 
 ## G8 Homicide
 
 ```{r murders-cover, fig.height=7}
 library(tidyverse)
-library(ggflags)
-library(countrycode)
 
-tuesdata$international_murders %>%
+tuesdata$gun_murders %>%
   mutate(
     country = reorder(country, count)
   ) %>%
-  ggplot(aes(country, count, label = label)) +
-  geom_flag(aes(country = code), size = 10) +
-  labs(
-       title = "Homicide in the G8",
-    subtitle = "Rates of homicide in G8 member countries.",
-     caption = "source: United Nations Office on Drugs and Crime",
-           x = "",
-           y = "Gun-related homicides\nper 100,000 people"
-  ) +
-  coord_flip()
+  ggplot(aes(country, count)) +
+    geom_point() +
+    labs(
+         title = "Homicide in the G8",
+      subtitle = "Rates of homicide in G8 member countries.",
+       caption = "source: United Nations Office on Drugs and Crime",
+             x = "",
+             y = "Gun-related homicides\nper 100,000 people"
+    ) +
+    coord_flip()
 ```
 
 ## Diseases
