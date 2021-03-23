@@ -13,27 +13,21 @@ editor_options:
 draft: TRUE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-        echo = TRUE,
-     message = FALSE,
-     warning = FALSE,
-     comment = "#>",
-    collapse = TRUE,
-   fig.width = 8,
-  fig.height = 8
-)
 
-ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
-```
 
-```{r tuesdata, cache=TRUE}
+
+```r
 library(tidytuesdayR)
 
 tuesdata <- tt_load(2019, week = 51)
+#> 
+#> 	Downloading file 1 of 3: `dog_descriptions.csv`
+#> 	Downloading file 2 of 3: `dog_moves.csv`
+#> 	Downloading file 3 of 3: `dog_travel.csv`
 ```
 
-```{r names}
+
+```r
 library(tidyverse)
 
 tuesdata$dog_descriptions %>%
@@ -58,7 +52,10 @@ tuesdata$dog_descriptions %>%
     )
 ```
 
-```{r net_exports_std}
+<img src="{{< blogdown/postref >}}index_files/figure-html/names-1.png" width="768" />
+
+
+```r
 library(statebins)
 library(viridis)
 
@@ -72,3 +69,5 @@ tuesdata$dog_moves %>%
     theme_statebins() +
     coord_equal()
 ```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/net_exports_std-1.png" width="768" />
