@@ -10,28 +10,22 @@ tags:
   - tidy-tuesday
 editor_options: 
   chunk_output_type: console
-draft: TRUE
+draft: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  comment = "#>",
-  collapse = TRUE
-)
 
-ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
-```
 
-```{r spotify_songs, cache=TRUE}
+
+```r
 tuesdata <- tidytuesdayR::tt_load(2020, week = 4)
+#> 
+#> 	Downloading file 1 of 1: `spotify_songs.csv`
 
 spotify_songs <- tuesdata$spotify_songs
 ```
 
-```{r duration}
+
+```r
 library(tidyverse)
 
 spotify_songs %>%
@@ -49,7 +43,10 @@ spotify_songs %>%
     )
 ```
 
-```{r danceability}
+<img src="{{< blogdown/postref >}}index_files/figure-html/duration-1.png" width="672" />
+
+
+```r
 spotify_songs %>%
   pivot_longer(c("danceability", "energy")) %>%
   ggplot(aes(value, colour = playlist_genre)) +
@@ -63,7 +60,10 @@ spotify_songs %>%
     )
 ```
 
-```{r speechiness}
+<img src="{{< blogdown/postref >}}index_files/figure-html/danceability-1.png" width="672" />
+
+
+```r
 spotify_songs %>%
   pivot_longer(c("speechiness","liveness")) %>%
   ggplot(aes(log(value), colour = playlist_genre)) +
@@ -77,7 +77,10 @@ spotify_songs %>%
     )
 ```
 
-```{r acousticness}
+<img src="{{< blogdown/postref >}}index_files/figure-html/speechiness-1.png" width="672" />
+
+
+```r
 spotify_songs %>%
   pivot_longer(c("acousticness","instrumentalness")) %>%
   ggplot(aes(log(value), colour = playlist_genre)) +
@@ -91,7 +94,10 @@ spotify_songs %>%
     )
 ```
 
-```{r tempo}
+<img src="{{< blogdown/postref >}}index_files/figure-html/acousticness-1.png" width="672" />
+
+
+```r
 spotify_songs %>%
   pivot_longer(c("tempo")) %>%
   ggplot(aes(value, colour = playlist_genre)) +
@@ -104,3 +110,5 @@ spotify_songs %>%
       caption = "data from Kaylin Pavlik"
     )
 ```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/tempo-1.png" width="672" />
