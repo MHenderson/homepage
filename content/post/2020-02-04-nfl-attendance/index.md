@@ -13,27 +13,21 @@ editor_options:
 draft: TRUE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  comment = "#>",
-  collapse = TRUE
-)
 
-ggplot2::theme_set(hrbrthemes::theme_ipsum_pub())
 
-options("scipen"=100, "digits"=4)
-```
 
-```{r, cache=TRUE}
+```r
 library(tidytuesdayR)
 
 tuesdata <- tt_load(2020, week = 6)
+#> 
+#> 	Downloading file 1 of 3: `attendance.csv`
+#> 	Downloading file 2 of 3: `games.csv`
+#> 	Downloading file 3 of 3: `standings.csv`
 ```
 
-```{r duration, fig.width=15, fig.height=10}
+
+```r
 library(tidyverse)
 
 tuesdata$attendance %>%
@@ -45,3 +39,5 @@ tuesdata$attendance %>%
   geom_smooth() +
   facet_wrap(~team)
 ```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/duration-1.png" width="1440" />
