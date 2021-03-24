@@ -11,17 +11,7 @@ tags:
 draft: TRUE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  comment = "#>",
-  collapse = TRUE
-)
 
-ggplot2::theme_set(hrbrthemes::theme_ipsum_pub())
-```
 
 This week's data is from the Department of Education courtesy of Alex Albright.
 
@@ -29,14 +19,18 @@ Data idea comes from Dignity and Debt who is running a contest around data viz f
 
 There are already some gorgeous plots in the style of DuBois.
 
-```{r, cache=TRUE}
+
+```r
 library(tidytuesdayR)
 
 tuesdata <- tt_load(2019, week = 48)
+#> 
+#> 	Downloading file 1 of 1: `loans.csv`
 ```
 
 
-```{r}
+
+```r
 library(readr)
 library(tidyverse)
 library(viridis)
@@ -46,3 +40,5 @@ tuesdata$loans %>%
     geom_point() +
     facet_wrap(~year)
 ```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
