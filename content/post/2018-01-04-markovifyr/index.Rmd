@@ -1,9 +1,14 @@
 ---
-title: "MarkovifyR"
-author: "Matthew Henderson"
-date: "2018-01-04T20:33:50+00:00"
-categories: ["R"]
-tags: ["markovify"]
+title: "(WIP) Generating Nonsense with MarkovifyR"
+author: Matthew Henderson
+date: '2018-01-04'
+slug: markovifyr
+categories:
+  - posts
+tags:
+  - nlp
+  - r
+draft: TRUE
 ---
 
 ```{r setup, include = FALSE}
@@ -28,7 +33,7 @@ Let's use Whitman's *Leaves of Grass* as a starting point.
 ```{r}
 library(gutenbergr)
 
-leaves_of_grass <- gutenberg_download("1322")
+leaves_of_grass <- gutenberg_download(1322, mirror = "http://www.mirrorservice.org/sites/ftp.ibiblio.org/pub/docs/books/gutenberg/")
 ```
 
 ```{r}
