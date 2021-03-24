@@ -1,11 +1,13 @@
 ---
-title: Minionator
+title: (WIP) Introducing Minionator
 author: Matthew Henderson
 date: '2020-07-18'
 slug: minionator
-categories: []
+categories:
+  - post
 tags:
-  - packages
+  - r-packages
+  - r
   - minion-r
   - constraint-programming
 draft: yes
@@ -92,7 +94,7 @@ with `ls.minion` as the only argument
 finds a solution.
 
 ```{r}
-system2("minion", args = "/home/matthew/workspace/minion-demo/ls.minion", stdout = TRUE)
+system2("/home/matthew/workspace/minion", args = "/home/matthew/workspace/ls.minion", stdout = TRUE)
 ```
 
 The solution is given
@@ -104,7 +106,7 @@ a latin square of order 3.
 It can also be used to enumerate (or even explicitly construct) all latin squares of order 3.
 
 ```{r}
-system2("minion", args = "-findallsols -noprintsols /home/matthew/workspace/minion-demo/ls.minion", stdout = TRUE)
+system2("/home/matthew/workspace/minion", args = "-findallsols -noprintsols /home/matthew/workspace/ls.minion", stdout = TRUE)
 ```
 
 Indeed,
