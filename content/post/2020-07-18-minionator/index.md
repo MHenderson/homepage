@@ -4,7 +4,7 @@ author: Matthew Henderson
 date: '2020-07-18'
 slug: minionator
 categories:
-  - post
+  - posts
 tags:
   - r-packages
   - r
@@ -102,7 +102,7 @@ system2("/home/matthew/workspace/minion", args = "/home/matthew/workspace/ls.min
 ##  [1] "# Minion Version 1.8"                                                             
 ##  [2] "# HG version: 0"                                                                  
 ##  [3] "# HG last changed date: unknown"                                                  
-##  [4] "#  Run at: UTC Wed Mar 24 10:16:11 2021"                                          
+##  [4] "#  Run at: UTC Wed Mar 24 18:12:43 2021"                                          
 ##  [5] ""                                                                                 
 ##  [6] "#    http://minion.sourceforge.net"                                               
 ##  [7] "# If you have problems with Minion or find any bugs, please tell us!"             
@@ -122,11 +122,11 @@ system2("/home/matthew/workspace/minion", args = "/home/matthew/workspace/ls.min
 ## [21] "Time:0.000000"                                                                    
 ## [22] "Nodes: 4"                                                                         
 ## [23] ""                                                                                 
-## [24] "Solve Time: 0.064000"                                                             
-## [25] "Total Time: 0.064000"                                                             
-## [26] "Total System Time: 0.000000"                                                      
-## [27] "Total Wall Time: 0.068781"                                                        
-## [28] "Maximum RSS (kB): 8072"                                                           
+## [24] "Solve Time: 0.060000"                                                             
+## [25] "Total Time: 0.060000"                                                             
+## [26] "Total System Time: 0.008000"                                                      
+## [27] "Total Wall Time: 0.079240"                                                        
+## [28] "Maximum RSS (kB): 5744"                                                           
 ## [29] "Total Nodes: 4"                                                                   
 ## [30] "Problem solvable?: yes"                                                           
 ## [31] "Solutions Found: 1"
@@ -149,7 +149,7 @@ system2("/home/matthew/workspace/minion", args = "-findallsols -noprintsols /hom
 ##  [1] "# Minion Version 1.8"                                                                                       
 ##  [2] "# HG version: 0"                                                                                            
 ##  [3] "# HG last changed date: unknown"                                                                            
-##  [4] "#  Run at: UTC Wed Mar 24 10:16:11 2021"                                                                    
+##  [4] "#  Run at: UTC Wed Mar 24 18:12:43 2021"                                                                    
 ##  [5] ""                                                                                                           
 ##  [6] "#    http://minion.sourceforge.net"                                                                         
 ##  [7] "# If you have problems with Minion or find any bugs, please tell us!"                                       
@@ -164,8 +164,8 @@ system2("/home/matthew/workspace/minion", args = "-findallsols -noprintsols /hom
 ## [16] "Solve Time: 0.000000"                                                                                       
 ## [17] "Total Time: 0.000000"                                                                                       
 ## [18] "Total System Time: 0.000000"                                                                                
-## [19] "Total Wall Time: 0.000457"                                                                                  
-## [20] "Maximum RSS (kB): 2616"                                                                                     
+## [19] "Total Wall Time: 0.000453"                                                                                  
+## [20] "Maximum RSS (kB): 1016"                                                                                     
 ## [21] "Total Nodes: 23"                                                                                            
 ## [22] "Problem solvable?: yes"                                                                                     
 ## [23] "Solutions Found: 12"
