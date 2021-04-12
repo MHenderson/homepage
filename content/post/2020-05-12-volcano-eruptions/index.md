@@ -1,5 +1,5 @@
 ---
-title: Volcano Eruptions
+title: "(WIP) Tidy Tuesday: Volcano Eruptions"
 author: Matthew Henderson
 date: '2020-05-12'
 slug: volcano-eruptions
@@ -11,28 +11,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  cache      = FALSE,
-  echo       = TRUE,
-  warning    = FALSE,
-  message    = FALSE,
-  error      = FALSE,
-  cache.path = "cache/",
-  comment    = "#>",
-  collapse   = TRUE
-)
 
-ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
-```
 
 The data this week comes from The Smithsonian Institution.
 
-Axios put together a lovely plot of volcano eruptions since Krakatoa (after 1883) by elevation and type.
 
-For more information about volcanoes check out the below Wikipedia article or specifically about VEI (Volcano Explosivity Index) see the Wikipedia article here. Lastly, Google Earth has an interactive site on "10,000 Years of Volcanoes"!
-
-```{r eruptions, message = FALSE}
+```r
 library(sf)
 library(tidyverse)
 library(rnaturalearth)
@@ -83,3 +67,5 @@ eruptions_to_plot %>%
       panel.grid.minor = element_blank()
     )
 ```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/eruptions-1.png" width="672" />
