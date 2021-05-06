@@ -10,6 +10,7 @@ tags:
 draft: no
 editor_options: 
   chunk_output_type: console
+twitterImg: https://raw.githubusercontent.com/MHenderson/water-sources/master/water-sources.png
 ---
 
 ```{r setup, include=FALSE}
