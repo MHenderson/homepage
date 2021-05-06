@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Tidy Tuesday: Water Sources"
+title: "Tidy Tuesday: Water Sources"
 author: Matthew Henderson
 date: '2021-05-04'
 slug: water-sources
@@ -7,7 +7,7 @@ categories:
   - posts
 tags:
   - tidy-tuesday
-draft: yes
+draft: no
 editor_options: 
   chunk_output_type: console
 ---
@@ -29,15 +29,15 @@ This week's Tidy Tuesday data comes from
 a global platform for sharing water point data.
 
 Inspired by David Robinson's livestream on 4/5/21
-```{r echo=FALSE}
-blogdown::shortcode('youtube', '5ub92c-5xFQ')
-```
 I created a faceted map plot
 showing the locations of different water sources
 throughout Ethiopia.
+```{r echo=FALSE}
+blogdown::shortcode('youtube', '5ub92c-5xFQ')
+```
 
-This is the first time
-I used Thomas Lin Pedersen's
+This was my first time
+using Thomas Lin Pedersen's
 [{ragg}](https://ragg.r-lib.org/)
 package.
 It allowed me to use
