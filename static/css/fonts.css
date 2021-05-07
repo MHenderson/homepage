@@ -1,7 +1,14 @@
 body {
-  font-family: Roboto, Optima, Candara, Calibri, Arial, sans-serif;
+  font-family: "Roboto", Optima, Candara, Calibri, Arial, sans-serif;
 }
 code {
   font-family: "Roboto Mono", "Lucida Console", Monaco, monospace;
   font-size: 95%;
+}
+h1, h2 {
+  font-family: 'Roboto Condensed';
+}
+.author, .date {
+  font-size: 1.1em;
+  font-weight: normal;
 }
