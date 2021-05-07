@@ -4,8 +4,9 @@ author: Matthew Henderson
 date: '2020-05-19'
 slug: beach-volleyball
 categories:
+  - posts
+tags:
   - tidy-tuesday
-tags: []
 draft: yes
 editor_options: 
   chunk_output_type: console

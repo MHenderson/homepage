@@ -4,8 +4,9 @@ author: Matthew Henderson
 date: '2020-05-12'
 slug: volcano-eruptions
 categories:
+  - posts
+tags:
   - tidy-tuesday
-tags: []
 draft: yes
 editor_options: 
   chunk_output_type: console
