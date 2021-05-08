@@ -5,6 +5,17 @@ body {
   line-height: 1.5em;
 }
 
+#contact {
+  background: #d9dee0;
+  padding: 15px;
+  border-radius: 10px;
+  line-height: 2em;
+  text-align: right;
+}
+#contact a {
+  text-decoration: none;
+}
+
 /* header and footer areas */
 .menu { padding: 0; }
 .menu li { display: inline-block; }
@@ -17,7 +28,7 @@ body {
 .article-meta {
   text-decoration: none;
   background: #e8edef;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
 }
 .author {
