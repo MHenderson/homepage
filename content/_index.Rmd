@@ -10,33 +10,22 @@ library(shiny)
 div(
   id = "contact",
   h1("Dr. Matthew Henderson"),
-  span(
-    style = "font-size: 36px; color: Dodgerblue;",
-    a(
-      icon("envelope"),
-      "",
-      href = "mailto:matthew.james.henderson@gmail.com"
-    )
+  a(
+    icon("envelope"),
+    "",
+    href = "mailto:matthew.james.henderson@gmail.com"
   ),
-  span(
-    style = "font-size: 36px; color: Dodgerblue;",
-    a(
-      icon("linkedin"),
-      "",
-      href = "https://www.linkedin.com/in/matthew-henderson-2a5b26193"
-    )
+  a(
+    icon("linkedin"),
+    "",
+    href = "https://www.linkedin.com/in/matthew-henderson-2a5b26193"
   ),
-  span(
-    style = "font-size: 36px; color: Dodgerblue;",
-    a(
-      icon("github"),
-      "",
-      href = "https://github.com/MHenderson"
-    )
+  a(
+    icon("github"),
+    "",
+    href = "https://github.com/MHenderson"
   )
 )
-
-
 ```
 
 # Latest posts

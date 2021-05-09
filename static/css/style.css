@@ -5,6 +5,16 @@ body {
   line-height: 1.5em;
 }
 
+.fa {
+  color: blue;
+  font-size: 36px;
+}
+
+.fab {
+  color: blue;
+  font-size: 36px;
+}
+
 #contact {
   background: #d9dee0;
   padding: 15px;
@@ -21,7 +31,7 @@ body {
 .menu li { display: inline-block; }
 .menu a {
   text-decoration: none;
-  background: #d9dee0;
+  background: ;
   padding: 6px;
   border-radius: 5px;
 }
