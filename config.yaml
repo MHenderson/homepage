@@ -14,14 +14,18 @@ menu:
     - name: Home
       url: ""
       weight: 1
+      pre: <i class='fa fa-home'></i>
     - name: Categories
       url: "categories/"
       weight: 2
+      pre: <i class='fa fa-list'></i>
     - name: Tags
       url: "tags/"
       weight: 3
+      pre: <i class='fa fa-tags'></i>
     - name: Subscribe
       url: "index.xml"
+      pre: <i class='fa fa-rss'></i>
 
 params:
   description: "My personal website."
