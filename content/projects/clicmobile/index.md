@@ -2,7 +2,7 @@
 title: CLiCmobile
 author: Matthew Henderson
 categories:
-  - projects
+  - corpus-linguistics
 date: "2021-03-15"
 slug: clicmobile
 tags:

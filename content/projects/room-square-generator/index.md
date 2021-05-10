@@ -2,7 +2,7 @@
 title: Room Square Generator
 author: Matthew Henderson
 categories:
-  - projects
+  - combinatorics
 date: "2021-03-06"
 slug: room-square-generator
 tags:
@@ -47,19 +47,18 @@ A Java CLI for generating Room squares, based on
 the hill-climbing algorithm of
 Dinitz and Stinson (1987)
 
-  - [source](https://github.com/MHenderson/room-square-generator) - on Github
+-   [source](https://github.com/MHenderson/room-square-generator) - on Github
 
 Run the CLI below (press green button to start):
 
 <iframe height="400px" width="100%" src="https://repl.it/@MHenderson1/room-square-generator?lite=true&amp;outputonly=1" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals">
-
 </iframe>
 
 # References
 
-<div id="refs" class="references">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-dinitzHillClimbingAlgorithmConstruction1987">
+<div id="ref-dinitzHillClimbingAlgorithmConstruction1987" class="csl-entry">
 
 Dinitz, J. H., and D. R. Stinson. 1987. “A Hill-Climbing Algorithm for the Construction of One-Factorizations and Room Squares.” *SIAM Journal on Algebraic Discrete Methods* 8 (3): 430–38. <https://doi.org/10.1137/0608035>.
 

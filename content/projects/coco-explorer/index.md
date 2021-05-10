@@ -1,12 +1,11 @@
 ---
 author: Matthew Henderson
 categories:
-  - projects
+  - corpus-linguistics
 date: "2021-03-04"
 slug: coco-explorer
 tags:
   - shiny
-  - corpus-linguistics
 title: Corpus Co-occurrence Explorer
 ---
 

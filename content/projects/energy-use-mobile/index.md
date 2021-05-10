@@ -1,7 +1,7 @@
 ---
 author: Matthew Henderson
 categories:
-  - projects
+  - data-science
 date: "2021-03-04"
 slug: energy-use-mobile
 tags:

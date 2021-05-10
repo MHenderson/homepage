@@ -2,11 +2,10 @@
 title: (WIP) rminion
 author: Matthew Henderson
 categories:
-  - projects
+  - constraints
 date: "2021-03-08"
 slug: rminion
 tags:
-  - constraint-satisfaction
   - r-packages
   - r
 draft: true

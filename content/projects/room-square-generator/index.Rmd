@@ -2,7 +2,7 @@
 title: Room Square Generator
 author: Matthew Henderson
 categories:
-  - projects
+  - combinatorics
 date: "2021-03-06"
 slug: room-square-generator
 tags:

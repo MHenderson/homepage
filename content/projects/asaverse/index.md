@@ -2,7 +2,7 @@
 title: (WIP) Asaverse
 author: Matthew Henderson
 categories:
-  - projects
+  - data-science
 date: "2021-03-10"
 slug: asaverse
 tags:

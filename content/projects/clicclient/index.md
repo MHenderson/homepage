@@ -2,13 +2,12 @@
 title: clicclient
 author: Matthew Henderson
 categories:
-  - projects
+  - corpus-linguistics
 date: "2021-03-11"
 slug: clicclient
 tags:
   - clic
   - r-packages
-  - corpus-linguistics
 ---
 
 Call the CLiC API from R.

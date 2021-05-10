@@ -2,11 +2,10 @@
 title: funcgeo
 author: Matthew Henderson
 categories:
-  - projects
+  - generative-art
 date: "2021-03-08"
 slug: funcgeo
 tags:
-  - generative-art
   - r-packages
   - r
 ---
