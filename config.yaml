@@ -23,9 +23,13 @@ menu:
       url: "projects/"
       weight: 2
       pre: <i class='fa fa-folder'></i>
+    - name: Categories
+      url: "categories/"
+      weight: 4
+      pre: <i class='fa fa-sitemap'></i>
     - name: Tags
       url: "tags/"
-      weight: 3
+      weight: 5
       pre: <i class='fa fa-tags'></i>
     - name: Subscribe
       url: "index.xml"
