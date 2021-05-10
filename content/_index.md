@@ -7,18 +7,36 @@ title: Home
 
 <div id="contact">
 <h1>Dr. Matthew Henderson</h1>
+<span>
 <a href="mailto:matthew.james.henderson@gmail.com">
 <i class="fa fa-envelope" role="presentation" aria-label="envelope icon"></i>
 
 </a>
+</span>
+<span>
 <a href="https://www.linkedin.com/in/matthew-henderson-2a5b26193">
 <i class="fab fa-linkedin" role="presentation" aria-label="linkedin icon"></i>
 
 </a>
+</span>
+<span>
 <a href="https://github.com/MHenderson">
 <i class="fab fa-github" role="presentation" aria-label="github icon"></i>
 
 </a>
+</span>
+<span>
+<a href="https://gitlab.com/MHenderson1">
+<i class="fab fa-gitlab" role="presentation" aria-label="gitlab icon"></i>
+
+</a>
+</span>
+<span>
+<a href="https://bitbucket.com/matthew">
+<i class="fab fa-bitbucket" role="presentation" aria-label="bitbucket icon"></i>
+
+</a>
+</span>
 </div>
 <div class="row">
 <div id="latest-posts" class="column">

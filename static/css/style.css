@@ -34,12 +34,12 @@ a:visited {
 
 .fa {
   color: var(--blue);
-  font-size: 36px;
+  font-size: 30px;
 }
 
 .fab {
   color: var(--blue);
-  font-size: 36px;
+  font-size: 30px;
 }
 
 #contact {
@@ -48,6 +48,9 @@ a:visited {
   border-radius: 10px;
   line-height: 2em;
   text-align: right;
+}
+#contact span {
+  padding: 5px;
 }
 #contact a {
   text-decoration: none;

@@ -10,20 +10,40 @@ library(shiny)
 div(
   id = "contact",
   h1("Dr. Matthew Henderson"),
-  a(
-    icon("envelope"),
-    "",
-    href = "mailto:matthew.james.henderson@gmail.com"
+  span(
+    a(
+      icon("envelope"),
+      "",
+      href = "mailto:matthew.james.henderson@gmail.com"
+    )
   ),
-  a(
-    icon("linkedin"),
-    "",
-    href = "https://www.linkedin.com/in/matthew-henderson-2a5b26193"
+  span(
+    a(
+      icon("linkedin"),
+      "",
+      href = "https://www.linkedin.com/in/matthew-henderson-2a5b26193"
+    )
   ),
-  a(
-    icon("github"),
-    "",
-    href = "https://github.com/MHenderson"
+  span(
+    a(
+      icon("github"),
+      "",
+      href = "https://github.com/MHenderson"
+    )
+  ),
+  span(
+    a(
+      icon("gitlab"),
+      "",
+      href = "https://gitlab.com/MHenderson1"
+    )
+  ),
+  span(
+    a(
+      icon("bitbucket"),
+      "",
+      href = "https://bitbucket.com/matthew"
+    )
   )
 )
 ```
