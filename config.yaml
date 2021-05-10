@@ -15,10 +15,14 @@ menu:
       url: ""
       weight: 1
       pre: <i class='fa fa-home'></i>
-    - name: Categories
-      url: "categories/"
+    - name: Posts
+      url: "post/"
       weight: 2
       pre: <i class='fa fa-list'></i>
+    - name: Projects
+      url: "projects/"
+      weight: 2
+      pre: <i class='fa fa-folder'></i>
     - name: Tags
       url: "tags/"
       weight: 3
@@ -29,7 +33,7 @@ menu:
 
 params:
   description: "My personal website."
-  footer: "&copy; [Matthew Henderson]() 2021 | [Github](https://github.com/MHenderson) | [Twitter](https://twitter.com/masatthew)"
+  footer: "&copy; [Matthew Henderson]() 2021"
   twitterAuthor: "@masatthew"
   twitterSite: "https:://mjh.netlify.app"
 
