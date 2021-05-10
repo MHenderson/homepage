@@ -4,12 +4,11 @@ author: Matthew Henderson
 date: '2020-07-18'
 slug: minionator
 categories:
-  - posts
+  - constraints
 tags:
   - r-packages
   - r
   - minion-r
-  - constraint-programming
 draft: yes
 ---
 
@@ -95,40 +94,45 @@ finds a solution.
 
 
 ```r
-system2("/home/matthew/workspace/minion", args = "/home/matthew/workspace/ls.minion", stdout = TRUE)
+minion <- "/opt/minion-1.8/bin/minion"
+
+problem_file <- tempfile()
+download.file("https://raw.githubusercontent.com/MHenderson/ls-minion/master/3x3_ls.minion", problem_file)
+
+system2(minion, args = problem_file, stdout = TRUE)
 ```
 
 ```
-##  [1] "# Minion Version 1.8"                                                             
-##  [2] "# HG version: 0"                                                                  
-##  [3] "# HG last changed date: unknown"                                                  
-##  [4] "#  Run at: UTC Wed Mar 24 18:12:43 2021"                                          
-##  [5] ""                                                                                 
-##  [6] "#    http://minion.sourceforge.net"                                               
-##  [7] "# If you have problems with Minion or find any bugs, please tell us!"             
-##  [8] "# Mailing list at: https://mailman.cs.st-andrews.ac.uk/mailman/listinfo/mug"      
-##  [9] "# Input filename: /home/matthew/workspace/ls.minion"                              
-## [10] "# Command line: /home/matthew/workspace/minion /home/matthew/workspace/ls.minion "
-## [11] "Parsing Time: 0.000000"                                                           
-## [12] "Setup Time: 0.000000"                                                             
-## [13] "First Node Time: 0.000000"                                                        
-## [14] "Initial Propagate: 0.000000"                                                      
-## [15] "First node time: 0.000000"                                                        
-## [16] "Sol: 0 1 2 "                                                                      
-## [17] "Sol: 1 2 0 "                                                                      
-## [18] "Sol: 2 0 1 "                                                                      
-## [19] ""                                                                                 
-## [20] "Solution Number: 1"                                                               
-## [21] "Time:0.000000"                                                                    
-## [22] "Nodes: 4"                                                                         
-## [23] ""                                                                                 
-## [24] "Solve Time: 0.060000"                                                             
-## [25] "Total Time: 0.060000"                                                             
-## [26] "Total System Time: 0.008000"                                                      
-## [27] "Total Wall Time: 0.079240"                                                        
-## [28] "Maximum RSS (kB): 5744"                                                           
-## [29] "Total Nodes: 4"                                                                   
-## [30] "Problem solvable?: yes"                                                           
+##  [1] "# Minion Version 1.8"                                                       
+##  [2] "# HG version: 0"                                                            
+##  [3] "# HG last changed date: unknown"                                            
+##  [4] "#  Run at: UTC Mon May 10 13:19:10 2021"                                    
+##  [5] ""                                                                           
+##  [6] "#    http://minion.sourceforge.net"                                         
+##  [7] "# If you have problems with Minion or find any bugs, please tell us!"       
+##  [8] "# Mailing list at: https://mailman.cs.st-andrews.ac.uk/mailman/listinfo/mug"
+##  [9] "# Input filename: /tmp/RtmpsvLycc/file1cf25d4933e"                          
+## [10] "# Command line: /opt/minion-1.8/bin/minion /tmp/RtmpsvLycc/file1cf25d4933e "
+## [11] "Parsing Time: 0.000000"                                                     
+## [12] "Setup Time: 0.000000"                                                       
+## [13] "First Node Time: 0.000000"                                                  
+## [14] "Initial Propagate: 0.000000"                                                
+## [15] "First node time: 0.000000"                                                  
+## [16] "Sol: 0 1 2 "                                                                
+## [17] "Sol: 1 2 0 "                                                                
+## [18] "Sol: 2 0 1 "                                                                
+## [19] ""                                                                           
+## [20] "Solution Number: 1"                                                         
+## [21] "Time:0.000000"                                                              
+## [22] "Nodes: 4"                                                                   
+## [23] ""                                                                           
+## [24] "Solve Time: 0.076000"                                                       
+## [25] "Total Time: 0.076000"                                                       
+## [26] "Total System Time: 0.000000"                                                
+## [27] "Total Wall Time: 0.078546"                                                  
+## [28] "Maximum RSS (kB): 7852"                                                     
+## [29] "Total Nodes: 4"                                                             
+## [30] "Problem solvable?: yes"                                                     
 ## [31] "Solutions Found: 1"
 ```
 
@@ -142,32 +146,32 @@ It can also be used to enumerate (or even explicitly construct) all latin square
 
 
 ```r
-system2("/home/matthew/workspace/minion", args = "-findallsols -noprintsols /home/matthew/workspace/ls.minion", stdout = TRUE)
+system2(minion, args = paste("-findallsols -noprintsols", problem_file), stdout = TRUE)
 ```
 
 ```
-##  [1] "# Minion Version 1.8"                                                                                       
-##  [2] "# HG version: 0"                                                                                            
-##  [3] "# HG last changed date: unknown"                                                                            
-##  [4] "#  Run at: UTC Wed Mar 24 18:12:43 2021"                                                                    
-##  [5] ""                                                                                                           
-##  [6] "#    http://minion.sourceforge.net"                                                                         
-##  [7] "# If you have problems with Minion or find any bugs, please tell us!"                                       
-##  [8] "# Mailing list at: https://mailman.cs.st-andrews.ac.uk/mailman/listinfo/mug"                                
-##  [9] "# Input filename: /home/matthew/workspace/ls.minion"                                                        
-## [10] "# Command line: /home/matthew/workspace/minion -findallsols -noprintsols /home/matthew/workspace/ls.minion "
-## [11] "Parsing Time: 0.000000"                                                                                     
-## [12] "Setup Time: 0.000000"                                                                                       
-## [13] "First Node Time: 0.000000"                                                                                  
-## [14] "Initial Propagate: 0.000000"                                                                                
-## [15] "First node time: 0.000000"                                                                                  
-## [16] "Solve Time: 0.000000"                                                                                       
-## [17] "Total Time: 0.000000"                                                                                       
-## [18] "Total System Time: 0.000000"                                                                                
-## [19] "Total Wall Time: 0.000453"                                                                                  
-## [20] "Maximum RSS (kB): 1016"                                                                                     
-## [21] "Total Nodes: 23"                                                                                            
-## [22] "Problem solvable?: yes"                                                                                     
+##  [1] "# Minion Version 1.8"                                                                                 
+##  [2] "# HG version: 0"                                                                                      
+##  [3] "# HG last changed date: unknown"                                                                      
+##  [4] "#  Run at: UTC Mon May 10 13:19:11 2021"                                                              
+##  [5] ""                                                                                                     
+##  [6] "#    http://minion.sourceforge.net"                                                                   
+##  [7] "# If you have problems with Minion or find any bugs, please tell us!"                                 
+##  [8] "# Mailing list at: https://mailman.cs.st-andrews.ac.uk/mailman/listinfo/mug"                          
+##  [9] "# Input filename: /tmp/RtmpsvLycc/file1cf25d4933e"                                                    
+## [10] "# Command line: /opt/minion-1.8/bin/minion -findallsols -noprintsols /tmp/RtmpsvLycc/file1cf25d4933e "
+## [11] "Parsing Time: 0.000000"                                                                               
+## [12] "Setup Time: 0.000000"                                                                                 
+## [13] "First Node Time: 0.000000"                                                                            
+## [14] "Initial Propagate: 0.000000"                                                                          
+## [15] "First node time: 0.000000"                                                                            
+## [16] "Solve Time: 0.000000"                                                                                 
+## [17] "Total Time: 0.000000"                                                                                 
+## [18] "Total System Time: 0.000000"                                                                          
+## [19] "Total Wall Time: 0.000521"                                                                            
+## [20] "Maximum RSS (kB): 2448"                                                                               
+## [21] "Total Nodes: 23"                                                                                      
+## [22] "Problem solvable?: yes"                                                                               
 ## [23] "Solutions Found: 12"
 ```
 
