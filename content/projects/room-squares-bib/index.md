@@ -11,4 +11,5 @@ tags:
 
 A bibliography of Room squares.
 
--   [source](https://github.com/MHenderson/room-squares-bib) - on Github
+- [pdf](https://github.com/MHenderson/room-squares-bib/blob/master/room-squares.pdf)
+- [source](https://github.com/MHenderson/room-squares-bib) - on Github
