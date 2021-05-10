@@ -28,4 +28,63 @@ div(
 )
 ```
 
-# Latest posts
+```{r, echo=FALSE}
+posts_col <- div(
+  h1("Posts"),
+  id = "latest-posts",
+  class = "column",
+  tags$ul(
+    tags$li(
+      "2021/05/04",
+      a(
+        "Tidy Tuesday: Water Sources",
+        href = "/post/2021/05/04/water-sources/"
+      )
+    ),
+    tags$li(
+      "2018/01/16",
+      a(
+        "Functional Geometry in R",
+        href = "/post/2018/01/16/functional-geometry-in-r/"
+      )
+    ),
+    tags$li(
+      a(
+        "more ...",
+        href = "/post"
+      )
+    )
+  )
+)
+```
+
+```{r, echo=FALSE}
+projects_col <- div(
+  h1("Projects"),
+  id = "highlighted-projects",
+  class = "column",
+  tags$ul(
+    tags$li(
+      a(
+        "Energy Use",
+        href = "projects/energy-use/"
+      )
+    ),
+    tags$li(
+      a(
+        "more ...",
+        href = "/projects"
+      )
+    )
+  )
+)
+```
+
+```{r, echo=FALSE}
+div(
+  class = "row",
+  posts_col,
+  projects_col
+)
+```
+

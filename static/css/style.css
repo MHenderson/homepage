@@ -5,6 +5,18 @@ body {
   line-height: 1.5em;
 }
 
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .fa {
   color: blue;
   font-size: 36px;
