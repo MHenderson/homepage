@@ -4,7 +4,7 @@ author: Matthew Henderson
 date: '2021-03-23'
 slug: un-votes
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 draft: yes

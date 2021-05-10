@@ -4,7 +4,7 @@ author: Matthew Henderson
 slug: handwriting-to-text
 date: '2020-05-03'
 categories:
-  - posts
+  - ml
 tags:
   - ocr
 draft: yes

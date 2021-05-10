@@ -5,7 +5,7 @@ description: "tt_load(2020, week = 6)"
 date: '2020-02-04'
 slug: nfl-attendance
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 editor_options: 

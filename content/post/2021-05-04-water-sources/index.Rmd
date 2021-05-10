@@ -4,7 +4,7 @@ author: Matthew Henderson
 date: '2021-05-04'
 slug: water-sources
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 draft: no

@@ -5,7 +5,7 @@ author: Matthew Henderson
 date: '2019-12-16'
 slug: adoptable-dogs
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 editor_options: 

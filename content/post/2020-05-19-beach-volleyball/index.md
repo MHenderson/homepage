@@ -4,7 +4,7 @@ author: Matthew Henderson
 date: '2020-05-19'
 slug: beach-volleyball
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 draft: yes

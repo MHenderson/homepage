@@ -5,7 +5,7 @@ author: Matthew Henderson
 date: '2019-11-26'
 slug: student-loan-debt
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 draft: TRUE

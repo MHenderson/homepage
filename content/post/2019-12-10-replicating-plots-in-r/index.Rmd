@@ -5,7 +5,7 @@ author: Matthew Henderson
 date: '2019-12-10'
 slug: replicating-plots-in-r
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 editor_options: 

@@ -4,9 +4,8 @@ author: Matthew Henderson
 date: '2018-01-04'
 slug: markovifyr
 categories:
-  - posts
-tags:
   - nlp
+tags:
   - r
 draft: TRUE
 ---

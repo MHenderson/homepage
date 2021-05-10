@@ -4,7 +4,7 @@ author: Matthew Henderson
 date: '2020-05-12'
 slug: volcano-eruptions
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 draft: yes

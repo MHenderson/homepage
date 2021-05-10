@@ -4,11 +4,10 @@ author: Matthew Henderson
 date: '2018-01-16'
 slug: functional-geometry-in-r
 categories:
-  - posts
-tags:
   - generative-art
+tags:
   - r
-  - r-package
+  - r-packages
 bibliography: [funcgeo.bib]
 ---
 
@@ -25,11 +24,8 @@ Henderson (1982).
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/squarelimit-1.png" alt="Square Limit" width="480" />
-
 <p class="caption">
-
 Figure 1: Square Limit
-
 </p>
 
 </div>
@@ -107,11 +103,8 @@ plot(fish_p)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/p-1.png" alt="Fish P" width="192" />
-
 <p class="caption">
-
 Figure 2: Fish P
-
 </p>
 
 </div>
@@ -123,11 +116,8 @@ plot(fish_q)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/q-1.png" alt="Fish Q" width="192" />
-
 <p class="caption">
-
 Figure 3: Fish Q
-
 </p>
 
 </div>
@@ -158,11 +148,8 @@ plot(t)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/t-1.png" alt="t" width="288" />
-
 <p class="caption">
-
 Figure 4: t
-
 </p>
 
 </div>
@@ -183,11 +170,8 @@ plot(u)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/u-1.png" alt="u" width="288" />
-
 <p class="caption">
-
 Figure 5: u
-
 </p>
 
 </div>
@@ -212,11 +196,8 @@ plot(side1)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/side1-1.png" alt="Side 1" width="288" />
-
 <p class="caption">
-
 Figure 6: Side 1
-
 </p>
 
 </div>
@@ -235,11 +216,8 @@ plot(side2)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/side2-1.png" alt="Side 2" width="288" />
-
 <p class="caption">
-
 Figure 7: Side 2
-
 </p>
 
 </div>
@@ -273,11 +251,8 @@ plot(corner1)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/corner1-1.png" alt="Corner 1" width="288" />
-
 <p class="caption">
-
 Figure 8: Corner 1
-
 </p>
 
 </div>
@@ -297,11 +272,8 @@ plot(corner2)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/corner2-1.png" alt="Corner 2" width="288" />
-
 <p class="caption">
-
 Figure 9: Corner 2
-
 </p>
 
 </div>
@@ -333,11 +305,8 @@ plot(corner)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/corner-1.png" alt="Corner" width="288" />
-
 <p class="caption">
-
 Figure 10: Corner
-
 </p>
 
 </div>
@@ -357,26 +326,23 @@ plot(squarelimit)
 <div class="figure">
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/squarelimit2-1.png" alt="Square Limit" width="480" />
-
 <p class="caption">
-
 Figure 11: Square Limit
-
 </p>
 
 </div>
 
 # References
 
-<div id="refs" class="references">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-Henderson:1982:FG">
+<div id="ref-Henderson:1982:FG" class="csl-entry">
 
-Henderson, Peter. 1982. “Functional Geometry.” In *Proceedings of the 1982 Acm Symposium on Lisp and Functional Programming*, 179–87. LFP ’82. New York, NY, USA: ACM. <https://doi.org/10.1145/800068.802148>.
+Henderson, Peter. 1982. “Functional Geometry.” In *Proceedings of the 1982 ACM Symposium on LISP and Functional Programming*, 179–87. LFP ’82. New York, NY, USA: ACM. <https://doi.org/10.1145/800068.802148>.
 
 </div>
 
-<div id="ref-Henderson:2002:FG">
+<div id="ref-Henderson:2002:FG" class="csl-entry">
 
 ———. 2002. “Functional Geometry.” *Higher-Order and Symbolic Computation* 15 (4): 349–65. <https://doi.org/10.1023/A:1022986521797>.
 

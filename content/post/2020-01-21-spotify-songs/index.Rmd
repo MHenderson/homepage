@@ -5,7 +5,7 @@ author: Matthew Henderson
 date: '2020-01-21'
 slug: spotify-songs
 categories:
-  - posts
+  - dataviz
 tags:
   - tidy-tuesday
 editor_options: 
