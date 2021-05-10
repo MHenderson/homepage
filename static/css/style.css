@@ -1,3 +1,10 @@
+:root {
+  --blue: #4056A1;
+  --white: #ffffff;
+  --bground: #EFE2BA;
+  --red: #F13C20;
+}
+
 body {
   max-width: 800px;
   margin: auto;
@@ -10,6 +17,14 @@ body {
   width: 50%;
 }
 
+a:link {
+  color: var(--red);
+}
+
+a:visited {
+  color: var(--red);
+}
+
 /* Clear floats after the columns */
 .row:after {
   content: "";
@@ -18,17 +33,17 @@ body {
 }
 
 .fa {
-  color: blue;
+  color: var(--blue);
   font-size: 36px;
 }
 
 .fab {
-  color: blue;
+  color: var(--blue);
   font-size: 36px;
 }
 
 #contact {
-  background: #d9dee0;
+  background: var(--bground);
   padding: 15px;
   border-radius: 10px;
   line-height: 2em;
@@ -49,7 +64,7 @@ body {
 }
 .article-meta {
   text-decoration: none;
-  background: #e8edef;
+  background: var(--bground);
   padding: 20px;
   border-radius: 10px;
 }
