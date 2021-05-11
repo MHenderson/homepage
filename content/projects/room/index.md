@@ -2,7 +2,7 @@
 title: Room Squares
 author: Matthew Henderson
 date: "2021-05-10"
-slug: room-squares
+slug: room
 categories:
   - combinatorics
 tags:
