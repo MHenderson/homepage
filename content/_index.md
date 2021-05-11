@@ -56,10 +56,13 @@ title: Home
 </ul>
 </div>
 <div id="highlighted-projects" class="column">
-<h1>Projects</h1>
+<h1>Research</h1>
 <ul>
 <li>
-<a href="projects/energy-use/">Energy Use</a>
+<a href="/topics/room-squares">Room Squares</a>
+</li>
+<li>
+<a href="/topics/energy-use">Energy Use</a>
 </li>
 <li>
 <a href="/projects">more ...</a>

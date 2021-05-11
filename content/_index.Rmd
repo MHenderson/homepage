@@ -80,14 +80,20 @@ posts_col <- div(
 
 ```{r, echo=FALSE}
 projects_col <- div(
-  h1("Projects"),
+  h1("Research"),
   id = "highlighted-projects",
   class = "column",
   tags$ul(
     tags$li(
       a(
+        "Room Squares",
+        href = "/topics/room-squares"
+      )
+    ),
+    tags$li(
+      a(
         "Energy Use",
-        href = "projects/energy-use/"
+        href = "/topics/energy-use"
       )
     ),
     tags$li(
