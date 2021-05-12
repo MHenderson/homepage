@@ -5,6 +5,8 @@ date: "2021-05-11"
 slug: room-squares
 categories:
   - combinatorics
+tags:
+  - room-squares
 ---
 
 A **Room square**
@@ -19,10 +21,15 @@ different symbols in such a way that:
 ![seven by seven room square coloured by min value](https://raw.githubusercontent.com/MHenderson/tidy-room-squares/master/min.png)
 ![seven by seven room square coloured by max value](https://raw.githubusercontent.com/MHenderson/tidy-room-squares/master/max.png)
 
-(Both of these images are of the same Room square.
+Both of these images are of the same Room square.
 The one on the left is coloured by the minimum
 value in each filled cell. The one on the right
-is coloured according to the maximum value.)
+is coloured according to the maximum value.
+
+The code to generate these images
+can be found in the
+[tidy-room-squares](/projects/tidy-room-squares)
+project.
 
 I'm writing a
 [monograph](/projects/room)
@@ -41,8 +48,3 @@ Lately,
 I've been working
 on a
 [Java version](/projects/room-square-generator).
-
-The code to generate these images
-can be found in the
-[tidy-room-squares](/projects/tidy-room-squares)
-project
