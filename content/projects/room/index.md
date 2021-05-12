@@ -1,5 +1,5 @@
 ---
-title: Room Squares
+title: Room
 author: Matthew Henderson
 date: "2021-05-10"
 slug: room
