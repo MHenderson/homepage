@@ -5,8 +5,6 @@ date: "2021-05-11"
 slug: room-squares
 categories:
   - combinatorics
-tags:
-  - room-squares
 ---
 
 A **Room square**
@@ -43,3 +41,8 @@ Lately,
 I've been working
 on a
 [Java version](/projects/room-square-generator).
+
+The code to generate these images
+can be found in the
+[tidy-room-squares](/projects/tidy-room-squares)
+project
