@@ -18,27 +18,25 @@ different symbols in such a way that:
   2. Each symbol occurs exactly once in each row and column of the array
   3. Every unordered pair of symbols occurs in exactly one cell of the array.
 
-```{r, echo=FALSE}
-library(knitr)
-library(rvest)
+![seven by seven room square coloured by min value](https://raw.githubusercontent.com/MHenderson/tidy-room-squares/master/min.png)
+![seven by seven room square coloured by max value](https://raw.githubusercontent.com/MHenderson/tidy-room-squares/master/max.png)
 
-html <- read_html("https://en.wikipedia.org/wiki/Room_square")
-
-t <- html %>% 
-  html_node("table") %>% 
-  html_table()
-
-x <- knitr::kable(t, col.names = NULL, format = "html", caption = "A Room square of order 7.")
-gsub("<thead>.*</thead>", "", x)
-```
+(Both of these images are of the same Room square.
+The one on the left is coloured by the minimum
+value in each filled cell. The one on the right
+is coloured according to the maximum value.)
 
 I'm writing a
 [monograph](/projects/room)
 about Room squares.
 
-A long time ago
-I wrote some code in Visual Basic
-to generate Room squares
+I've also started working
+on an [annotated bibliography](/projects/room-squares-bib)
+about Room squares.
+
+A few years ago,
+I wrote some Visual Basic code
+for generating Room squares
 using Dinitz and Stinson's
 hill-climbing approach.
 Lately,
