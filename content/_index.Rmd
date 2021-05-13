@@ -55,6 +55,13 @@ posts_col <- div(
   class = "column",
   tags$ul(
     tags$li(
+      "2021/05/11",
+      a(
+        "Tidy Tuesday: Internet Access",
+        href = "/post/2021/05/11/internet-access/"
+      )
+    ),
+    tags$li(
       "2021/05/04",
       a(
         "Tidy Tuesday: Water Sources",
