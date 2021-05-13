@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Tidy Tuesday: Internet Access"
+title: "Tidy Tuesday: Internet Access"
 author: Matthew Henderson
 description: My Tidy Tuesday contribution for 2021, week 20.
 date: '2021-05-11'
@@ -8,7 +8,7 @@ categories:
   - dataviz
 tags:
   - tidy-tuesday
-draft: yes
+draft: no
 editor_options: 
   chunk_output_type: console
 ---
@@ -50,21 +50,67 @@ and
 by way of
 [The Verge](https://www.theverge.com/22418074/broadband-gap-america-map-county-microsoft-data).
 
-This was the first time
-I can remember using the
-[{tigris}](https://cran.r-project.org/web/packages/tigris/index.html),
-a package for downloading geographic data
-from the US census bureau.
-It makes
-plotting roads
-and county boundaries
+According to The Verge,
+the FCC data,
+which dates from
+the end of 2017,
+is
+
+> a notoriously inaccurate survey drawn from ISPs’
+> own descriptions of the areas they serve.
+
+Microsoft estimate
+connection speeds
+from throughput of
+software updates.
+
+> We know the size of the package sent to the computer,
+> and we know the total time of the download. We also
+> determine zip code level location data via reverse IP.
+> Therefore, we can count the number of devices that have
+> connected to the internet at broadband speed per each
+> zip code based on the FCC’s definition of broadband
+> that is 25mbps per download.
+
+Microsoft's data is from
+November 2019.
+
+I chose
+to compare these two
+different measures
+of connection speed
+at county level
+for one specific state,
+Kentucky.
+
+To plot county boundaries
+I used the
+[{tigris}](https://cran.r-project.org/web/packages/tigris/index.html)
+package,
+an R package
+for downloading geographic data
+from the
+United States Census Bureau.
+
+This was first time
+I can remember
+using {tigris}.
+It made plotting
+county boundaries
 a breeze.
 
+{tigris} can also
+be used to plot
+other data from the Census Bureau.
+I got a bit
+distracted plotting maps
+of Kentucky roads.
+
 For example,
-I can download all
-roads in Madison County, Kentucky,
-home of world famous Berea College,
-and plot them with {ggplot2} like so:
+to download all
+roads in Madison County
+and plot them with {ggplot2}
+you can do the following:
 
 ```{r madison_ky_roads_plot, message=FALSE, hugoopts=list(alt="A plot of roads in Madison County, Kentucky.", caption="Roads of Madison County, Ky.", width=600)}
 library(ggplot2)
@@ -78,49 +124,47 @@ madison_ky_roads %>%
   theme_void()
 ```
 
-My final plot
-is a comparison between
-two different ways
-of measuring internet access
-in Kentucky.
-
-In the plot below there
+In the final plot below there
 are two maps of the
 counties of Kentucky.
 
-In the top map
+In the top map,
 colours correspond
-to figures from the FCC
-that claim to report
-percentage of residents
+to the proportion of residents
 in a county that have
-access to broadband internet.
-This data comes from
-the end of 2017.
+access to broadband internet,
+according to the FCC.
 
-The bottom map
-is coloured using
-Microsoft's data.
+The colouring in the
+bottom map
+represents estimates
+of the same proportion,
+according to Microsoft.
 
 The two plots
-differ quite substantially.
-The proportion of residents
-with access to broadband internet,
-according to the first plot
-appears to be high all across
-the state.
-The second plot
-seems to suggest that the
-actual proportion of people
-in counties using the internet
-at broadband speed is much
-lower,
+differ substantially.
+
+According to the first plot,
+the proportion of residents
+having access to broadband internet
+appears to be high
+in most counties.
+
+However,
+the second plot
+suggests that the
+actual proportion
+of people in counties
+using the internet
+at broadband speed
+is much lower,
 except perhaps in the vicinity
-of cities like Lexington,
+of cities like
+Lexington,
 Louisville,
 Bowling Green
 and Cincinnati.
 
 Source code: https://github.com/MHenderson/internet-access
 
-![](https://raw.githubusercontent.com/MHenderson/internet-access/master/internet-access.png)
+![A plot comparing different ways of measuring internet access for people living in Kentucky](https://raw.githubusercontent.com/MHenderson/internet-access/master/internet-access.png)
