@@ -1,8 +1,9 @@
 :root {
-  --blue: #4056A1;
+  --icons: #205493;
   --white: #ffffff;
-  --bground: #EFE2BA;
-  --red: #F13C20;
+  --bground: #ffffff;
+  --red: #cd2026;
+  --text: #212121
 }
 
 body {
@@ -10,6 +11,7 @@ body {
   margin: auto;
   padding: 1em;
   line-height: 1.5em;
+  color: var(--text);
 }
 
 .column {
@@ -33,13 +35,21 @@ a:visited {
 }
 
 .fa {
-  color: var(--blue);
+  color: var(--icons);
   font-size: 30px;
 }
 
 .fab {
-  color: var(--blue);
+  color: var(--icons);
   font-size: 30px;
+}
+
+.fa:hover {
+  color: var(--red);
+}
+
+.fab:hover {
+  color: var(--red);
 }
 
 #contact {
