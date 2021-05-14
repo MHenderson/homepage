@@ -1,5 +1,5 @@
 ---
-title: (WIP) rminion
+title: rminion
 author: Matthew Henderson
 categories:
   - constraints
@@ -8,11 +8,11 @@ slug: rminion
 tags:
   - r-packages
   - r
-draft: true
 ---
 
 An R package for calling Minion.
 
-Part of the [minion-r](https://github.com/minion-r) project.
+Part of the [minion-r](/topics/minion-r) project.
 
-* [source](https://github.com/minion-r/rminion) - on Github
+* [source](https://github.com/minion-r/rminion)
+* [documentation](https://minion-r.github.io/rminion/)
