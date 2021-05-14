@@ -45,3 +45,12 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+  highlight:
+    codeFences: true
+    hl_Lines: ""
+    lineNoStart: 1
+    lineNos: true
+    lineNumbersInTable: true
+    noClasses: true
+    style: "colorful"
+    tabWidth: 4
