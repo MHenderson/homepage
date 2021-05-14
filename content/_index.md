@@ -56,9 +56,6 @@ title: Home
 2018/01/16
 <a href="/post/2018/01/16/functional-geometry-in-r/">Functional Geometry in R</a>
 </li>
-<li>
-<a href="/post">more ...</a>
-</li>
 </ul>
 </div>
 <div id="highlighted-projects" class="column">
@@ -69,9 +66,6 @@ title: Home
 </li>
 <li>
 <a href="/topics/energy-use">Energy Use</a>
-</li>
-<li>
-<a href="/projects">more ...</a>
 </li>
 </ul>
 </div>

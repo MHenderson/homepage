@@ -76,12 +76,6 @@ posts_col <- div(
         "Functional Geometry in R",
         href = "/post/2018/01/16/functional-geometry-in-r/"
       )
-    ),
-    tags$li(
-      a(
-        "more ...",
-        href = "/post"
-      )
     )
   )
 )
@@ -103,12 +97,6 @@ projects_col <- div(
       a(
         "Energy Use",
         href = "/topics/energy-use"
-      )
-    ),
-    tags$li(
-      a(
-        "more ...",
-        href = "/projects"
       )
     )
   )
