@@ -52,5 +52,5 @@ markup:
     lineNos: true
     lineNumbersInTable: true
     noClasses: true
-    style: "colorful"
+    style: "dracula"
     tabWidth: 4
