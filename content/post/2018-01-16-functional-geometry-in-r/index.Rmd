@@ -80,7 +80,6 @@ use `install_gitlab` from
 the **remotes** package.
 
 ```{r, eval = FALSE}
-#install.packages("remotes")
 remotes::install_gitlab("MHenderson1/funcgeo")
 ```
 

@@ -53,7 +53,6 @@ use `install_gitlab` from
 the **remotes** package.
 
 ``` r
-#install.packages("remotes")
 remotes::install_gitlab("MHenderson1/funcgeo")
 ```
 
