@@ -84,95 +84,76 @@ This is just
 one way of defining
 a latin square.
 
-## Using Minion to find solutions
+## Solving with {rminion}
 
-If the file `ls.minion` contains
-this text
-then calling minion
-with `ls.minion` as the only argument
-finds a solution.
+
+
+A file containing the above
+Minion-format constraint problem
+can be downloaded from the
+[ls-minion]()
+repository.
 
 
 ```r
-minion <- "/opt/minion-1.8/bin/minion"
-
 problem_file <- tempfile()
-download.file("https://raw.githubusercontent.com/MHenderson/ls-minion/master/3x3_ls.minion", problem_file)
 
-system2(minion, args = problem_file, stdout = TRUE)
+ls_url <- "https://raw.githubusercontent.com/MHenderson/ls-minion/master/3x3_ls.minion"
+
+download.file(ls_url, problem_file)
 ```
 
-```
-##  [1] "# Minion Version 1.8"                                                       
-##  [2] "# HG version: 0"                                                            
-##  [3] "# HG last changed date: unknown"                                            
-##  [4] "#  Run at: UTC Mon May 10 13:19:10 2021"                                    
-##  [5] ""                                                                           
-##  [6] "#    http://minion.sourceforge.net"                                         
-##  [7] "# If you have problems with Minion or find any bugs, please tell us!"       
-##  [8] "# Mailing list at: https://mailman.cs.st-andrews.ac.uk/mailman/listinfo/mug"
-##  [9] "# Input filename: /tmp/RtmpsvLycc/file1cf25d4933e"                          
-## [10] "# Command line: /opt/minion-1.8/bin/minion /tmp/RtmpsvLycc/file1cf25d4933e "
-## [11] "Parsing Time: 0.000000"                                                     
-## [12] "Setup Time: 0.000000"                                                       
-## [13] "First Node Time: 0.000000"                                                  
-## [14] "Initial Propagate: 0.000000"                                                
-## [15] "First node time: 0.000000"                                                  
-## [16] "Sol: 0 1 2 "                                                                
-## [17] "Sol: 1 2 0 "                                                                
-## [18] "Sol: 2 0 1 "                                                                
-## [19] ""                                                                           
-## [20] "Solution Number: 1"                                                         
-## [21] "Time:0.000000"                                                              
-## [22] "Nodes: 4"                                                                   
-## [23] ""                                                                           
-## [24] "Solve Time: 0.076000"                                                       
-## [25] "Total Time: 0.076000"                                                       
-## [26] "Total System Time: 0.000000"                                                
-## [27] "Total Wall Time: 0.078546"                                                  
-## [28] "Maximum RSS (kB): 7852"                                                     
-## [29] "Total Nodes: 4"                                                             
-## [30] "Problem solvable?: yes"                                                     
-## [31] "Solutions Found: 1"
-```
-
-The solution is given
-by lines 16 - 18 of the output
-and is,
-indeed,
-a latin square of order 3.
-
-It can also be used to enumerate (or even explicitly construct) all latin squares of order 3.
+We can search for a solution
+by calling the
+`minion`
+function
+from the
+{rminion}
+package
+and passing the output
+directly to the
+`first_solution`
+function from the
+{mopr}
+package.
 
 
 ```r
-system2(minion, args = paste("-findallsols -noprintsols", problem_file), stdout = TRUE)
+library(rminion)
+
+first_solution(minion(problem_file))
 ```
 
 ```
-##  [1] "# Minion Version 1.8"                                                                                 
-##  [2] "# HG version: 0"                                                                                      
-##  [3] "# HG last changed date: unknown"                                                                      
-##  [4] "#  Run at: UTC Mon May 10 13:19:11 2021"                                                              
-##  [5] ""                                                                                                     
-##  [6] "#    http://minion.sourceforge.net"                                                                   
-##  [7] "# If you have problems with Minion or find any bugs, please tell us!"                                 
-##  [8] "# Mailing list at: https://mailman.cs.st-andrews.ac.uk/mailman/listinfo/mug"                          
-##  [9] "# Input filename: /tmp/RtmpsvLycc/file1cf25d4933e"                                                    
-## [10] "# Command line: /opt/minion-1.8/bin/minion -findallsols -noprintsols /tmp/RtmpsvLycc/file1cf25d4933e "
-## [11] "Parsing Time: 0.000000"                                                                               
-## [12] "Setup Time: 0.000000"                                                                                 
-## [13] "First Node Time: 0.000000"                                                                            
-## [14] "Initial Propagate: 0.000000"                                                                          
-## [15] "First node time: 0.000000"                                                                            
-## [16] "Solve Time: 0.000000"                                                                                 
-## [17] "Total Time: 0.000000"                                                                                 
-## [18] "Total System Time: 0.000000"                                                                          
-## [19] "Total Wall Time: 0.000521"                                                                            
-## [20] "Maximum RSS (kB): 2448"                                                                               
-## [21] "Total Nodes: 23"                                                                                      
-## [22] "Problem solvable?: yes"                                                                               
-## [23] "Solutions Found: 12"
+## Running minion /tmp/RtmpsFsgHg/file258f799da964
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    0    1    2
+## [2,]    1    2    0
+## [3,]    2    0    1
+```
+
+The solution
+is,
+indeed,
+a latin square
+of order 3.
+
+{rminion} can also be used to enumerate (or even explicitly construct) all latin squares of order 3.
+
+
+```r
+solutions_found(minion(c("-findallsols", "-noprintsols", problem_file)))
+```
+
+```
+## Running minion -findallsols -noprintsols /tmp/RtmpsFsgHg/file258f799da964
+```
+
+```
+## [1] 12
 ```
 
 Indeed,
@@ -254,9 +235,9 @@ tribble(
 
 ```
 ## # A tibble: 1 x 2
-##   constraint variables       
-##   <chr>      <list>          
-## 1 alldiff    <tibble [3 × 6]>
+##   constraint variables           
+##   <chr>      <list>              
+## 1 alldiff    <tibble[,6] [3 × 6]>
 ```
 
 For the latin square example we need alldiff constraints on the rows and columns of the input matrix.
@@ -307,22 +288,4 @@ minion_output(L)
 
 So far there isn’t really much point to this. The Minionator list version of the input file is even longer than the Minion input file itself. So why use Minionator?
 
-Suppose now you want to find larger latin squares. If you create a Minion input file by hand then you will have to write a lot more code than the Minionator version. A better approach would be to write a function that generates the output. We can easily write functions to generate the row and column constraints from a parameter equal to the order of the latin square. We don’t even need Minionator to do this but if we are using Minionator then we would end up with something like this.
-
-Code for a parameterised version of the latin square generator.
-
-The benefits of using Minionator don’t stop at just allowing us to create large input files more easily. Perhaps the greatest benefit is that the use of data frames to represent the variables and constraints makes it easier to compose constraints and also to construct constraints over complex variable ranges.
-
-As an example, consider the problem of constructing a pair of mutually orthogonal latin squares of order n. If we are working directly with Minion input files then we would have a lot of cutting-and-pasting to do. With Minionator we can just create two discrete matrices and a function that given a matrix returns the latin constraints for that matrix. Now only the orthogonality question remains.
-
-Code for two latin squares using previously demonstrated latin constraints function.
-
-One approach is to use a constraint on vectors. We can insist that in our solution the pair (i,j) is different to the pair (k,l) whenever i<>j or k<>l. To reduce the number of constraints (not necessarily advantageous) we can also insist that i < k. Tools from the tidyverse make it easy to construct this set of indices. The purrr package then makes it easy to construct from a dataframe of these variables a new dataframe which represents the vector inequality constraint over every pair of pairs.
-
-Code for MOLS.
-
-Calling Minion with this input file we can easily find a pair of mutually orthogonal latin squares of order X. Or even enumerate MOLS of small order.
-
-Calling Minion via R to generate MOLS.
-
-We will look at some more examples now and hope to convince you that using Minionator makes life easier in certain cases. I think having your variables and constraints in data frames makes life a lot easier than if you try to write code to do the same thing with strings and loops etc … The main argument is that the tidyverse and related tools makes it easy to build up the data frame of variables and then to subset it in various complicated ways. Of course you could do it all in your own code working with the output strings directly, but you would probably have to rewrite a lot of code similar to what is already available in the tidyverse (or even just base R). A good example is cross_df.
+Suppose now you want to find larger latin squares. If you create a Minion input file by hand then you will have to write a lot more code than the Minionator version. A better approach would be to write a function that generates the output. We can easily write functions to generate the row and column constraints from a parameter equal to the order of the latin square.
