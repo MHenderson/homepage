@@ -1,13 +1,12 @@
 ---
+title: (WIP) Bookmark Viewer
 author: Matthew Henderson
-categories:
-  - data-science
 date: "2021-03-04"
 slug: bookmark-viewer
+categories:
+  - data-science
 tags:
   - shiny
-  - toys
-title: Bookmark Viewer
 draft: true
 ---
 
