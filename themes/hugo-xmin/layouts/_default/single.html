@@ -10,4 +10,20 @@
 {{ .Content }}
 </main>
 
+{{ if .Type | eq "post" }}
+<div class="appendix-bottom">
+  <h3 id="citation">Citation</h3>
+  <p>For attribution, please cite this work as</p>
+  <pre class="citation-appendix short">Henderson, Matthew ({{ .Params.date.Year }}, {{ .Params.date.Month }} {{  .Params.date.Day }}). {{ .Params.title }}. Retrieved from https://mjh.netlify.app/post/{{ .Params.date.Format "2006/01/02" }}/{{ .Params.slug }}</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation-appendix long">@misc{
+  henderson{{ .Params.date.Year }}{{ replace .Params.slug "-" "" }},
+  author = {{ .Params.author }},
+  title = {{ .Params.title }},
+  url = https://mjh.netlify.app/post/{{ .Params.date.Format "2006/01/02" }}/{{ .Params.slug }},
+  year = {{ .Params.date.Year }}
+}</pre>
+</div>
+{{ end }}
+
 {{ partial "footer.html" . }}
