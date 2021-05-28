@@ -1,4 +1,4 @@
-baseurl: "/"
+baseurl: "https://mjh.netlify.app/"
 languageCode: "en-us"
 title: "Dr. Matthew Henderson"
 theme: "hugo-xmin"
