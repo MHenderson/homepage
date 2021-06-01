@@ -3,7 +3,7 @@ title: "(WIP) Greedy Edge Colouring of Small Graphs"
 author: Matthew Henderson
 date: '2014-09-26'
 description: The efficacy of a greedy edge-colouring algorithm.
-slug: graph-software
+slug: greedy-small
 categories:
   - posts
 tags:
