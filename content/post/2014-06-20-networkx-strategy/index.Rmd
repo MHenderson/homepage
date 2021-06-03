@@ -205,23 +205,6 @@ for G in graphs:
         vcolour(G, nodes = orderings[ordering])
         colours_used[ordering] += ncolours(G)
         clear_colouring(G)
-
-from IPython.display import HTML
-
-s = """<table>
-        <tr><th>Ordering</th><th>Colours used</th></tr>
-        <tr><td>{0}</td><td>{1}</td></tr>
-        <tr><td>{2}</td><td>{3}</td></tr>
-        <tr><td>{4}</td><td>{5}</td></tr>
-        <tr><td>{6}</td><td>{7}</td></tr>
-       </table>"""
-
-output = s.format('in order', colours_used['inorder'],
-                  'random order', colours_used['random'],
-                  'descending degree order', colours_used['decdeg'],
-                  'ascending degree order', colours_used['incdeg'])
-
-HTML(output)
 ```
 
 | Ordering                | Colours used |
