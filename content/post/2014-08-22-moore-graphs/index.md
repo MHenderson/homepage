@@ -5,7 +5,7 @@ date: '2014-08-22'
 description: In which we search for Moore graphs on at most ten vertices.
 slug: small-moore-graphs
 categories:
-  - extremal-graphs
+  - graph-theory
 tags:
   - nauty
   - maxima

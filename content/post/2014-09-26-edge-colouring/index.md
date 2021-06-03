@@ -5,12 +5,12 @@ date: '2014-09-26'
 description: The efficacy of a greedy edge-colouring algorithm.
 slug: greedy-small
 categories:
-  - posts
+  - graph-theory
 tags:
+  - bash
   - edge-colouring
   - networkx
   - python
-  - graph-theory
   - matplotlib
 draft: TRUE
 references:

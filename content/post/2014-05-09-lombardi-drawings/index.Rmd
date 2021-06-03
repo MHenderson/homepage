@@ -5,11 +5,9 @@ date: '2014-05-09'
 description: Introducing the Lombardi Spirograph.
 slug: lombardi-drawings
 categories:
-  - posts
-tags:
-  - graph-theory
-  - python
   - graph-drawing
+tags:
+  - python
 draft: TRUE
 references:
 - id: duncanLombardiDrawingsGraphs2010

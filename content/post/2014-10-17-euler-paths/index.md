@@ -5,9 +5,8 @@ date: '2014-10-17'
 description: Euler paths in multigraphs based on Biggs, Lloyd and Wilson.
 slug: euler-paths
 categories:
-  - posts
-tags:
   - graph-theory
+tags:
   - maxima
 draft: TRUE
 references:
