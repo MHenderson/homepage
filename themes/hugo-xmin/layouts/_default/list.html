@@ -21,7 +21,7 @@
 
 {{if .IsHome }}
 <div id = "posts">
-  {{ range first 3 (where (where .Site.RegularPages "Type" "in" site.Params.mainSections) ".Params.featured" "=" true) }}
+  {{ range first 3 (where .Site.RegularPages ".Params.featured" "=" true) }}
   <div class = "list-item">
     <a href="{{ .Page.RelPermalink }}"><h2>{{ .Page.Title }}</h2></a>
     <p>{{ .Params.description }}</p>
