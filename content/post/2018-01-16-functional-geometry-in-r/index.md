@@ -11,7 +11,7 @@ tags:
   - r-packages
 bibliography: [funcgeo.bib]
 draft: no
-featured: yes
+featured: true
 ---
 
 This post introduces
