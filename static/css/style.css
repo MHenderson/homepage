@@ -71,8 +71,6 @@ body {
 
 .list-item {
   display: flex;
-  border: 2px solid #3D3D3D;
-  border-radius: 5px;
   padding: 15px;
   width: auto;
   margin-bottom: 5px;
