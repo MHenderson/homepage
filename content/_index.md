@@ -40,33 +40,5 @@ title: Home
 </li>
 </ul>
 </div>
-<div class="row">
-<div id="latest-posts" class="column">
-<h1>Posts</h1>
-<ul>
-<li>
-2021/05/11
-<a href="/post/2021/05/11/internet-access/">Tidy Tuesday: Internet Access</a>
-</li>
-<li>
-2021/05/04
-<a href="/post/2021/05/04/water-sources/">Tidy Tuesday: Water Sources</a>
-</li>
-<li>
-2018/01/16
-<a href="/post/2018/01/16/functional-geometry-in-r/">Functional Geometry in R</a>
-</li>
-</ul>
-</div>
-<div id="highlighted-projects" class="column">
-<h1>Research</h1>
-<ul>
-<li>
-<a href="/topics/room-squares">Room Squares</a>
-</li>
-<li>
-<a href="/topics/energy-use">Energy Use</a>
-</li>
-</ul>
-</div>
-</div>
+
+# Featured Posts
