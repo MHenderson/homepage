@@ -2,15 +2,16 @@
 title: "Tidy Tuesday: Water Sources"
 author: Matthew Henderson
 date: '2021-05-04'
+description: My Tidy Tuesday contribution for 2021, week 20.
 slug: water-sources
 categories:
   - dataviz
 tags:
   - tidy-tuesday
 draft: no
+featured: yes
 editor_options: 
   chunk_output_type: console
-description: My Tidy Tuesday contribution for 2021, week 20.
 twitterImg: https://raw.githubusercontent.com/MHenderson/water-sources/master/water-sources-preview.png
 ---
 

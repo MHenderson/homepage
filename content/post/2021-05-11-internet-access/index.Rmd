@@ -1,7 +1,7 @@
 ---
 title: "Tidy Tuesday: Internet Access"
 author: Matthew Henderson
-description: My Tidy Tuesday contribution for 2021, week 20.
+description: My Tidy Tuesday contribution for 2021, week 21.
 date: '2021-05-11'
 slug: internet-access
 categories:
@@ -9,6 +9,7 @@ categories:
 tags:
   - tidy-tuesday
 draft: no
+featured: yes
 editor_options: 
   chunk_output_type: console
 ---

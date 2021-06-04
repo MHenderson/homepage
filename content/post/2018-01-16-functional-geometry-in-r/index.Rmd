@@ -2,6 +2,7 @@
 title: Functional Geometry in R
 author: Matthew Henderson
 date: '2018-01-16'
+description: Recreating functional geometry papers of P. Henderson in R.
 slug: functional-geometry-in-r
 categories:
   - generative-art
@@ -9,6 +10,8 @@ tags:
   - r
   - r-packages
 bibliography: [funcgeo.bib]
+draft: no
+featured: yes
 ---
 
 ```{r setup, include = FALSE}
