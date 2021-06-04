@@ -3,12 +3,11 @@ title: '(WIP) Tidy Tuesday: Mario Kart Records'
 author: Matthew Henderson
 date: '2021-05-28'
 slug: mario-kart-records
-citation_url: https://mjh.netlify.app/post/2021/05/28/mario-kart/
-citation_key: henderson2021mariokart
 categories:
   - dataviz
 tags:
   - tidy-tuesday
+draft: yes
 references:
 - id: cairoFunctionalArtIntroduction2012
   author:
