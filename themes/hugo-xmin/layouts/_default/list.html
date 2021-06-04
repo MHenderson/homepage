@@ -23,16 +23,21 @@
 <div id = "posts">
   {{ range first 3 (where .Site.RegularPages ".Params.featured" "=" true) }}
   <div class = "list-item">
-    <a href="{{ .Page.RelPermalink }}"><h2>{{ .Page.Title }}</h2></a>
-    <p>{{ .Params.description }}</p>
-    <div class = "meta">
-      <i class="fa fa-calendar-alt" role="presentation" aria-label="calendar-alt icon"></i>
-      <span class="date">{{ .Date.Format "2006/01/02" }}</span>
-      <br />
-      <i class="fa fa-tags" role="presentation" aria-label="tags icon"></i>
-      {{ range .Params.tags }}
-        <a href="tags/{{ . | urlize }}">{{ . }}</a>
-      {{ end }}
+    <div class = "list-item-content">
+      <a href="{{ .Page.RelPermalink }}"><h2>{{ .Page.Title }}</h2></a>
+      <p>{{ .Params.description }}</p>
+      <div class = "meta">
+        <i class="fa fa-calendar-alt" role="presentation" aria-label="calendar-alt icon"></i>
+        <span class="date">{{ .Date.Format "2006/01/02" }}</span>
+        <br />
+        <i class="fa fa-tags" role="presentation" aria-label="tags icon"></i>
+        {{ range .Params.tags }}
+          <a href="tags/{{ . | urlize }}">{{ . }}</a>
+        {{ end }}
+      </div>
+    </div>
+    <div class = "list-item-preview">
+      <img src="{{ .Page.RelPermalink }}{{ .Params.image }}" />
     </div>
   </div>
   {{ end }}
