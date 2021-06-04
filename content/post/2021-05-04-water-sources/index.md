@@ -12,7 +12,7 @@ draft: no
 featured: yes
 editor_options: 
   chunk_output_type: console
-twitterImg: https://raw.githubusercontent.com/MHenderson/water-sources/master/water-sources-preview.png
+image: /figure/water-sources.png
 ---
 
 This week’s Tidy Tuesday data comes from

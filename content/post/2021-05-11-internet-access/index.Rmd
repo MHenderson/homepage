@@ -12,6 +12,7 @@ draft: no
 featured: yes
 editor_options: 
   chunk_output_type: console
+image: /figure/madison_ky_roads_plot-1.png
 ---
 
 ```{r setup, include=FALSE}

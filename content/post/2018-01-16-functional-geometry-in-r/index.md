@@ -12,6 +12,7 @@ tags:
 bibliography: [funcgeo.bib]
 draft: no
 featured: true
+image: /index_files/figure-html/squarelimit-1.png
 ---
 
 This post introduces
