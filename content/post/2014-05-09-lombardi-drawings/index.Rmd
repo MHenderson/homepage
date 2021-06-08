@@ -174,7 +174,14 @@ library(slickR)
 
 img_paths <- list.files("figure/carousel", full.names = TRUE)
 
-slickR(obj = img_paths, height = 200, width = "95%")
+img_names <- gsub(".png", "", basename(img_paths))
+
+img_caro <- slickR(obj = img_paths, height = 200, width = "95%")
+
+names_caro <- slickR(img_names, slideType = 'p') +
+  settings(arrows = FALSE)
+
+img_caro %synch% names_caro
 ```
 
 Options
