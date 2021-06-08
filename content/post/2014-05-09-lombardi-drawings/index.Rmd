@@ -165,6 +165,18 @@ Which results in the following drawing:
 
 ![Lombardi Spirograph drawing of Groetzsch graph](figure/grotzsch.svg)
 
+Below is a selection of a few of the smaller named graphs that can be drawn by
+the Lombardi Spirograph.
+
+```{r, echo=FALSE}
+# https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=21454
+library(slickR)
+
+img_paths <- list.files("figure/carousel", full.names = TRUE)
+
+slickR(obj = img_paths, height = 200, width = "95%")
+```
+
 Options
 -------
 
