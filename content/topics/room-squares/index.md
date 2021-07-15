@@ -7,44 +7,92 @@ categories:
   - combinatorics
 tags:
   - room-squares
+featured: yes
+image: figure/room.png
+draft: yes
+references:
+- id: dinitzHillClimbingAlgorithmConstruction1987
+  abstract: >-
+    In this paper we describe and discuss hill-climbing algorithms for the
+    construction of one- factorizations of complete graphs, and orthogonal
+    one-factorizations of complete graphs (i.e., Room squares).
+  accessed:
+    - year: 2020
+      month: 6
+      day: 25
+  author:
+    - family: Dinitz
+      given: J. H.
+    - family: Stinson
+      given: D. R.
+  container-title: SIAM Journal on Algebraic Discrete Methods
+  container-title-short: SIAM. J. on Algebraic and Discrete Methods
+  DOI: 10.1137/0608035
+  ISSN: 0196-5212
+  issue: '3'
+  issued:
+    - year: 1987
+      month: 7
+      day: 1
+  page: 430-438
+  publisher: Society for Industrial and Applied Mathematics
+  source: epubs.siam.org (Atypon)
+  title: >-
+    A Hill-Climbing Algorithm for the Construction of One-Factorizations and
+    Room Squares
+  type: article-journal
+  URL: https://epubs.siam.org/doi/10.1137/0608035
+  volume: '8'
 ---
 
 A **Room square**
 is an `\(n × n\)` array filled with `\(n + 1\)`
 different symbols in such a way that:
 
-  1. Each cell of the array is either empty or contains an unordered pair
-     from the set of symbols
-  2. Each symbol occurs exactly once in each row and column of the array
-  3. Every unordered pair of symbols occurs in exactly one cell of the array.
+1.  Each cell of the array is either empty or contains an unordered pair
+    from the set of symbols
+2.  Each symbol occurs exactly once in each row and column of the array
+3.  Every unordered pair of symbols occurs in exactly one cell of the array.
 
-![seven by seven room square coloured by min value](https://raw.githubusercontent.com/MHenderson/tidy-room-squares/master/min.png)
-![seven by seven room square coloured by max value](https://raw.githubusercontent.com/MHenderson/tidy-room-squares/master/max.png)
+![seven by seven room square coloured by min value](figure/room.png)
 
-Both of these images are of the same Room square.
-The one on the left is coloured by the minimum
-value in each filled cell. The one on the right
-is coloured according to the maximum value.
+In the above image colours are used instead of symbols.
+This is a `\(7 \times 7\)` Room square because every colour appears
+once in every row and every column (either as the
+inner coloured square or as the coloured border around
+the inner coloured square)
+and because every colour appears
+once with every other colour.
 
-The code to generate these images
-can be found in the
-[tidy-room-squares](/projects/tidy-room-squares)
-project.
+For example, red appears with pink in the first
+row, yellow in the second, purple in the third, green
+in the forth, brown in the fifth, blue in the sixth
+and orange in the seventh.
 
-I'm writing a
-[monograph](/projects/room)
-about Room squares.
+-   The code to generate this image
+    can be found in
+    [tidy-room-squares](/projects/tidy-room-squares)
 
-I've also started working
-on an [annotated bibliography](/projects/room-squares-bib)
-about Room squares.
+-   [room](/projects/room)
+    is a survey about Room squares (work-in-progress).
 
-A few years ago,
-I wrote some Visual Basic code
-for generating Room squares
-using Dinitz and Stinson's
-hill-climbing approach.
-Lately,
-I've been working
-on a
-[Java version](/projects/room-square-generator).
+-   [room-squares-bib](/projects/room-squares-bib)
+    is an annotated bibliography.
+
+-   [room-square-generator](/projects/room-square-generator)
+    is an implementation in Java of
+    the hill-climbing algorithm by
+    Dinitz and Stinson (1987)
+    for constructing Room squares.
+
+## References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-dinitzHillClimbingAlgorithmConstruction1987" class="csl-entry">
+
+Dinitz, J. H., and D. R. Stinson. 1987. “A Hill-Climbing Algorithm for the Construction of One-Factorizations and Room Squares.” *SIAM Journal on Algebraic Discrete Methods* 8 (3): 430–38. <https://doi.org/10.1137/0608035>.
+
+</div>
+
+</div>
