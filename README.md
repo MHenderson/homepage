@@ -20,3 +20,11 @@ in my personal blog. Update the version of my personal blog which is
 hosted on my private website.
 
 ## Polish
+
+# things i used when modifying theme:
+
+* https://www.sitepoint.com/community/t/how-to-vertical-spacing-between-two-divs/8405
+* https://damien.co/blog/2020-06-13-hugo-featured-posts-list/
+* https://discourse.gohugo.io/t/how-to-generate-a-list-of-clickable-tags/1464
+* https://www.w3schools.com/howto/howto_css_image_responsive.asp
+* https://www.techboxweb.com/top-5-ways-to-display-two-div-side-by-side-using-css/
