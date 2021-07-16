@@ -41,4 +41,4 @@ title: Home
 </ul>
 </div>
 
-# Featured Posts
+# Featured Content
