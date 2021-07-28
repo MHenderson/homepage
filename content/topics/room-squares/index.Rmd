@@ -61,8 +61,9 @@ This is a $7 \times 7$ Room square because every colour appears
 once in every row and every column (either as the
 inner coloured square or as the coloured border around
 the inner coloured square)
-and because every colour appears
-once with every other colour.
+and because every colour
+is paired with every other colour
+somewhere in the square.
 
 For example, red appears with pink in the first
 row, yellow in the second, purple in the third, green
