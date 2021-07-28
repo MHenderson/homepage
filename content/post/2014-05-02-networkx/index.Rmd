@@ -14,9 +14,6 @@ draft: TRUE
 
 In this post we introduce the drawing functionality of NetworkX.
 
-This post is also available as a [notebook][drawing-notebook] for IPython which
-can be viewed online [here][drawing-viewer].
-
 ## 1. Basic Drawing
 
 All drawing in NetworkX can handled by the ``draw`` function. Layouts are
@@ -273,10 +270,3 @@ distributed over a symmetrically shaped area, in this case a circle. Not only is
 the layout nice but this drawing also has suitably chosen edge widths and node
 sizes.
 
-[download]: http://networkx.github.io/download.html
-[tutorial]: http://networkx.github.io/documentation/latest/tutorial/tutorial.html
-
-[drawing-notebook]: https://gist.github.com/MHenderson/11082148
-[drawing-viewer]: http://nbviewer.ipython.org/gist/MHenderson/11082148
-
-[gallery]: http://networkx.github.io/documentation/latest/gallery.html
