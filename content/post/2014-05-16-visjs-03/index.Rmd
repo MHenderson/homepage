@@ -3,7 +3,7 @@ title: "(WIP) vis.js 3: DOT Language Support and Layout Configuration"
 description: "Loading graph data into vis.js."
 author: Matthew Henderson
 date: '2014-05-16'
-slug: visjs-01
+slug: visjs-03
 categories:
   - graph-drawing
 tags:
