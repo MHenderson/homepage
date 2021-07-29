@@ -53,17 +53,54 @@ references:
   type: article-journal
   URL: https://doi.org/10.1145/1824801.1824802
   volume: '37'
+- id: bjorklundComputingTuttePolynomial2008
+  abstract: >-
+    The deletion-contraction algorithm is perhaps the most popular method for
+    computing a host of fundamental graph invariants such as the chromatic,
+    flow, and reliability polynomials in graph theory, the Jones polynomial of
+    an alternating link in knot theory, and the partition functions of the
+    models of Ising, Potts, and Fortuin-Kasteleyn in statistical physics. Prior
+    to this work, deletion-contraction was also the fastest known
+    general-purpose algorithm for these invariants, running in time roughly
+    proportional to the number of spanning trees in the input graph.Here, we
+    give a substantially faster algorithm that computes the Tutte polynomial-and
+    hence, all the aforementioned invariants and more-of an arbitrary graph in
+    time within a polynomial factor of the number of connected vertex sets. The
+    algorithm actually evaluates a multivariate generalization of the Tutte
+    polynomial by making use of an identity due to Fortuin and Kasteleyn. We
+    also provide a polynomial-space variant of the algorithm and give an
+    analogous result for Chung and Graham's cover polynomial.
+  author:
+    - family: Björklund
+      given: Andreas
+    - family: Husfeldt
+      given: Thore
+    - family: Kaski
+      given: Petteri
+    - family: Koivisto
+      given: Mikko
+  container-title: 2008 49th Annual IEEE Symposium on Foundations of Computer Science
+  DOI: 10.1109/FOCS.2008.40
+  event: 2008 49th Annual IEEE Symposium on Foundations of Computer Science
+  ISSN: 0272-5428
+  issued:
+    - year: 2008
+      month: 10
+  page: 677-686
+  source: IEEE Xplore
+  title: Computing the Tutte Polynomial in Vertex-Exponential Time
+  type: paper-conference
 ---
 
 In
 [Chromatic Polynomials](/posts/2014-07-11-chromatic-polynomials)
 we showed how to partially reproduce the data on
-\[small graph colourings\]\[roylecolourings\]
+[small graph colourings](http://staffhome.ecm.uwa.edu.au/~00013890/remote/graphs#cols)
 made available by Gordon
 Royle. In that post we used NetworkX, sympy and the
-\[*tutte\_bhkk*\]\[tuttebhkk\]
+[*tutte\_bhkk*](https://github.com/thorehusfeldt/tutte_bhkk)
 module of
-XXX
+Björklund et al. (2008)
 to reproduce Royle’s
 results up to order `\(n = 7\)`.
 
@@ -71,7 +108,7 @@ In
 [A Chromatic Number Program](post/2014-07-18-a-chromatic-program)
 we developed a tool, `chromatic`, for computing chromatic numbers based
 on
-[*tutte*](),
+[*tutte*](http://homepages.ecs.vuw.ac.nz/~djp/tutte/),
 an implementation of the Tutte polynomial by
 Haggard, Pearce, and Royle (2010)
 .
@@ -227,6 +264,12 @@ Royle’s data with a view to reproducing his results as far as possible.
 ## References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-bjorklundComputingTuttePolynomial2008" class="csl-entry">
+
+Björklund, Andreas, Thore Husfeldt, Petteri Kaski, and Mikko Koivisto. 2008. “Computing the Tutte Polynomial in Vertex-Exponential Time.” In *2008 49th Annual IEEE Symposium on Foundations of Computer Science*, 677–86. <https://doi.org/10.1109/FOCS.2008.40>.
+
+</div>
 
 <div id="ref-haggardComputingTuttePolynomials2010" class="csl-entry">
 
