@@ -193,7 +193,14 @@ vertices: the colour, size and whether vertices have visible outlines or not.
 For example, to draw the Grötzsch graph again, slightly larger with smaller
 blue nodes not having visible outlines:
 
-    $ python LombardiSpirograph.py --scale=1.2 --color=blue --radius=0.8 --outline grotzsch > grotzsch_alt.svg
+```bash
+$ python LombardiSpirograph.py \
+    --scale=1.2 \
+    --color=blue \
+    --radius=0.8 \
+    --outline \
+    grotzsch > grotzsch_alt.svg
+```  
 
 ![Lombardi Spirograph drawing of Groetzsch graph](figure/grotzsch_alt.svg)
 
@@ -204,7 +211,9 @@ The input language for drawing other graphs is described by the authors in
 the Lombardi Spirograph online documentation. The description can be read by
 running the program with the ``--format`` flag.
 
-    $ python LombardiSpirograph.py --format
+```bash
+$ python LombardiSpirograph.py --format
+```
 
 >   The graph should be described as a sequence of alphanumeric words,
 >   separated either by spaces or by blank lines. The first word gives the
