@@ -14,7 +14,7 @@ draft: true
 ---
 
 Continuing on from
-[an earlier post](%7B%%20post_url%202014-03-28-visjs-01%20%%7D),
+[an earlier post](/post/2014/03/28/visjs-01),
 in
 this post we are going to look at some customisation options for
 [vis.js](http://visjs.org/).
@@ -32,7 +32,7 @@ will investigate visualisation of colouring algorithms and it will be useful
 to have such a default un-coloured style.
 
 We are going to aim for the style of graph shown in this
-\[example\]\[http://bl.ocks.org/mhenderson/10667009\].
+[example](http://bl.ocks.org/mhenderson/10667009).
 Black vertices, no labels, straight edges and a layout that tries to minimise
 edge-crossings as far as possible.
 

@@ -71,7 +71,7 @@ with graphs on the computer.
 
 * [Code for Computing Tutte Polynomials](http://homepages.ecs.vuw.ac.nz/~djp/tutte/)
 * [Michael Barany's Tutte polynomial C code](http://www.math.umn.edu/~reiner/Tutte/TUTTE.html)
-* [tutte_bhkk](https://github.com/thorehusfeldt/tutte_bhkk
+* [tutte_bhkk](https://github.com/thorehusfeldt/tutte_bhkk)
 
 
 # Tutorials

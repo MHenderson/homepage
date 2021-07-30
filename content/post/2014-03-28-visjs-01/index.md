@@ -119,13 +119,17 @@ subsequent post. For now, we choose default options by passing an empty object.
 
 ## Displaying a graph
 
-Opening the finished \[webpage\]\[eg1block\] in a browser should display a dynamic,
+Opening the finished
+[webpage](http://bl.ocks.org/mhenderson/9767470)
+in a browser should display a dynamic,
 interactive image that looks something like:
 
 ![Screenshot of triangle graph with vis.js](figure/triangle.png)
 
 Unlike this static image, the drawing of \\(K\_{3}\\) rendered by the browser
-when opening the finished \[webpage\]\[eg1block\] should respond to a variety of
+when opening the finished
+[webpage](http://bl.ocks.org/mhenderson/9767470)
+should respond to a variety of
 manipulations. You should be able to zoom and drag the graph around as well
 as independently manipulate node and edge components.
 
