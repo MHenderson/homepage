@@ -8,7 +8,7 @@ categories:
   - graph-drawing
 tags:
   - python
-draft: TRUE
+draft: FALSE
 references:
 - id: duncanLombardiDrawingsGraphs2010
   abstract: >-
