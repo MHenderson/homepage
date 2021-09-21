@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Lombardi Drawings"
+title: "Lombardi Drawings"
 author: Matthew Henderson
 date: '2014-05-09'
 description: Introducing the Lombardi Spirograph.
