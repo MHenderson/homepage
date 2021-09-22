@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Basic Graph Drawing"
+title: "Basic Graph Drawing"
 author: Matthew Henderson
 date: '2014-05-02'
 description: The basics of graph drawing in NetworkX.
@@ -9,7 +9,7 @@ categories:
 tags:
   - python
   - networkx
-draft: TRUE
+draft: FALSE
 ---
 
 In this post we introduce the drawing functionality of NetworkX.
