@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Plane Drawings of Lobsters"
+title: "Plane Drawings of Lobsters"
 author: Matthew Henderson
 date: '2014-04-25'
 description: Using Gephi to draw a large random lobster.
@@ -10,7 +10,7 @@ tags:
   - python
   - networkx
   - gephi
-draft: TRUE
+draft: FALSE
 ---
 
 In this post we show how to use
@@ -61,9 +61,9 @@ graph.
 
 Incidentally, the above lobster graph has 287 vertices and, being a tree,
 286 edges. It was generated in Python using NetworkX. The following command
-creates a graph file in GEXF format (Graph Exchange Format) which can be
-downloaded
-[here](https://gist.github.com/MHenderson/11152736).
+creates a
+[file](lobster.gexf)
+in Graph Exchange Format (GEXF).
 
     $ python -c "import networkx as nx;nx.write_gexf(nx.random_lobster(100, 0.5, 0.5, seed=0), 'lobster.gexf')"
 
