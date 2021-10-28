@@ -10,9 +10,6 @@ tags:
 draft: yes
 editor_options: 
   chunk_output_type: console
-output:
-  blogdown::html_page:
-    toc: true
 references:
 - id: urbanekBase64encToolsBase642015
   author:
@@ -33,16 +30,57 @@ references:
     - year: 2020
   title: 'httr: Tools for working with URLs and HTTP'
   type: report
+- id: robinsonGutenbergrDownloadProcess2020
+  author:
+    - family: Robinson
+      given: David
+  genre: manual
+  issued:
+    - year: 2020
+  title: 'gutenbergr: Download and process public domain works from project gutenberg'
+  type: report
+- id: oomsJsonlitePackagePractical2014
+  author:
+    - family: Ooms
+      given: Jeroen
+  container-title: arXiv:1403.2805 [stat.CO]
+  issued:
+    - year: 2014
+  title: >-
+    The jsonlite package: A practical and consistent mapping between JSON data
+    and r objects
+  type: article-journal
+  URL: https://arxiv.org/abs/1403.2805
+- id: derlooStringdistPackageApproximate2014
+  author:
+    - family: Loo
+      given: M.P.J.
+      non-dropping-particle: der
+      dropping-particle: van
+  container-title: The R Journal
+  issue: '1'
+  issued:
+    - year: 2014
+  page: 111-122
+  title: The stringdist package for approximate string matching
+  type: article-journal
+  URL: https://CRAN.R-project.org/package=stringdist
+  volume: '6'
 ---
 
 In this post we describe how to use Google Cloud Platform,
-in particular the Vision API, to extract text from images.
+in particular the Vision API, to extract text from images
+in R.
 
-Of particular interest in this post is the case when the
-text being extracted is handwriting. These are really
+Of particular interest here is the case when the
+text being extracted is handwritten.
+
+These are really
 notes to myself as someone who writes a lot of notes by
 hand and sometimes like to move those notes onto the computer.
-Is it feasible to use OCR software? Tesseract, which works
+
+Is it feasible to use OCR software for such a task?
+Tesseract, which works
 very well for OCR of typed characters does not seem to
 do very well with handwriting. Google Vision API,
 on the other hand, is able to extract text from handwriting.
@@ -51,29 +89,32 @@ we are interested in here.
 
 # Preparation
 
-The first steps,
-before doing anything in R,
-involve creating a project on
+Before doing anything in R
+you have to
+create a project on
 Google Cloud Platform (GCP)
-and enabling the Vision API
-for this app.
+and enable Vision API.
 
-In the appendix below there are some
-notes on how to do this
-but if you are using GCP for the first
-time it is probably better
-to follow a tutorial instead.
+In the appendix there are brief
+notes about how to do this
+but if you are using GCP
+for the first time
+it is probably better
+to follow a tutorial
+like the one at
+https://cloud.google.com/vision/docs/setup
+instead.
 
-When your app has been created
-and you have created a service account
-and setup payment
-and authentication
-you will find yourself
+After creating your GCP project
+you should find yourself
 the proud owner
-of an access token.
+of a shiny new access token.
 
-So that R knows that the token is you have to
-define the `GCLOUD_ACCESS_TOKEN` access variable.
+To run any of the code below
+we need to tell R
+what the access token
+is without accidentally
+revealing it to the world.
 
 One of the easiest ways to do this is to use
 the usethis package to edit .Renviron, either
@@ -83,49 +124,78 @@ at project score or user scope.
 usethis::edit_r_environ(scope = "user")
 ```
 
-After defining your access token in your
+Put into that file something like this:
+
+    GCLOUD_ACCESS_TOKEN=<your access token here>
+
+Be careful not to commit this file
+to a Git repository.
+Anyone who has the token
+can potentially make requests
+of your app
+and force you to incur costs.
+If this were to happen
+you could revoke access
+for that key
+using the Google Cloud Console
+(put a link here).
+
+After defining your access token in
 .Renviron you need to restart R. Then you
 can check that the environment variable now
-is defined to be equal to the access token.
+is defined to be equal to the access token
+with
+`Sys.getenv`:
 
 ``` r
 Sys.getenv("GCLOUD_ACCESS_TOKEN")
 ```
 
-Now we can start extracting text from an image.
-In the next section I show how you can
+Now we are ready
+to being extracting text from images
+in R.
+
+In the next section I show you how to
 extract text from a single image file.
-In the section following that I show
+
+In the section after next I show you
 how you can extract text from multiple images.
 
 # Extract handwriting from one image
 
 In this section
 and the following ones
-I will make use of some images
+I make use of some images
 of my own handwriting.
+
 So I can compare the results
-of the OCR
+of using Vision API for OCR
 against a known text
-I have written out by hand
-a few pages of the novel
-“Baree, Son of Kazan” by James Oliver Curwood
+I have written out
+several pages
+of
+[James Oliver Curwood](https://en.wikipedia.org/wiki/James_Oliver_Curwood)’s
+novel
+“Baree, Son of Kazan”
 (sequel to “Kazan”)
-whose original text
-is available on Project Gutenberg:
-https://www.gutenberg.org/ebooks/4748
-https://www.gutenberg.org/ebooks/53929
+by hand.
+For comparison
+I use the
+[text version of the novel from Project Gutenberg](https://www.gutenberg.org/ebooks/4748)
 
 ## Creating document text detection requests
 
-To use the Vision API
-we will post our images via http to
+Using Vision API
+involves posting images via http to
 `https://vision.googleapis.com/v1/images:annotate`
 with a JSON payload
-that includes the images encoded
-as text using the Base64
-encoding scheme.
+containing our images
+encoded as text
+using the Base64 encoding scheme.
 (see https://en.wikipedia.org/wiki/Base64 for more details).
+
+The JSON payload we post
+looks something like this:
 
 ``` json
 {
@@ -144,12 +214,17 @@ encoding scheme.
 }
 ```
 
+Where
+`<base64-encoded-image>`
+is an encoding
+of our image as text.
+
 Luckily,
 we don’t have to figure out
 any of the details of doing the encoding ourselves
 because there is an R package
+{base64enc}
 (Urbanek (2015))
-`base64enc`
 that will do the work for us.
 
 With a function
@@ -184,39 +259,78 @@ the resulting encoding
 into a list
 which will be converted
 into JSON automatically
-by the `httr` package
-(using the `jsonlite` package)
+by the
+{httr}
+(Wickham (2020))
+package
+(using the
+{jsonlite}
+(Ooms (2014))
+package)
 when we make our request.
+
+``` r
+dtd_001 <- document_text_detection("~/workspace/baree-handwriting-scans/001.png")
+```
+
+Be wary of inspecting the return value
+of this function. It contains a huge JSON
+string and can cause R to freeze as it
+tries to output all of the string to the screen.
+
+You can inspect part of it using `substr`.
+(surely there’s something better i can do here)
+
+``` r
+substr(dtd_001, 1, 200)
+#> [1] "list(content = \"iVBORw0KGgoAAAANSUhEUgAAE2EAABtoCAIAAAA8pmPCAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAFxGAABcRgEUlENBAAAgAElEQVR4nOzdwW7aQBRA0dB/9E8yH+kuUC1qCJiUxFx6zgIJMRo/GxaJzBWH4/E4xvj4+Dg9nkzTNE3T+dPVgu3O"
+#> [2] "list(type = \"DOCUMENT_TEXT_DETECTION\")"
+```
 
 Images have to be less than 10MB.
 
 In fact the whole request has to be at most 10MB?
 
+One pitfall
+to be wary of
+is accidentally
+base64encoding the path to a file
+instead of the file itself.
+If the response from the
+Vision API has
+errors that mention
+those paths then that is likely to be the cause.
+
 ## Post requests to our app
 
 Next we use `httr:POST`
-from the httr package
-Wickham (2020)
+from {httr}
 to post our request object
 to the Vision API.
 
-There are two arguments to
 `httr::POST`
-that are required:
+requires at least
 `url`
 and
-`body`.
+`body`
+arguments.
 
-`url` is the webpage
-to retrieve
-which in our case is
+`url`
+is the webpage
+to be retrieved.
+In our case this is
 `"https://vision.googleapis.com/v1/images:annotate"`
 
-`body` is the
+`body`
+is the
 request payload.
-In our case,
-we have a named list
-called `requests`.
+This will be
+a named list
+with one element
+named `requests`
+whose value is a list
+of request objects.
+(XXX checck this XXX)
 
 As well as the required
 arguments we also need
@@ -233,32 +347,32 @@ with
 by adding a call
 to
 `httr::content_type_json()`
-to the `...` parameters.
+as an argument.
 
-In the documentation
-for the Vision API
-we will also see
-that for the request
+The Vision API documentation
+says that for a request
 to be accepted
 it must have
-a header
-`Authorization = "Bearer <ACCESS_TOKEN>"`
-where <ACCESS_TOKEN>
-is the value
-of our
-`GCLOUD_ACCESS_TOKEN`
-environment variable.
+an
+`Authorization = "Bearer <GCLOUD_ACCESS_TOKEN>"`
+header.
+`<GCLOUD_ACCESS_TOKEN>`
+can be obtained
+by calling
+`Sys.getenv("GCLOUD_ACCESS_TOKEN")`.
+We can add the header
+using the
+`httr::add_headers`
+function.
 
 ``` r
-library(httr)
-
 post_vision <- function(requests) {
-  POST(
+  httr::POST(
     url = "https://vision.googleapis.com/v1/images:annotate",
     body = requests,
     encode = "json",
-    content_type_json(),
-    add_headers(
+    httr::content_type_json(),
+    httr::add_headers(
       "Authorization" = paste("Bearer", Sys.getenv("GCLOUD_ACCESS_TOKEN"))
     )
   )
@@ -271,18 +385,22 @@ the
 function
 with a list of requests.
 Here we only have one request,
-made my calling
+`dtd_001`
+which we created earlier
+by calling
 `document_text_detection`
 with the path
 to our image.
 
 ``` r
-r_001 <- post_vision(list(requests = document_text_detection("~/workspace/baree-handwriting-scans/001.png")))
+r_001 <- post_vision(list(requests = dtd_001))
 ```
 
-HELLO.
-
-## Now parse out the results
+Calling
+`post_vision`
+sends our image
+to Vision API
+and returns the response.
 
 Depending on the
 number of images
@@ -292,30 +410,46 @@ may take a few seconds
 to return a response.
 
 Once it has,
-you can use `httr::status_code`
+you can use
+`httr::status_code`
 to check that
 a valid response
 was received
 (value should be 200).
 
 ``` r
-status_code(r_001)
+httr::status_code(r_001)
 #> [1] 200
 ```
 
+If you get a 401 instead
+then inspect r\_001.
+If you see “ACCESS\_TOKEN\_EXPIRED”
+under “error” -&gt; “details”
+then you might just have to rerun
+the gcloud tool to generate
+a new access token.
+
+In the next section
+we look at how
+to interpret
+a valid response.
+
+## Get text from the response
+
 If the status code
 is 200 then you
-can use the `httr::content`
+can use `httr::content`
 to extract the content
 of the response.
+
+``` r
+content_001 <- httr::content(r_001)
+```
 
 The response content
 contains a lot
 of information.
-It is a named list
-representation of
-the object described here:
-
 We are mainly interested
 in the text content,
 which is contained
@@ -323,9 +457,134 @@ in the `responses` object
 as `fullTextAnnotation`.
 
 ``` r
-content(r_001)$responses[[1]]$fullTextAnnotation$text
-#> [1] "a\nvast\nfear\nTo Parce, for many days after he was\nborn, the world was a\ngloony cavern.\nDuring these first days of his life his\nhome was in the heart of a great windfall\nwhere aray wolf, his blind mother, had found\na a safe nest for his hahy hood, and to which\nKazan, her mate, came only now and then ,\nhis eyes gleaming like strange balls of greenish\nfire in the darknen. It was kazan's eyes that\ngave\ndo Barce his first impression of something\nexisting away from his mother's side, and they\nbrought to him also his discovery of vision. He\ncould feel, he could smell, he could hear - but\nin that black pirt under the fallen timher he\nhad never seen until the\neyes\ncame. At first\nthey frightened nin; then they puzzled him , and\nbis Heer changed to an immense ceniosity, the world\nbe looking foreight at them when all at once\nthey world disappear. This was when Kazan turned\nhis head. And then they would flash hach at him\nagain wt of the darknen with such startling\nSuddenness that Baree world involuntanty Shrink\ncloser to his mother who always treunded and\nShivered in a strenge way when Kazan came in.\nBarce, of course, would never know their story. He\nworld never know that Gray Wolf, his mother, was\na full-hlooded wolf, and that Kazan, his father,\nwas a dog. In hin nature was already\nnature was already beginning\nits wonderful work, but it world never go beyind\ncerria limitations. It wald tell him, in time, ,\nthat his heavtiful wolf - mother was blind, hur\nhe world never know of that terrible hattle between\nGray Wolf and the lynx in which his mother's sight\nhad been destroyed Nature could tell hin gatting\nnothing\n+\nа\n(\n"
+baree_hw_001 <- content_001$responses[[1]]$fullTextAnnotation$text
+cat(baree_hw_001)
+#> a
+#> vast
+#> fear
+#> To Parce, for many days after he was
+#> born, the world was a
+#> gloony cavern.
+#> During these first days of his life his
+#> home was in the heart of a great windfall
+#> where aray wolf, his blind mother, had found
+#> a a safe nest for his hahy hood, and to which
+#> Kazan, her mate, came only now and then ,
+#> his eyes gleaming like strange balls of greenish
+#> fire in the darknen. It was kazan's eyes that
+#> gave
+#> do Barce his first impression of something
+#> existing away from his mother's side, and they
+#> brought to him also his discovery of vision. He
+#> could feel, he could smell, he could hear - but
+#> in that black pirt under the fallen timher he
+#> had never seen until the
+#> eyes
+#> came. At first
+#> they frightened nin; then they puzzled him , and
+#> bis Heer changed to an immense ceniosity, the world
+#> be looking foreight at them when all at once
+#> they world disappear. This was when Kazan turned
+#> his head. And then they would flash hach at him
+#> again wt of the darknen with such startling
+#> Suddenness that Baree world involuntanty Shrink
+#> closer to his mother who always treunded and
+#> Shivered in a strenge way when Kazan came in.
+#> Barce, of course, would never know their story. He
+#> world never know that Gray Wolf, his mother, was
+#> a full-hlooded wolf, and that Kazan, his father,
+#> was a dog. In hin nature was already
+#> nature was already beginning
+#> its wonderful work, but it world never go beyind
+#> cerria limitations. It wald tell him, in time, ,
+#> that his heavtiful wolf - mother was blind, hur
+#> he world never know of that terrible hattle between
+#> Gray Wolf and the lynx in which his mother's sight
+#> had been destroyed Nature could tell hin gatting
+#> nothing
+#> +
+#> а
+#> (
 ```
+
+This is slightly disappointing.
+Only some of the text is readable.
+But this is only one page.
+Maybe things would be better
+for someone with better handwriting.
+
+In the next section we try
+to quantify how close this
+text is to the original text.
+
+## How well does it work?
+
+To compare the results
+of extracting the text
+of one page of handwriting
+we first
+download the original text
+from Project Gutenberg
+using the
+{gutenbergr}
+(Robinson (2020))
+package.
+
+``` r
+baree <- gutenbergr::gutenberg_download(4748, mirror = "http://www.mirrorservice.org/sites/ftp.ibiblio.org/pub/docs/books/gutenberg/")
+```
+
+If you get an error here,
+try a different mirror.
+(see gutenbergr docs)
+
+With some manual inspection
+we can figure out
+the substring
+of the downloaded text
+corresponding to the handwritten page.
+
+``` r
+baree_tx <- paste(baree$text[96:148], collapse = " ")
+cat(baree_tx_001 <- stringr::str_sub(baree_tx, 1, 1597))
+#> To Baree, for many days after he was born, the world was a vast gloomy cavern.  During these first days of his life his home was in the heart of a great windfall where Gray Wolf, his blind mother, had found a safe nest for his babyhood, and to which Kazan, her mate, came only now and then, his eyes gleaming like strange balls of greenish fire in the darkness. It was Kazan's eyes that gave to Baree his first impression of something existing away from his mother's side, and they brought to him also his discovery of vision. He could feel, he could smell, he could hear--but in that black pit under the fallen timber he had never seen until the eyes came. At first they frightened him; then they puzzled him, and his fear changed to an immense curiosity. He would be looking straight at them, when all at once they would disappear. This was when Kazan turned his head. And then they would flash back at him again out of the darkness with such startling suddenness that Baree would involuntarily shrink closer to his mother, who always trembled and shivered in a strange sort of way when Kazan came in.  Baree, of course, would never know their story. He would never know that Gray Wolf, his mother, was a full-blooded wolf, and that Kazan, his father, was a dog. In him nature was already beginning its wonderful work, but it would never go beyond certain limitations. It would tell him, in time, that his beautiful wolf mother was blind, but he would never know of that terrible battle between Gray Wolf and the lynx in which his mother's sight had been destroyed. Nature could tell him nothing
+```
+
+Now using the
+{stringdist}
+(der Loo (2014))
+package we can calculate
+the edit distance
+from the first page
+scanned from my handwriting
+and the string
+extracted from the
+Project Gutenberg text.
+
+``` r
+stringdist::stringdist(baree_hw_001, baree_tx_001, method = "lv")
+#> [1] 174
+```
+
+So apparently we could turn
+page of handwriting to match
+the text from
+Project Gutenberg
+with 174 edits.
+Quite a lot for one page!
+
+Here we used the default method
+optimal string alignment
+or restricted Damerau-Levenshtein distance
+(method = “osa”)
+from
+{stringdist}
+to measure edit distance.
+But the result is the same
+if we use
+Levenshtein distance (method = “lv”)
+or
+Full Damerau-Levenshtein distance (method = “dl”).
 
 # Handling multiple pages
 
@@ -342,13 +601,11 @@ all scans in the `scans_folder`
 using `purrr::map`.
 
 ``` r
-library(purrr)
-
 scans_folder <- "~/workspace/baree-handwriting-scans"
 
 scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
 
-response <- post_vision(list(requests = map(scans, document_text_detection)))
+response <- post_vision(list(requests = purrr::map(scans, document_text_detection)))
 ```
 
 Again we can check to make sure that
@@ -357,8 +614,8 @@ before opening it
 and seeing what is inside.
 
 ``` r
-status_code(response)
-#> [1] 200
+httr::status_code(response)
+#> [1] 401
 ```
 
 Inside is a list of responses
@@ -370,7 +627,7 @@ This can be done with
 `purrr::map`.
 
 ``` r
-responses_annotations <- map(content(response)$responses, "fullTextAnnotation")
+responses_annotations <- purrr::map(httr::content(response)$responses, "fullTextAnnotation")
 ```
 
 Finally we need to reach inside
@@ -380,9 +637,8 @@ As we are expecting text
 we can use `purrr::map_chr`.
 
 ``` r
-map_chr(responses_annotations, "text")
-#> [1] "a\nvast\nfear\nTo Parce, for many days after he was\nborn, the world was a\ngloony cavern.\nDuring these first days of his life his\nhome was in the heart of a great windfall\nwhere aray wolf, his blind mother, had found\na a safe nest for his hahy hood, and to which\nKazan, her mate, came only now and then ,\nhis eyes gleaming like strange balls of greenish\nfire in the darknen. It was kazan's eyes that\ngave\ndo Barce his first impression of something\nexisting away from his mother's side, and they\nbrought to him also his discovery of vision. He\ncould feel, he could smell, he could hear - but\nin that black pirt under the fallen timher he\nhad never seen until the\neyes\ncame. At first\nthey frightened nin; then they puzzled him , and\nbis Heer changed to an immense ceniosity, the world\nbe looking foreight at them when all at once\nthey world disappear. This was when Kazan turned\nhis head. And then they would flash hach at him\nagain wt of the darknen with such startling\nSuddenness that Baree world involuntanty Shrink\ncloser to his mother who always treunded and\nShivered in a strenge way when Kazan came in.\nBarce, of course, would never know their story. He\nworld never know that Gray Wolf, his mother, was\na full-hlooded wolf, and that Kazan, his father,\nwas a dog. In hin nature was already\nnature was already beginning\nits wonderful work, but it world never go beyind\ncerria limitations. It wald tell him, in time, ,\nthat his heavtiful wolf - mother was blind, hur\nhe world never know of that terrible hattle between\nGray Wolf and the lynx in which his mother's sight\nhad been destroyed Nature could tell hin gatting\nnothing\n+\nа\n(\n"
-#> [2] "7\n9\n49\n7\nof Kazan's merciless vengeance 1 of the wonderful\nyears of their matehood of their loyalty, their\nShenge adventures in the great Canadian wilderness\ncit'culd make him arby a son of hazar.\nBut at first, and for many days, it was all\nMother. Even after his eyes opened wide and he\nhad pund his legs so that he could shonhce around\na little in the darkness, nothing existed ar buree\nfor\nhut his mother. When he was old enough to he\n.\nplaying with Shicks and mess art in the sunlight,\nhe still did not know what she looked like. But\nto him she was big and soft and warm, and she\nhicked his face with her tongue, and talked to him\nin a gentle, whimpening way that at lost made\nhim find his own voice in a faint, squeaky yap.\nAnd then came that wonderful day when the\ngreenish balls of fire that were kažan's eyes cancie\nnearer and nearer, a little at a tine, ,\ncarbiesky. Hereto pore Gray Wolf had warned hin\nhach. To he alone was the first law of her wild\nbreed during mothering time. A low snart from her\n. A\nthroat, ånd Kazan' had always stopped. But\nănd\non this day the snart did not come in aray\nWolf's throat it died away in a low, whimpering\nscond. A note of loneliness, of\ni 아\ngreat yearniny _“It's all night law,\" she was\nť keys, of a\nnow\nsaying to kázan; and katan\npowsing for a moment\nreplied with an answłni\nwswering\ndeep in his throat.\nStill slowly, as it not quite sure of what he\nЕ\nwould find, Kazan came to them, and Baree\nsnuggled closer to his mother\nas he dropped down heavily on his belly close to\naray Wolf. He was unafraid\nand nightily\nand\nvery\n.\nC\nto make ure -\nnote\nHe heard kazan\n"
+purrr::map_chr(responses_annotations, "text")
+#> character(0)
 ```
 
 Lettuce put all of this together in a function
@@ -393,80 +649,72 @@ in all of those images.
 ``` r
 folder_to_txt <- function(scans_folder) {
   scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
-  response <- post_vision(list(requests = map(scans, document_text_detection)))
-  responses_annotations <- map(content(response)$responses, "fullTextAnnotation")
-  map_chr(responses_annotations, "text")
+  response <- post_vision(list(requests = purrr::map(scans, document_text_detection)))
+  responses_annotations <- purrr::map(httr::content(response)$responses, "fullTextAnnotation")
+  purrr::map_chr(responses_annotations, "text")
 }
 ```
 
 ``` r
-folder_to_txt(scans_folder)
-#> [1] "a\nvast\nfear\nTo Parce, for many days after he was\nborn, the world was a\ngloony cavern.\nDuring these first days of his life his\nhome was in the heart of a great windfall\nwhere aray wolf, his blind mother, had found\na a safe nest for his hahy hood, and to which\nKazan, her mate, came only now and then ,\nhis eyes gleaming like strange balls of greenish\nfire in the darknen. It was kazan's eyes that\ngave\ndo Barce his first impression of something\nexisting away from his mother's side, and they\nbrought to him also his discovery of vision. He\ncould feel, he could smell, he could hear - but\nin that black pirt under the fallen timher he\nhad never seen until the\neyes\ncame. At first\nthey frightened nin; then they puzzled him , and\nbis Heer changed to an immense ceniosity, the world\nbe looking foreight at them when all at once\nthey world disappear. This was when Kazan turned\nhis head. And then they would flash hach at him\nagain wt of the darknen with such startling\nSuddenness that Baree world involuntanty Shrink\ncloser to his mother who always treunded and\nShivered in a strenge way when Kazan came in.\nBarce, of course, would never know their story. He\nworld never know that Gray Wolf, his mother, was\na full-hlooded wolf, and that Kazan, his father,\nwas a dog. In hin nature was already\nnature was already beginning\nits wonderful work, but it world never go beyind\ncerria limitations. It wald tell him, in time, ,\nthat his heavtiful wolf - mother was blind, hur\nhe world never know of that terrible hattle between\nGray Wolf and the lynx in which his mother's sight\nhad been destroyed Nature could tell hin gatting\nnothing\n+\nа\n(\n"
-#> [2] "7\n9\n49\n7\nof Kazan's merciless vengeance 1 of the wonderful\nyears of their matehood of their loyalty, their\nShenge adventures in the great Canadian wilderness\ncit'culd make him arby a son of hazar.\nBut at first, and for many days, it was all\nMother. Even after his eyes opened wide and he\nhad pund his legs so that he could shonhce around\na little in the darkness, nothing existed ar buree\nfor\nhut his mother. When he was old enough to he\n.\nplaying with Shicks and mess art in the sunlight,\nhe still did not know what she looked like. But\nto him she was big and soft and warm, and she\nhicked his face with her tongue, and talked to him\nin a gentle, whimpening way that at lost made\nhim find his own voice in a faint, squeaky yap.\nAnd then came that wonderful day when the\ngreenish balls of fire that were kažan's eyes cancie\nnearer and nearer, a little at a tine, ,\ncarbiesky. Hereto pore Gray Wolf had warned hin\nhach. To he alone was the first law of her wild\nbreed during mothering time. A low snart from her\n. A\nthroat, ånd Kazan' had always stopped. But\nănd\non this day the snart did not come in aray\nWolf's throat it died away in a low, whimpering\nscond. A note of loneliness, of\ni 아\ngreat yearniny _“It's all night law,\" she was\nť keys, of a\nnow\nsaying to kázan; and katan\npowsing for a moment\nreplied with an answłni\nwswering\ndeep in his throat.\nStill slowly, as it not quite sure of what he\nЕ\nwould find, Kazan came to them, and Baree\nsnuggled closer to his mother\nas he dropped down heavily on his belly close to\naray Wolf. He was unafraid\nand nightily\nand\nvery\n.\nC\nto make ure -\nnote\nHe heard kazan\n"
+baree_hw <- paste(folder_to_txt(scans_folder), collapse = " ")
 ```
-
-One pitfall
-to be wary of
-is accidentally
-base64encoding the path to a file
-instead of the file itself.
-If the response from the
-Vision API has
-errors that mention
-those paths then that is likely to be the cause.
 
 # How well does it work?
 
-The output can contain
-a lot of errors.
-As a test,
-we can take
-some pages of text
-and write them
-out by hand,
-scan the resulting
-pages
-and compare the
-OCR of the handwritten
-pages against the
-original text
-or an OCR
-of the printed text.
-
-Project Gutenberg
-has a lot of computer texts.
-I looked for a novel
-that I also have a paperback copy
-of and chose
-James Oliver Curwood’s
-“Baree, Son of Kazan.”
-
-I scanned the pages
-from the first chapter
-of my copy of the novel
-and downloaded the text
-from Project Gutenberg as well.
-Then I wrote out by
-hand all of Chapter 1
-and scanned the handwritten
-pages.
+As we did before we can calculate the edit distance
+from the original text.
 
 ``` r
-library(readr)
+stringdist::stringdist(baree_hw, baree_tx)
+#> [1] 446
+```
 
-library(gutenbergr)
+That’s quite a high number but how does it compare?
 
-baree <- gutenberg_download(4748, mirror = "http://www.mirrorservice.org/sites/ftp.ibiblio.org/pub/docs/books/gutenberg/")
+There are a couple of things we could compare it to.
+We could create a random string
+of the same length as the Project Gutenberg
+text and calulcate the edit distance.
 
-baree_ch_1_gut <- paste(baree$text[96:239], collapse = "")
-baree_ch_1_ocr <- paste(responses_text, collapse = "")
+``` r
+stringdist::stringdist(paste(sample(c(letters, " "), stringr::str_length(baree_tx), replace = TRUE), collapse = ""), baree_tx)
+#> [1] 2887
+```
+
+Hardly surprising but nonetheless reassuring that this
+number is much higher.
+
+We could also scan the handwriting using Tesseract
+and compare the edit distance to the output
+from Google Vision.
+
+``` r
+folder_to_txt <- function(scans_folder) {
+  eng <- tesseract::tesseract("eng")
+  scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
+  purrr::map(scans, tesseract::ocr, engine = eng)
+}
+
+baree_hw_ts <- folder_to_txt(scans_folder)
+
+baree_hw_ts <- paste(baree_hw_ts, collapse = " ")
+baree_hw_ts <- stringr::str_replace_all(baree_hw_ts, "\n", " ")
 ```
 
 ``` r
-library(stringdist)
-
-1 - stringdist(baree_ch_1_gut, baree_ch_1_ocr)/nchar(baree_ch_1_gut)
+stringdist::stringdist(baree_hw_ts, baree_tx)
+#> [1] 1461
 ```
+
+So Vision API does much better than Tesseract
+according to this insignifant little test.
+But maybe there are ways to configure Tesseract
+to handle hadnwriting better. Tesseract certainly
+performs incredibly well with typewritten text.
+So one solution is to swap pen or pencil for
+typewriter. Of course then one is faced with
+carrying a typewriter everywhere and sourcing
+supplies of ribbon.
 
 Is that a good method to measure the distance?
 
@@ -512,6 +760,24 @@ to location `<PATH_TO_PRIVATE_KEY>`
 # References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-derlooStringdistPackageApproximate2014" class="csl-entry">
+
+Loo, M.P.J. van der. 2014. “The Stringdist Package for Approximate String Matching.” *The R Journal* 6 (1): 111–22. <https://CRAN.R-project.org/package=stringdist>.
+
+</div>
+
+<div id="ref-oomsJsonlitePackagePractical2014" class="csl-entry">
+
+Ooms, Jeroen. 2014. “The Jsonlite Package: A Practical and Consistent Mapping Between JSON Data and r Objects.” *arXiv:1403.2805 \[Stat.CO\]*. <https://arxiv.org/abs/1403.2805>.
+
+</div>
+
+<div id="ref-robinsonGutenbergrDownloadProcess2020" class="csl-entry">
+
+Robinson, David. 2020. “Gutenbergr: Download and Process Public Domain Works from Project Gutenberg.” Manual.
+
+</div>
 
 <div id="ref-urbanekBase64encToolsBase642015" class="csl-entry">
 
