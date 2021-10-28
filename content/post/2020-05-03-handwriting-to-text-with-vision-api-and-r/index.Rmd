@@ -186,10 +186,10 @@ in R.
 In the next section I show you how to
 extract text from a single image file.
 
-In the section after next I show you
+Later I'll show
 how you can extract text from multiple images.
 
-# Extract handwriting from one image
+# Extracting handwriting from a single image
 
 In this section
 and the following ones
@@ -197,15 +197,14 @@ I make use of some images
 of my own handwriting.
 
 So I can compare the results
-of using Vision API for OCR 
+of using Vision API
 against a known text
 I have written out
 several pages
 of
 [James Oliver Curwood](https://en.wikipedia.org/wiki/James_Oliver_Curwood)'s
 novel
-"Baree, Son of Kazan"
-(sequel to "Kazan")
+*Baree, Son of Kazan*
 by hand.
 For comparison
 I use the
@@ -214,15 +213,16 @@ I use the
 ## Creating document text detection requests
 
 Using Vision API
-involves posting images via http to
+for image annotation
+involves posting images over http to
 `https://vision.googleapis.com/v1/images:annotate`
 with a JSON payload
-containing our images
+containing images
 encoded as text
 using the Base64 encoding scheme.
 (see https://en.wikipedia.org/wiki/Base64 for more details).
 
-The JSON payload we post
+The JSON payload
 looks something like this:
 
 ```json
@@ -249,16 +249,26 @@ of our image as text.
 
 Luckily,
 we don't have to figure out
-any of the details of doing the encoding ourselves
-because there is an R package
+how to do the encoding ourselves.
+The R package
 {base64enc}
 (@urbanekBase64encToolsBase642015)
-that will do the work for us.
+can do the work for us.
 
-With a function
-in R we can generate
-a request based
-on a specific image.
+The
+`document_text_detection`
+function below
+generates
+a request
+of the right format
+given the path
+to an image.
+
+It uses
+`base64enc::base64encode`
+to compute a base64 encoding
+of the image
+specified by the input path.
 
 ```{r}
 document_text_detection <- function(image_path) {
@@ -273,28 +283,24 @@ document_text_detection <- function(image_path) {
 }
 ```
 
-The input to this
-function is a path
-to an image file.
-The function takes
-that path
-and uses
-`base64enc::base64encode`
-to compute a base64 encoding
-of the image.
 It then packs
 the resulting encoding
 into a list
-which will be converted
-into JSON automatically
-by the
+which can be converted
+into JSON before
+being posted.
+
+As we will
+be using
 {httr}
 (@wickhamHttrToolsWorking2020)
-package
-(using the
+we don't even have to worry
+about doing the conversion
+to JSON.
+{httr} will do that
+automatically by using
 {jsonlite}
 (@oomsJsonlitePackagePractical2014)
-package)
 when we make our request.
 
 ```{r}
@@ -302,20 +308,19 @@ dtd_001 <- document_text_detection("~/workspace/baree-handwriting-scans/001.png"
 ```
 
 Be wary of inspecting the return value
-of this function. It contains a huge JSON
-string and can cause R to freeze as it
-tries to output all of the string to the screen.
+of this function call.
+It contains a huge JSON string
+and R might take a very long time
+to output the string
+to the screen.
 
-You can inspect part of it using `substr`.
-(surely there's something better i can do here)
+You can use `substr`
+to inspect part of it,
+if you really want.
 
 ```{r}
 substr(dtd_001, 1, 200)
 ```
-
-Images have to be less than 10MB.
-
-In fact the whole request has to be at most 10MB?
 
 One pitfall
 to be wary of
@@ -323,15 +328,16 @@ is accidentally
 base64encoding the path to a file
 instead of the file itself.
 If the response from the
-Vision API has
-errors that mention
-those paths then that is likely to be the cause.
+Vision API has error messages
+containing paths
+then that is likely to be the cause.
 
-## Post requests to our app
+## Posting requests to Vision API
 
-Next we use `httr:POST`
+Now we can use
+`httr:POST`
 from {httr}
-to post our request object
+to post our request
 to the Vision API.
 
 `httr::POST`
@@ -344,36 +350,38 @@ arguments.
 `url`
 is the webpage
 to be retrieved.
-In our case this is
+In this case
 `"https://vision.googleapis.com/v1/images:annotate"`
 
 `body`
 is the
 request payload.
-This will be
+In this case
 a named list
 with one element
 named `requests`
 whose value is a list
 of request objects.
-(XXX checck this XXX)
 
-As well as the required
-arguments we also need
+As well as the
+required arguments
+we also have
 to tell the server
 that the content of our
-request is JSON
+request is JSON.
+We do this
 by adding
 "Content-Type: application/json"
 to the header
 of our request.
-We can do this
-with
 `httr::POST`
-by adding a call
+will do it for us
+if we
+pass a call
 to
 `httr::content_type_json()`
-as an argument.
+as one of the
+optional arguments.
 
 The Vision API documentation
 says that for a request
@@ -382,14 +390,31 @@ it must have
 an
 `Authorization = "Bearer <GCLOUD_ACCESS_TOKEN>"`
 header.
-`<GCLOUD_ACCESS_TOKEN>`
-can be obtained
-by calling
-`Sys.getenv("GCLOUD_ACCESS_TOKEN")`.
 We can add the header
 using the
 `httr::add_headers`
 function.
+
+```r
+httr::add_headers(
+    "Authorization" = paste("Bearer", Sys.getenv("GCLOUD_ACCESS_TOKEN"))
+)
+```
+
+Here we have used
+`Sys.getenv("GCLOUD_ACCESS_TOKEN")`
+to obtain the value
+of our access token.
+
+The
+`post_vision`
+function below
+takes a requests list
+as output
+and returns
+the response
+from Vision API's
+annotation endpoint.
 
 ```{r}
 post_vision <- function(requests) {
@@ -405,21 +430,31 @@ post_vision <- function(requests) {
 }
 ```
 
-Now we can make our first request by calling
-the
+Now we are ready
+to make our first request.
+
+We have to call
 `post_vision`
-function
 with a list of requests.
-Here we only have one request,
+In our case
+we only have one request
 `dtd_001`
 which we created earlier
 by calling
 `document_text_detection`
 with the path
 to our image.
+But
+`post_vision`
+excepts a list
+so we have to 
+pack our single
+request inside a list first.
 
 ```{r}
-r_001 <- post_vision(list(requests = dtd_001))
+l_r_001 <- list(requests = dtd_001)
+
+r_001 <- post_vision(l_r_001)
 ```
 
 Calling
@@ -453,14 +488,15 @@ If you see "ACCESS_TOKEN_EXPIRED"
 under "error" -> "details"
 then you might just have to rerun
 the gcloud tool to generate
-a new access token.
+a new access token
+(section 4. in the Appendix).
 
-In the next section
-we look at how
-to interpret
+Next
+we explain
+how to interpret
 a valid response.
 
-## Get text from the response
+## Getting text from the response
 
 If the status code
 is 200 then you
