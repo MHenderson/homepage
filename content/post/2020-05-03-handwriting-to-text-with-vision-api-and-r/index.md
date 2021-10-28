@@ -66,41 +66,62 @@ references:
   type: article-journal
   URL: https://CRAN.R-project.org/package=stringdist
   volume: '6'
+- id: wickhamUsethisAutomatePackage2021
+  author:
+    - family: Wickham
+      given: Hadley
+    - family: Bryan
+      given: Jennifer
+  genre: manual
+  issued:
+    - year: 2021
+  title: 'usethis: Automate package and project setup'
+  type: report
 ---
 
-In this post we describe how to use Google Cloud Platform,
-in particular the Vision API, to extract text from images
-in R.
+In this post I’ll show you how to use Google Cloud Platform’s
+Vision API to extract text from images in R.
 
-Of particular interest here is the case when the
+I’m mostly interested in the case when the
 text being extracted is handwritten.
+For typewritten text,
+I use
+[Tesseract](https://github.com/tesseract-ocr).
 
-These are really
-notes to myself as someone who writes a lot of notes by
-hand and sometimes like to move those notes onto the computer.
+This post began
+as some notes to myself
+as someone who writes
+a lot of other notes by hand
+and sometimes like to move
+those other notes
+onto the computer.
 
 Is it feasible to use OCR software for such a task?
 Tesseract, which works
 very well for OCR of typed characters does not seem to
-do very well with handwriting. Google Vision API,
-on the other hand, is able to extract text from handwriting.
-But does it do it well enough to be useful? That’s what
-we are interested in here.
+do very well with handwriting.
+Google’s Vision API,
+on the other hand,
+is able to extract handwritten text
+from images.
+Does it do that well enough to be useful?
 
 # Preparation
 
 Before doing anything in R
-you have to
+you must
 create a project on
 Google Cloud Platform (GCP)
 and enable Vision API.
 
-In the appendix there are brief
-notes about how to do this
+In the appendix
+I have written
+some brief notes
+about how to do this
 but if you are using GCP
 for the first time
-it is probably better
-to follow a tutorial
+I recommend
+following a tutorial
 like the one at
 https://cloud.google.com/vision/docs/setup
 instead.
@@ -112,19 +133,42 @@ of a shiny new access token.
 
 To run any of the code below
 we need to tell R
-what the access token
-is without accidentally
-revealing it to the world.
+what the access token is.
+But we have to
+be careful not to hardcode
+our secret token anywhere
+in our code
+because the token
+gives its owner the power
+to make API requests
+which can incur costs.
 
-One of the easiest ways to do this is to use
-the usethis package to edit .Renviron, either
-at project score or user scope.
+Instead we define
+an environment variable
+`GCLOUD_ACCESS_TOKEN`
+with out secret token
+and access the value
+of the environment variable
+in our code.
+
+One of the easiest ways
+to define an environment variable
+in R is to use
+the
+{usethis}
+(Wickham and Bryan (2021))
+package to edit
+`.Renviron`,
+at project
+or user scope.
 
 ``` r
 usethis::edit_r_environ(scope = "user")
 ```
 
-Put into that file something like this:
+Put into the file
+that opens in RStudio
+something like this:
 
     GCLOUD_ACCESS_TOKEN=<your access token here>
 
@@ -141,15 +185,23 @@ using the Google Cloud Console
 (put a link here).
 
 After defining your access token in
-.Renviron you need to restart R. Then you
-can check that the environment variable now
-is defined to be equal to the access token
-with
-`Sys.getenv`:
+`.Renviron` you need to restart R.
+Then you can
+use
+`Sys.getenv`
+to check
+that the environment variable
+is equal to the access token.
 
 ``` r
 Sys.getenv("GCLOUD_ACCESS_TOKEN")
 ```
+
+The output here should
+be your access token.
+If it’s an empty string
+then you might need
+to restart R.
 
 Now we are ready
 to being extracting text from images
@@ -241,6 +293,12 @@ It uses
 to compute a base64 encoding
 of the image
 specified by the input path.
+It then packs
+the resulting encoding
+into a list
+which can be converted
+into JSON before
+being posted.
 
 ``` r
 document_text_detection <- function(image_path) {
@@ -254,13 +312,6 @@ document_text_detection <- function(image_path) {
   )
 }
 ```
-
-It then packs
-the resulting encoding
-into a list
-which can be converted
-into JSON before
-being posted.
 
 As we will
 be using
@@ -299,8 +350,8 @@ substr(dtd_001, 1, 200)
 One pitfall
 to be wary of
 is accidentally
-base64encoding the path to a file
-instead of the file itself.
+encoding the path to a file
+instead of the contents of the file itself.
 If the response from the
 Vision API has error messages
 containing paths
@@ -384,11 +435,12 @@ The
 `post_vision`
 function below
 takes a requests list
-as output
+as input
 and returns
 the response
 from Vision API’s
-annotation endpoint.
+annotation endpoint
+as a list.
 
 ``` r
 post_vision <- function(requests) {
@@ -405,11 +457,14 @@ post_vision <- function(requests) {
 ```
 
 Now we are ready
+to use
+`post_vision`
 to make our first request.
 
-We have to call
 `post_vision`
-with a list of requests.
+expects a
+list of requests
+as input.
 In our case
 we only have one request
 `dtd_001`
@@ -418,17 +473,13 @@ by calling
 `document_text_detection`
 with the path
 to our image.
-But
-`post_vision`
-excepts a list
-so we have to
+Nevertheless,
+we still have to
 pack our single
 request inside a list first.
 
 ``` r
 l_r_001 <- list(requests = dtd_001)
-
-r_001 <- post_vision(l_r_001)
 ```
 
 Calling
@@ -436,6 +487,10 @@ Calling
 sends our image
 to Vision API
 and returns the response.
+
+``` r
+r_001 <- post_vision(l_r_001)
+```
 
 Depending on the
 number of images
@@ -454,7 +509,7 @@ was received
 
 ``` r
 httr::status_code(r_001)
-#> [1] 200
+#> [1] 401
 ```
 
 If you get a 401 instead
@@ -475,7 +530,8 @@ a valid response.
 
 If the status code
 is 200 then you
-can use `httr::content`
+can use
+`httr::content`
 to extract the content
 of the response.
 
@@ -489,62 +545,21 @@ of information.
 We are mainly interested
 in the text content,
 which is contained
-in the `responses` object
-as `fullTextAnnotation`.
+in the
+`responses`
+object
+as
+`fullTextAnnotation`.
 
 ``` r
 baree_hw_001 <- content_001$responses[[1]]$fullTextAnnotation$text
 cat(baree_hw_001)
-#> a
-#> vast
-#> fear
-#> To Parce, for many days after he was
-#> born, the world was a
-#> gloony cavern.
-#> During these first days of his life his
-#> home was in the heart of a great windfall
-#> where aray wolf, his blind mother, had found
-#> a a safe nest for his hahy hood, and to which
-#> Kazan, her mate, came only now and then ,
-#> his eyes gleaming like strange balls of greenish
-#> fire in the darknen. It was kazan's eyes that
-#> gave
-#> do Barce his first impression of something
-#> existing away from his mother's side, and they
-#> brought to him also his discovery of vision. He
-#> could feel, he could smell, he could hear - but
-#> in that black pirt under the fallen timher he
-#> had never seen until the
-#> eyes
-#> came. At first
-#> they frightened nin; then they puzzled him , and
-#> bis Heer changed to an immense ceniosity, the world
-#> be looking foreight at them when all at once
-#> they world disappear. This was when Kazan turned
-#> his head. And then they would flash hach at him
-#> again wt of the darknen with such startling
-#> Suddenness that Baree world involuntanty Shrink
-#> closer to his mother who always treunded and
-#> Shivered in a strenge way when Kazan came in.
-#> Barce, of course, would never know their story. He
-#> world never know that Gray Wolf, his mother, was
-#> a full-hlooded wolf, and that Kazan, his father,
-#> was a dog. In hin nature was already
-#> nature was already beginning
-#> its wonderful work, but it world never go beyind
-#> cerria limitations. It wald tell him, in time, ,
-#> that his heavtiful wolf - mother was blind, hur
-#> he world never know of that terrible hattle between
-#> Gray Wolf and the lynx in which his mother's sight
-#> had been destroyed Nature could tell hin gatting
-#> nothing
-#> +
-#> а
-#> (
 ```
 
-This is slightly disappointing.
-Only some of the text is readable.
+Some of the text is readable
+but there is a lot that
+needs to be done
+to fix all of the errors.
 But this is only one page.
 Maybe things would be better
 for someone with better handwriting.
@@ -599,15 +614,32 @@ Project Gutenberg text.
 
 ``` r
 stringdist::stringdist(baree_hw_001, baree_tx_001, method = "lv")
-#> [1] 174
+#> numeric(0)
 ```
 
-So apparently we could turn
+Apparently we could turn
 page of handwriting to match
 the text from
 Project Gutenberg
-with 174 edits.
+with 174 changes.
 Quite a lot for one page!
+But we have to bear in mind
+that edit distance is not
+quite the same as the number
+of changes you would
+need to make to fix
+the document yourself.
+You could use spell check tools
+to fix some errors quickly
+and remove non alphabetic
+characters if you knew
+the original text was
+all alphabetic.
+Also, some errors
+measured by edit distance
+are due to whitespace differences
+and we could choose to ignore
+some of those.
 
 Here we used the default method
 optimal string alignment
@@ -714,7 +746,7 @@ text and calulcate the edit distance.
 
 ``` r
 stringdist::stringdist(paste(sample(c(letters, " "), stringr::str_length(baree_tx), replace = TRUE), collapse = ""), baree_tx)
-#> [1] 2887
+#> [1] 2864
 ```
 
 Hardly surprising but nonetheless reassuring that this
@@ -824,6 +856,12 @@ Urbanek, Simon. 2015. “Base64enc: Tools for Base64 Encoding.” Manual. <http:
 <div id="ref-wickhamHttrToolsWorking2020" class="csl-entry">
 
 Wickham, Hadley. 2020. “Httr: Tools for Working with URLs and HTTP.” Manual.
+
+</div>
+
+<div id="ref-wickhamUsethisAutomatePackage2021" class="csl-entry">
+
+Wickham, Hadley, and Jennifer Bryan. 2021. “Usethis: Automate Package and Project Setup.” Manual.
 
 </div>
 
