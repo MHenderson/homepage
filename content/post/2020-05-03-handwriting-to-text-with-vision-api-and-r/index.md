@@ -77,6 +77,15 @@ references:
     - year: 2021
   title: 'usethis: Automate package and project setup'
   type: report
+- id: oomsTesseractOpenSource2021
+  author:
+    - family: Ooms
+      given: Jeroen
+  genre: manual
+  issued:
+    - year: 2021
+  title: 'tesseract: Open source OCR engine'
+  type: report
 ---
 
 In this post I’ll show you how to use Google Cloud Platform’s
@@ -590,10 +599,10 @@ try a different mirror.
 (see gutenbergr docs)
 
 With some manual inspection
-we can figure out
+we can find
 the substring
 of the downloaded text
-corresponding to the handwritten page.
+corresponding to our handwritten page.
 
 ``` r
 baree_tx <- paste(baree$text[96:148], collapse = " ")
@@ -606,8 +615,9 @@ Now using the
 (der Loo (2014))
 package we can calculate
 the edit distance
-from the first page
-scanned from my handwriting
+between the text
+extracted from the handwritten page
+by Vision API
 and the string
 extracted from the
 Project Gutenberg text.
@@ -617,10 +627,10 @@ stringdist::stringdist(baree_hw_001, baree_tx_001, method = "lv")
 #> numeric(0)
 ```
 
-Apparently we could turn
+Apparently we could change
+the handwriting based text
 page of handwriting to match
-the text from
-Project Gutenberg
+the text from Project Gutenberg
 with 174 changes.
 Quite a lot for one page!
 But we have to bear in mind
@@ -631,25 +641,20 @@ need to make to fix
 the document yourself.
 You could use spell check tools
 to fix some errors quickly
-and remove non alphabetic
-characters if you knew
-the original text was
-all alphabetic.
-Also, some errors
-measured by edit distance
-are due to whitespace differences
-and we could choose to ignore
-some of those.
+and
+use search-and-replace
+to remove systematic errors
+like non-alphabetic characters
+(assuming your text is entirely alphabetic)
+or additional spacing.
 
-Here we used the default method
-optimal string alignment
-or restricted Damerau-Levenshtein distance
-(method = “osa”)
+In calculating edit distance
+we used the default
+optimal string alignment method
 from
-{stringdist}
-to measure edit distance.
+{stringdist}.
 But the result is the same
-if we use
+if we use different methods like
 Levenshtein distance (method = “lv”)
 or
 Full Damerau-Levenshtein distance (method = “dl”).
@@ -658,6 +663,7 @@ Full Damerau-Levenshtein distance (method = “dl”).
 
 It is possible to send a document to the vision API which
 has multiple pages. Below we describe a different approach
+to handling multiple pages
 based on sending a request based on multiple images.
 
 ## Build a request based on multiple images
@@ -676,10 +682,17 @@ scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
 response <- post_vision(list(requests = purrr::map(scans, document_text_detection)))
 ```
 
-Again we can check to make sure that
+Notice that
+even though we have
+multiple images
+we still only make one request.
+The JSON payload
+contains multiple images.
+
+Again we check to make sure that
 we received a valid response
 before opening it
-and seeing what is inside.
+to see what’s inside.
 
 ``` r
 httr::status_code(response)
@@ -692,30 +705,58 @@ response and extract the
 `fullTextAnnotation`
 list.
 This can be done with
-`purrr::map`.
+`purrr::map`
+which has a nice feature
+that if a string
+is given for the function argument
+then `purrr::map` converts
+that string into an extractor function
+which will pull out
+elements of the list argument
+having that name.
 
 ``` r
 responses_annotations <- purrr::map(httr::content(response)$responses, "fullTextAnnotation")
 ```
 
-Finally we need to reach inside
-those annotations and pull out
-any `text`.
-As we are expecting text
-we can use `purrr::map_chr`.
+Using the same feature again
+we reach inside
+the annotations
+to pull out
+any
+`text`
+elements.
 
 ``` r
 purrr::map_chr(responses_annotations, "text")
 #> character(0)
 ```
 
-Lettuce put all of this together in a function
-whose input is a path to a folder containing
-images and whose return value is the text contained
-in all of those images.
+Using
+`purrr::map_chr`
+instead of
+`purrr:map`
+here returns
+a character vector
+instead of a list.
+
+The
+`folder_to_chr`
+function below
+puts all of these steps together.
+The input is a path
+to a folder containing images
+whose text we want to extract.
+The return value
+is a string
+containing all text
+contained in those images.
+This presumes that files
+are organised in the right order
+in the input folder.
 
 ``` r
-folder_to_txt <- function(scans_folder) {
+folder_to_chr <- function(scans_folder) {
   scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
   response <- post_vision(list(requests = purrr::map(scans, document_text_detection)))
   responses_annotations <- purrr::map(httr::content(response)$responses, "fullTextAnnotation")
@@ -723,13 +764,17 @@ folder_to_txt <- function(scans_folder) {
 }
 ```
 
+Now we can convert
+all the handwritten pages
+of the first chapter of Baree.
+
 ``` r
-baree_hw <- paste(folder_to_txt(scans_folder), collapse = " ")
+baree_hw <- paste(folder_to_chr(scans_folder), collapse = " ")
 ```
 
 # How well does it work?
 
-As we did before we can calculate the edit distance
+As before we calculate the edit distance
 from the original text.
 
 ``` r
@@ -737,36 +782,46 @@ stringdist::stringdist(baree_hw, baree_tx)
 #> [1] 446
 ```
 
-That’s quite a high number but how does it compare?
+That seems like a high number
+but it’s hard to know
+without something to compare it against.
 
-There are a couple of things we could compare it to.
-We could create a random string
-of the same length as the Project Gutenberg
-text and calulcate the edit distance.
+How does is compare,
+for example,
+to the edit distance
+between a random string
+the same length
+as the target text
+and the target text itself.
 
 ``` r
 stringdist::stringdist(paste(sample(c(letters, " "), stringr::str_length(baree_tx), replace = TRUE), collapse = ""), baree_tx)
 #> [1] 2864
 ```
 
-Hardly surprising but nonetheless reassuring that this
-number is much higher.
+It’s hardly surprising that this is
+a much higher number.
 
-We could also scan the handwriting using Tesseract
-and compare the edit distance to the output
-from Google Vision.
+Another comparison worth making
+is against the result
+of using Tesseract
+to extract the text
+of the same handwritten pages.
+
+Fortunately,
+the
+{tesseract}
+(Ooms (2021))
+R package makes this very easy.
 
 ``` r
-folder_to_txt <- function(scans_folder) {
+folder_to_chr_ts <- function(scans_folder) {
   eng <- tesseract::tesseract("eng")
   scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
-  purrr::map(scans, tesseract::ocr, engine = eng)
+  paste(purrr::map(scans, tesseract::ocr, engine = eng), collapse = " ")
 }
 
-baree_hw_ts <- folder_to_txt(scans_folder)
-
-baree_hw_ts <- paste(baree_hw_ts, collapse = " ")
-baree_hw_ts <- stringr::str_replace_all(baree_hw_ts, "\n", " ")
+baree_hw_ts <- folder_to_chr_ts(scans_folder)
 ```
 
 ``` r
@@ -775,42 +830,117 @@ stringdist::stringdist(baree_hw_ts, baree_tx)
 ```
 
 So Vision API does much better than Tesseract
-according to this insignifant little test.
-But maybe there are ways to configure Tesseract
-to handle hadnwriting better. Tesseract certainly
-performs incredibly well with typewritten text.
-So one solution is to swap pen or pencil for
-typewriter. Of course then one is faced with
-carrying a typewriter everywhere and sourcing
-supplies of ribbon.
-
-Is that a good method to measure the distance?
+according to this particular little test.
+But this is probably not a fair comparison.
+Tesseract doesn’t claim to be able to
+extract text from images of handwriting.
+Furthermore,
+it might be possible to configure
+Tesseract in a way that improves
+the results
+or to modify the input images
+to make them better suited to Tesseract.
+For my purposes I just wanted to see
+if using Vision API made it possible
+to work with handwritten pages
+in this way.
+While it seems promising I can tell
+from this little experiment that I’d
+probably spend longer editing the resulting
+texts to corrects errors than I would
+spend typing them.
 
 # Appendix (Google Cloud Platform)
 
+This appendix is a reference
+to remind myself what steps
+to follow.
+
+A better resource
+if you haven’t done this before is:
 https://cloud.google.com/vision/docs/setup
 
-steps 0 - 2 only have to be done once.
-
-step 3 only needs to be done once and then
-whenever the key expires.
-
-If you already have the app and service account
-then jump to step 3.
-
-If you already have the private key as well
-jump to setp 4.
+-   0 - 2 only have to be done once.
+-   3 only needs to be done once
+    unless the private key has expired.
+-   If you have already
+    created a project
+    and service account
+    then jump to step 3.
+-   If you already have the private key as well
+    jump to step 4.
 
 ## 0. Install the cloud SDK
 
-## 1. Create app
+We need the `glcoud` tool
+to configure authentication.
+
+The instructions are here:
+https://cloud.google.com/sdk/docs/install
+
+## 1. Create project
 
 First you need to create a GCP project and enable
 Vision API for that project.
 
+You will have to setup billing when creating
+the project if you haven’t done so before.
+
+Go to the Project Selector:
+https://console.cloud.google.com/projectselector2/home/dashboard
+and select “Create Project”
+
+Give your project a name
+and click “Create.”
+
+Wait for the circly thing to spin around forever.
+
+Eventually the Project Dashboard appears.
+At the time of writing
+somewhere in the bottom-left of the dashboard
+is a “Getting Started” panel
+containing a link named
+“Explore and enable APIs.”
+Click on it.
+
+You will be transported to the API dashboard.
+At the top you should see
+“+ ENABLE APIs AND SERVICES.”
+Click on that.
+
+Now you get a search dialog.
+
+Type “vision” and press enter.
+
+Select “Cloud Vision API” and on the page that appears
+click the “Enable” button.
+
+What a palaver.
+
 ## 2. Create service account
 
-Then you need to create a service account
+Then you need to create a service account.
+
+This is a good point to just give up.
+
+Strictly speaking this isn’t necessary
+but it does seem to be the most straightforward way
+of enable authentication for your project.
+
+Click the three lines (what are those called again)
+to open the menu on the left
+of the screen.
+
+Scroll down to “IAM & Admin”
+and select “Service Accounts.”
+
+Click on “Create Service Account.”
+
+Give your account a name.
+
+Click “Create and continue”
+
+XXX HERE XXX
 
 ## 3. Download private key
 
@@ -838,6 +968,12 @@ Loo, M.P.J. van der. 2014. “The Stringdist Package for Approximate String Matc
 <div id="ref-oomsJsonlitePackagePractical2014" class="csl-entry">
 
 Ooms, Jeroen. 2014. “The Jsonlite Package: A Practical and Consistent Mapping Between JSON Data and r Objects.” *arXiv:1403.2805 \[Stat.CO\]*. <https://arxiv.org/abs/1403.2805>.
+
+</div>
+
+<div id="ref-oomsTesseractOpenSource2021" class="csl-entry">
+
+———. 2021. “Tesseract: Open Source OCR Engine.” Manual.
 
 </div>
 
