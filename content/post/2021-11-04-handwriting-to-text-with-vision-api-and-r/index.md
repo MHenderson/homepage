@@ -2,7 +2,7 @@
 title: "(WIP) Extracting Text from Images with Google Vision API and R"
 author: Matthew Henderson
 slug: handwriting-to-text
-date: '2020-05-03'
+date: '2021-11-04'
 categories:
   - ml
 tags:
