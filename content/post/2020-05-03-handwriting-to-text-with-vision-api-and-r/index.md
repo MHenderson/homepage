@@ -144,7 +144,7 @@ To run any of the code below
 you must tell R
 what the access token is.
 But you have to
-be careful not to hardcode
+be careful not to hard-code
 the access token
 in your source code.
 The access token
@@ -172,7 +172,7 @@ with
 While
 it is possible
 to use `Sys.setenv`
-to define an environment variable.
+to define an environment variable
 a better method
 is to define it
 in an `.Renviron` file.
@@ -699,17 +699,29 @@ baree <- gutenbergr::gutenberg_download(4748)
 If you get an error here,
 try a different mirror.
 
-By manual inspection
-find the substring
-of the downloaded text
-corresponding to the handwritten page.
+From the text of the entire novel
+we can extract just the portion
+that corresponds to our scanned pages.
 In this case
-the substring begins at
-the 1st character
-and ends at the 1597th.
+that means lines 96
+to 148.
 
 ``` r
 baree_tx <- paste(baree$text[96:148], collapse = " ")
+```
+
+With a bit more
+close inspection
+we can
+find the substring
+of the downloaded text
+corresponding to the first handwritten page.
+In this case
+the substring beginning at
+the 1st character
+and ending at the 1597th.
+
+``` r
 cat(baree_tx_001 <- stringr::str_sub(baree_tx, 1, 1597))
 #> To Baree, for many days after he was born, the world was a vast gloomy cavern.  During these first days of his life his home was in the heart of a great windfall where Gray Wolf, his blind mother, had found a safe nest for his babyhood, and to which Kazan, her mate, came only now and then, his eyes gleaming like strange balls of greenish fire in the darkness. It was Kazan's eyes that gave to Baree his first impression of something existing away from his mother's side, and they brought to him also his discovery of vision. He could feel, he could smell, he could hear--but in that black pit under the fallen timber he had never seen until the eyes came. At first they frightened him; then they puzzled him, and his fear changed to an immense curiosity. He would be looking straight at them, when all at once they would disappear. This was when Kazan turned his head. And then they would flash back at him again out of the darkness with such startling suddenness that Baree would involuntarily shrink closer to his mother, who always trembled and shivered in a strange sort of way when Kazan came in.  Baree, of course, would never know their story. He would never know that Gray Wolf, his mother, was a full-blooded wolf, and that Kazan, his father, was a dog. In him nature was already beginning its wonderful work, but it would never go beyond certain limitations. It would tell him, in time, that his beautiful wolf mother was blind, but he would never know of that terrible battle between Gray Wolf and the lynx in which his mother's sight had been destroyed. Nature could tell him nothing
 ```
@@ -768,12 +780,12 @@ Full Damerau-Levenshtein distance
 
 # Handling multiple pages
 
-It is possible to send a multipage document
+It is possible to send a multi page document
 to Vision API.
 A PDF,
 for example.
 A different approach
-to multipage documents
+to multi page documents
 is to send one request
 with multiple images,
 one image per page.
@@ -826,15 +838,17 @@ wrap
 this list of requests
 in another list.
 
-`list(requests = scans_dtd)`
+``` r
+l_r <- list(requests = scans_dtd)
+```
 
-Before finally calling
+Before calling
 `post_vision`
 and sending all
 images to Vision API.
 
 ``` r
-response <- post_vision(list(requests = scans_dtd))
+response <- post_vision(l_r)
 ```
 
 Notice that
@@ -927,7 +941,7 @@ is a path
 to a folder of images
 whose text we want to extract.
 The return value
-is a string
+is list of strings
 containing all text
 contained in those images.
 
@@ -940,9 +954,13 @@ folder_to_chr <- function(scans_folder) {
 }
 ```
 
-Now we can convert
-all the handwritten pages
-of the first chapter of Baree.
+For example,
+to convert all the pages
+in
+`scans_folder`
+and combine the results
+into a single string
+do something like this:
 
 ``` r
 baree_hw <- paste(folder_to_chr(scans_folder), collapse = " ")
@@ -950,9 +968,18 @@ baree_hw <- paste(folder_to_chr(scans_folder), collapse = " ")
 
 ## How well does it work?
 
-As before we use
+As before you can use
 the edit distance
-from the original text.
+between
+`baree_hw`
+and
+the equivalent pages
+of the original text.
+Here,
+that text has been
+extracted before
+into
+`baree_tx`.
 
 ``` r
 stringdist::stringdist(baree_hw, baree_tx)
@@ -973,7 +1000,8 @@ as the target text
 and the target text itself?
 
 ``` r
-stringdist::stringdist(paste(sample(c(letters, " "), stringr::str_length(baree_tx), replace = TRUE), collapse = ""), baree_tx)
+random_text <- paste(sample(c(letters, " "), stringr::str_length(baree_tx), replace = TRUE), collapse = "")
+stringdist::stringdist(random_text, baree_tx)
 #> [1] 2874
 ```
 
@@ -1010,11 +1038,10 @@ stringdist::stringdist(baree_hw_ts, baree_tx)
 So Vision API does much better than Tesseract
 according to this particular little test.
 But this is probably not a fair comparison.
-AFAIK,
 Tesseract doesn’t claim to be able to
 extract text from images of handwriting.
 Furthermore,
-it might be possible to configure
+it may be possible to configure
 Tesseract in a way that improves
 the results
 or to modify the input images
@@ -1028,31 +1055,35 @@ My objective was just to see
 if using Vision API made it possible
 to convert my own handwritten documents
 into text.
-While it seems promising it seems
-from this little experiment that I would
-probably spend longer editing the resulting
-texts to corrects errors than I would
-spend typing them.
+While promising it seems
+that I might
+spend longer fixing errors
+in the resulting text
+than it would take
+to type them out from scratch.
 
 # Appendix (Google Cloud Platform)
 
-A better resource
-if you haven’t worked with Vision API before is:
+If you haven’t worked with Vision API before
+the read the following tutorial first:
 https://cloud.google.com/vision/docs/setup
 
--   0 - 2 only have to be done once.
--   3 only needs to be done once
+-   You should only need to do steps 0 - 2 once.
+-   Step 3 should only need to be done once
     unless the private key has expired.
 -   If you have already
     created a project
     and service account
-    then jump to step 3.
+    jump to step 3.
 -   If you already have the private key as well
     jump to step 4.
 
 ## 0. Install the cloud SDK
 
-You need the `glcoud` tool
+You need to install
+the
+`glcoud`
+tool
 to configure authentication.
 
 The installation instructions are here:
@@ -1068,26 +1099,23 @@ the project if you haven’t done so before.
 
 -   Go to the Project Selector:
     https://console.cloud.google.com/projectselector2/home/dashboard
-    and select “Create Project”
+    and select *Create Project*
 -   Give your project a name
-    and click “Create.”
--   Wait for the circly thing to spin around forever.
+    and click *Create*.
 -   Eventually the Project Dashboard appears.
     At the time of writing
     somewhere in the bottom-left of the dashboard
-    is a “Getting Started” panel
-    containing a link named “Explore and enable APIs.”
+    is a *Getting Started* panel
+    containing a link named *Explore and enable APIs*.
     Click on it.
 -   You will be transported to the API dashboard.
 -   At the top you should see
-    “+ ENABLE APIs AND SERVICES.”
+    *+ ENABLE APIs AND SERVICES*.
     Click on that.
 -   Now you get a search dialog.
--   Type “vision” and press enter.
--   Select “Cloud Vision API” and on the page that appears
-    click the “Enable” button.
-
-What a palaver.
+-   Type *vision* and press enter.
+-   Select *Cloud Vision API* and on the page that appears
+    click the *Enable* button.
 
 ## 2. Create service account
 
@@ -1101,39 +1129,39 @@ of enable authentication for your project.
 
 -   Click the hamburger in the navigation bar
     to open the sidebar menu.
--   Scroll down to “IAM & Admin”
-    and select “Service Accounts.”
--   Click on “Create Service Account.”
+-   Scroll down to *IAM & Admin*
+    and select *Service Accounts*.
+-   Click on *Create Service Account*.
 -   Give your account a name.
--   Click “Create and continue”
+-   Click *Create and continue*
 
 ## 3. Download private key
 
 -   In the Service accounts dashboard find the service
     account you created and click on the three dots
-    below “Action.”
--   Select “Manage Keys” from the dropdown menu.
--   On the page that open click on the “ADD KEY” button.
--   Choose “Create New Key” from the dropdown menu.
--   Click “Create” on the modal dialog that opens.
+    below *Action*.
+-   Select *Manage Keys* from the drop-down menu.
+-   On the page that open click on the *ADD KEY* button.
+-   Choose *Create New Key* from the drop-down menu.
+-   Click *Create* on the modal dialog that opens.
 -   You will be prompted to save your key.
 -   Download your private key
-    and remember where you save it.
-    (we refer to the save location below as `<PATH_TO_PRIVATE_KEY>`)
+    and remember where you save it
+    (the save location is referenced below as `<PATH_TO_PRIVATE_KEY>`).
 
-## 4. Use glcoud tool to get access token
+## 4. Use gcloud tool to get access token
 
-Now you can use `glcoud` to get the access token
+Now you can use `gcloud` to get the access token
 required in the above tutorial.
 
--   Define an environment variable
-    `GOOGLE_APPLICATION_CREDENTIALS`
-    pointing to the location where you saved
-    the private key.
+First, define an environment variable
+`GOOGLE_APPLICATION_CREDENTIALS`
+pointing to the location where you saved
+the private key.
 
 `$ export GOOGLE_APPLICATION_CREDENTIALS=<PATH_TO_PRIVATE_KEY>`
 
--   Then run
+Then run
 
 `$ gcloud auth application-default print-access-token`
 
