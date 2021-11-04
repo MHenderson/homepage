@@ -4,10 +4,10 @@ author: Matthew Henderson
 slug: handwriting-to-text
 date: '2021-11-04'
 categories:
-  - ml
+  - handwriting-recognition
 tags:
-  - ocr
-draft: yes
+  - ocr, computer-vision, gcp, apis, cloud-computing
+draft: no
 editor_options: 
   chunk_output_type: console
 references:
@@ -361,7 +361,7 @@ to JSON before
 being posted
 to the URL above.
 
-```{r}
+```{r document_text_detection}
 document_text_detection <- function(image_path) {
   list(
     image = list(
@@ -396,7 +396,7 @@ based on the image
 located at:
 `~/workspace/baree-handwriting-scans/001.png`
 
-```{r}
+```{r dtd_001}
 dtd_001 <- document_text_detection("~/workspace/baree-handwriting-scans/001.png")
 ```
 
@@ -412,7 +412,7 @@ You can use
 to inspect part of it,
 if you really want.
 
-```{r}
+```{r substr_dtd_001}
 substr(dtd_001, 1, 200)
 ```
 
@@ -511,7 +511,7 @@ from Vision API's
 annotation endpoint
 as a list.
 
-```{r}
+```{r post_vision}
 post_vision <- function(requests) {
   httr::POST(
     url = "https://vision.googleapis.com/v1/images:annotate",
@@ -548,7 +548,7 @@ you still have to
 pack your single
 request inside a list.
 
-```{r}
+```{r l_r_001}
 l_r_001 <- list(requests = dtd_001)
 ```
 
@@ -559,7 +559,7 @@ sends your image
 to Vision API
 and returns the response.
 
-```{r}
+```{r r_001}
 r_001 <- post_vision(l_r_001)
 ```
 
@@ -569,7 +569,7 @@ to check that
 a valid response
 was received.
 
-```{r}
+```{r status_r_001}
 httr::status_code(r_001)
 ```
 
@@ -619,7 +619,7 @@ can use
 to extract the content
 of the response.
 
-```{r}
+```{r content_001}
 content_001 <- httr::content(r_001)
 ```
 
@@ -633,7 +633,7 @@ inside
 as
 `fullTextAnnotation$text`.
 
-```{r}
+```{r baree_hw_001}
 baree_hw_001 <- content_001$responses[[1]]$fullTextAnnotation$text
 cat(baree_hw_001)
 ```
@@ -669,7 +669,7 @@ use the
 (@robinsonGutenbergrDownloadProcess2020)
 package.
 
-```{r}
+```{r baree}
 baree <- gutenbergr::gutenberg_download(4748)
 ```
 
@@ -683,7 +683,7 @@ In this case
 that means lines 96
 to 148.
 
-```{r}
+```{r baree_tx}
 baree_tx <- paste(baree$text[96:148], collapse = " ")
 ```
 
@@ -698,7 +698,7 @@ the substring beginning at
 the 1st character
 and ending at the 1597th.
 
-```{r}
+```{r baree_tx_001}
 cat(baree_tx_001 <- stringr::str_sub(baree_tx, 1, 1597))
 ```
 
@@ -714,7 +714,7 @@ and the string
 extracted from the
 Project Gutenberg text.
 
-```{r}
+```{r dist_hw_tx}
 stringdist::stringdist(baree_hw_001, baree_tx_001, method = "lv")
 ```
 
@@ -774,7 +774,7 @@ Here I've used
 the folder
 `~/workspace/baree-handwriting-scans`.
 
-```{r}
+```{r scans_folder}
 scans_folder <- "~/workspace/baree-handwriting-scans"
 ```
 
@@ -788,7 +788,7 @@ and
 to get a list
 of all images.
 
-```{r}
+```{r scans}
 scans <- list.files(scans_folder, pattern = '*.png', full.names = TRUE)
 ```
 
@@ -804,7 +804,7 @@ list of
 JSON request objects,
 one for each page.
 
-```{r}
+```{r scans_dtd}
 scans_dtd <- purrr::map(scans, document_text_detection)
 ```
 
@@ -813,7 +813,7 @@ wrap
 this list of requests
 in another list.
 
-```{r}
+```{r l_r}
 l_r <- list(requests = scans_dtd)
 ```
 
@@ -822,7 +822,7 @@ Before calling
 and sending all
 images to Vision API.
 
-```{r}
+```{r response}
 response <- post_vision(l_r)
 ```
 
@@ -851,7 +851,7 @@ was received
 before opening it up
 and looking at what is inside.
 
-```{r}
+```{r status_response}
 httr::status_code(response)
 ```
 
@@ -871,7 +871,7 @@ by passing the name
 `"fullTextAnnotation"`
 as the function argument.
 
-```{r}
+```{r responses_annotations}
 responses_annotations <- purrr::map(httr::content(response)$responses, "fullTextAnnotation")
 ```
 
@@ -899,7 +899,7 @@ instead of
 because the output
 should be a string.
 
-```{r}
+```{r responses_text}
 purrr::map_chr(responses_annotations, "text")
 ```
 
@@ -918,7 +918,7 @@ is list of strings
 containing all text
 contained in those images.
 
-```{r}
+```{r folder_to_chr}
 folder_to_chr <- function(scans_folder) {
   scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
   response <- post_vision(list(requests = purrr::map(scans, document_text_detection)))
@@ -935,7 +935,7 @@ and combine the results
 into a single string
 do something like this:
 
-```{r}
+```{r baree_hw}
 baree_hw <- paste(folder_to_chr(scans_folder), collapse = " ")
 ```
 
@@ -971,7 +971,7 @@ of the same length
 as the target text
 and the target text itself?
 
-```{r}
+```{r random_text}
 random_text <- paste(sample(c(letters, " "), stringr::str_length(baree_tx), replace = TRUE), collapse = "")
 stringdist::stringdist(random_text, baree_tx)
 ```
@@ -991,7 +991,7 @@ the
 (@oomsTesseractOpenSource2021)
 package makes this very easy.
 
-```{r}
+```{r folder_to_chr_ts}
 folder_to_chr_ts <- function(scans_folder) {
   eng <- tesseract::tesseract("eng")
   scans <- list.files(scans_folder, pattern = "*.png", full.names = TRUE)
@@ -1001,7 +1001,7 @@ folder_to_chr_ts <- function(scans_folder) {
 baree_hw_ts <- folder_to_chr_ts(scans_folder)
 ```
 
-```{r}
+```{r dist_hw_ts_tx}
 stringdist::stringdist(baree_hw_ts, baree_tx)
 ```
 
