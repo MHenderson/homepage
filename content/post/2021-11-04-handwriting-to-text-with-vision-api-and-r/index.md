@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Extracting Text from Images with Google Vision API and R"
+title: "Extracting Text from Images with Google Vision API and R"
 author: Matthew Henderson
 slug: handwriting-to-text
 date: '2021-11-04'
