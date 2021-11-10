@@ -1,6 +1,6 @@
 ---
-title: "(WIP) Tidy Tuesday: Replicating Plots in R"
-description: "tt_load(2019, week = 51)"
+title: "Tidy Tuesday: Replicating Plots in R"
+description: "Week 50 of 2019."
 author: Matthew Henderson
 date: '2019-12-10'
 slug: replicating-plots-in-r
@@ -15,6 +15,7 @@ draft: true
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
+       cache = FALSE,
         echo = TRUE,
      message = FALSE,
      warning = FALSE,
@@ -23,55 +24,38 @@ knitr::opts_chunk$set(
    fig.width = 8,
   fig.height = 8
 )
-
-ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
 ```
 
-```{r tuesdata, cache=TRUE}
-tuesdata <- tidytuesdayR::tt_load(2019, week = 50)
-```
+Tidy Tuesday
+in week fifty of 2019
+was all about
+[this blog post](https://simplystatistics.org/2019/08/28/you-can-replicate-almost-any-plot-with-ggplot2/)
+by Rafael Irizarry
+about replicating plots in R.
 
-## G8 Homicide
+I chose to focus on a heatmap showing
+infectious diseases in the United States
+before and after
+the introduction of vaccines.
 
-```{r murders-cover, fig.height=7}
-library(tidyverse)
+The plot I created is heavily based
+on Rafeal's code with
+just a few extra annotations
+and the values plotted changed
+to match the
+[original version](http://graphics.wsj.com/infectious-diseases-and-vaccines/?mc_cid=711ddeb86e)
+published in the Wall Street Journal.
 
-tuesdata$gun_murders %>%
-  mutate(
-    country = reorder(country, count)
-  ) %>%
-  ggplot(aes(country, count)) +
-    geom_point() +
-    labs(
-         title = "Homicide in the G8",
-      subtitle = "Rates of homicide in G8 member countries.",
-       caption = "source: United Nations Office on Drugs and Crime",
-             x = "",
-             y = "Gun-related homicides\nper 100,000 people"
-    ) +
-    coord_flip()
-```
+This was my first attempt at adding annotations outside
+the main plotting area.
+I learned how to
+create the annotations
+I wanted for this plot
+from the Tidy Tuesday work of Georgios Karamanis.
+Especially his
+[week 36 entry for 2021.](https://github.com/gkaramanis/tidytuesday/tree/master/2021/2021-week36)
 
-## Diseases
+My code is here:
+https://github.com/MHenderson/replicating-plots-in-r
 
-```{r diseases, fig.height=10}
-tuesdata$diseases %>%
-  filter(disease == "Measles") %>%
-  mutate(rate = count / population * 10000 * 52 / weeks_reporting) %>%
-  mutate(state = reorder(state, desc(state))) %>%
-  ggplot(aes(year, state, fill = rate)) +
-  geom_tile(color = "white", size = 0.35) +
-  scale_x_continuous(expand = c(0,0)) +
-  scale_fill_gradient(
-         low = "azure2",
-        high = "darkslategrey",
-    na.value = 'white'
-  ) +
-  labs(
-           x = "",
-           y = "",
-       title = "Battling Measles in the 20th Century",
-    subtitle = "The Impact of Vaccines",
-     caption = ""
-  )
-```
+![Plot shows a heat map of measles cases per one hundred thousand people measured from 1928 to 2003 across all fifty US states and the District of Columbia. Showing that after 1963 when measles vaccine was introduced there was a dramatic drop in the number of measles cases throughout the United States.](diseases.png)
