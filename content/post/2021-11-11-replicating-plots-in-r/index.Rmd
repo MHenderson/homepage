@@ -2,7 +2,7 @@
 title: "Tidy Tuesday: Replicating Plots in R"
 description: "Week 50 of 2019."
 author: Matthew Henderson
-date: '2019-12-10'
+date: '2021-11-11'
 slug: replicating-plots-in-r
 categories:
   - dataviz
@@ -10,7 +10,6 @@ tags:
   - tidy-tuesday
 editor_options: 
   chunk_output_type: console
-draft: true
 ---
 
 ```{r setup, include=FALSE}
@@ -31,17 +30,17 @@ in week fifty of 2019
 was all about
 [this blog post](https://simplystatistics.org/2019/08/28/you-can-replicate-almost-any-plot-with-ggplot2/)
 by Rafael Irizarry
-about replicating plots in R.
+on replicating plots in R.
 
 I chose to focus on a heatmap showing
 infectious diseases in the United States
 before and after
 the introduction of vaccines.
 
-The plot I created is heavily based
-on Rafeal's code with
+My plot is heavily based
+on Rafael's code with
 just a few extra annotations
-and the values plotted changed
+and a change of scale
 to match the
 [original version](http://graphics.wsj.com/infectious-diseases-and-vaccines/?mc_cid=711ddeb86e)
 published in the Wall Street Journal.
