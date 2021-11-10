@@ -11,6 +11,8 @@ tags:
 editor_options: 
   chunk_output_type: console
 draft: no
+featured: yes
+image: /diseases.png
 ---
 
 
