@@ -114,6 +114,20 @@
       "Repository": "RSPM",
       "Hash": "543776ae6848fde2f48ff3816d0628bc"
     },
+    "bit": {
+      "Package": "bit",
+      "Version": "4.0.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "f36715f14d94678eea9933af927bc15d"
+    },
+    "bit64": {
+      "Package": "bit64",
+      "Version": "4.0.5",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "9fe98599ca456d6552421db0d6772d8f"
+    },
     "blob": {
       "Package": "blob",
       "Version": "1.2.1",
@@ -331,6 +345,13 @@
       "Repository": "RSPM",
       "Hash": "81c3244cab67468aac4c60550832655d"
     },
+    "foreign": {
+      "Package": "foreign",
+      "Version": "0.8-81",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "74628ea7a3be5ee8a7b5bb0a8e84882e"
+    },
     "fs": {
       "Package": "fs",
       "Version": "1.5.0",
@@ -372,6 +393,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "38c2580abbda249bd6afeec00d14f531"
+    },
+    "gitcreds": {
+      "Package": "gitcreds",
+      "Version": "0.1.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "f3aefccc1cc50de6338146b62f115de8"
     },
     "glue": {
       "Package": "glue",
@@ -471,6 +499,13 @@
       "Repository": "RSPM",
       "Hash": "3987784c19192ad0f2261c456d936df1"
     },
+    "ini": {
+      "Package": "ini",
+      "Version": "0.3.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "6154ec2223172bce8162d4153cda21f7"
+    },
     "isoband": {
       "Package": "isoband",
       "Version": "0.2.5",
@@ -533,6 +568,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "b64cdbb2b340437c4ee047a1f4c4377b"
+    },
+    "lazyeval": {
+      "Package": "lazyeval",
+      "Version": "0.2.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "d908914ae53b04d4c0c0fd72ecc35370"
     },
     "lifecycle": {
       "Package": "lifecycle",
@@ -777,6 +819,13 @@
       "Repository": "RSPM",
       "Hash": "0d34b89b43e900467e60f5449226f3e3"
     },
+    "rprojroot": {
+      "Package": "rprojroot",
+      "Version": "2.0.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "249d8cd1e74a8f6a26194a91b47f21d1"
+    },
     "rstudioapi": {
       "Package": "rstudioapi",
       "Version": "0.13",
@@ -860,6 +909,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "947e4e02a79effa5d512473e10f41797"
+    },
+    "sp": {
+      "Package": "sp",
+      "Version": "1.4-6",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "ce8613f4e8c84ef4da9eba65b874ebe9"
     },
     "statebins": {
       "Package": "statebins",
@@ -1015,6 +1071,13 @@
       "Repository": "RSPM",
       "Hash": "c9c462b759a5cc844ae25b5942654d13"
     },
+    "uuid": {
+      "Package": "uuid",
+      "Version": "1.0-3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "2097822ba5e4440b81a0c7525d0315ce"
+    },
     "vctrs": {
       "Package": "vctrs",
       "Version": "0.3.8",
@@ -1042,6 +1105,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "9c3b3a3f947c7936cea7485349247e5b"
+    },
+    "whisker": {
+      "Package": "whisker",
+      "Version": "0.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "ca970b96d894e90397ed20637a0c1bbe"
     },
     "withr": {
       "Package": "withr",
