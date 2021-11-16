@@ -1,0 +1,78 @@
+---
+title: "Tidy Tuesday: Adoptable Dogs"
+description: "Week 51 of 2019."
+author: Matthew Henderson
+date: '2021-11-16'
+slug: adoptable-dogs
+categories:
+  - dataviz
+tags:
+  - tidy-tuesday
+editor_options: 
+  chunk_output_type: console
+draft: no
+featured: yes
+image: /dog-moves.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+        echo = TRUE,
+     message = FALSE,
+     warning = FALSE,
+     comment = "#>",
+    collapse = TRUE
+)
+```
+
+For week fifty-one of 2019
+the data came from
+Amber Thomas
+and was all about
+dogs available for adoption
+in September 2019
+in the United States
+via PetFinder.
+
+I ended up with three plots.
+The third of which was a total failure
+so only two are presented here.
+
+The first shows how the number of
+imports and exports varies by state.
+
+![](dog-moves.png)
+
+I am relatively happy with this plot
+which uses Bob Rudis's
+statebins
+package.
+I think it makes it clear
+that a lot of dogs are exported
+from southern states,
+particularly Texas
+and a lot of dogs are imported
+to northern states
+like Washington
+and New York.
+I also think it does
+quite well at leaving some
+of the work to the viewer
+and not just trying to
+sell a particular story.
+
+The second plot shows the most
+popular dog names.
+
+![](most-popular-names.png)
+
+I'm not particularly happy
+with this one.
+I don't think you can learn
+much from looking at this plot.
+I coloured the names
+with the number of syllables
+of every name
+using the
+syllable
+package by Tyler Rinker.
