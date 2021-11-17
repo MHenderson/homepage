@@ -12,7 +12,7 @@ draft: no
 featured: yes
 editor_options: 
   chunk_output_type: console
-image: /figure/madison_ky_roads_plot-1.png
+image: /internet-access.png
 ---
 
 ```{r setup, include=FALSE}
@@ -169,4 +169,4 @@ and Cincinnati.
 
 Source code: https://github.com/MHenderson/internet-access
 
-![A plot comparing different ways of measuring internet access for people living in Kentucky](https://raw.githubusercontent.com/MHenderson/internet-access/master/internet-access.png)
+![A plot comparing different ways of measuring internet access for people living in Kentucky](internet-access.png)
