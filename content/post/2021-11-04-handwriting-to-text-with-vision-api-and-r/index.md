@@ -6,7 +6,11 @@ date: '2021-11-04'
 categories:
   - handwriting-recognition
 tags:
-  - ocr, computer-vision, gcp, apis, cloud-computing
+  - ocr
+  - computer-vision
+  - gcp
+  - apis
+  - cloud-computing
 draft: no
 editor_options: 
   chunk_output_type: console
@@ -547,7 +551,7 @@ was received.
 
 ``` r
 httr::status_code(r_001)
-#> [1] 200
+#> [1] 403
 ```
 
 The value should be 200.
@@ -613,52 +617,6 @@ as
 ``` r
 baree_hw_001 <- content_001$responses[[1]]$fullTextAnnotation$text
 cat(baree_hw_001)
-#> a
-#> vast
-#> fear
-#> To Parce, for many days after he was
-#> born, the world was a
-#> gloony cavern.
-#> During these first days of his life his
-#> home was in the heart of a great windfall
-#> where aray wolf, his blind mother, had found
-#> a a safe nest for his hahy hood, and to which
-#> Kazan, her mate, came only now and then ,
-#> his eyes gleaming like strange balls of greenish
-#> fire in the darknen. It was kazan's eyes that
-#> gave
-#> do Barce his first impression of something
-#> existing away from his mother's side, and they
-#> brought to him also his discovery of vision. He
-#> could feel, he could smell, he could hear - but
-#> in that black pirt under the fallen timher he
-#> had never seen until the
-#> eyes
-#> came. At first
-#> they frightened nin; then they puzzled him , and
-#> bis Heer changed to an immense ceniosity, the world
-#> be looking foreight at them when all at once
-#> they world disappear. This was when Kazan turned
-#> his head. And then they would flash hach at him
-#> again wt of the darknen with such startling
-#> Suddenness that Baree world involuntanty Shrink
-#> closer to his mother who always treunded and
-#> Shivered in a strenge way when Kazan came in.
-#> Barce, of course, would never know their story. He
-#> world never know that Gray Wolf, his mother, was
-#> a full-hlooded wolf, and that Kazan, his father,
-#> was a dog. In hin nature was already
-#> nature was already beginning
-#> its wonderful work, but it world never go beyind
-#> cerria limitations. It wald tell him, in time, ,
-#> that his heavtiful wolf - mother was blind, hur
-#> he world never know of that terrible hattle between
-#> Gray Wolf and the lynx in which his mother's sight
-#> had been destroyed Nature could tell hin gatting
-#> nothing
-#> +
-#> а
-#> (
 ```
 
 A lot of the text is readable
@@ -740,7 +698,7 @@ Project Gutenberg text.
 
 ``` r
 stringdist::stringdist(baree_hw_001, baree_tx_001, method = "lv")
-#> [1] 174
+#> numeric(0)
 ```
 
 Apparently we could change
@@ -878,7 +836,7 @@ and looking at what is inside.
 
 ``` r
 httr::status_code(response)
-#> [1] 200
+#> [1] 403
 ```
 
 If the response is valid
@@ -927,8 +885,7 @@ should be a string.
 
 ``` r
 purrr::map_chr(responses_annotations, "text")
-#> [1] "a\nvast\nfear\nTo Parce, for many days after he was\nborn, the world was a\ngloony cavern.\nDuring these first days of his life his\nhome was in the heart of a great windfall\nwhere aray wolf, his blind mother, had found\na a safe nest for his hahy hood, and to which\nKazan, her mate, came only now and then ,\nhis eyes gleaming like strange balls of greenish\nfire in the darknen. It was kazan's eyes that\ngave\ndo Barce his first impression of something\nexisting away from his mother's side, and they\nbrought to him also his discovery of vision. He\ncould feel, he could smell, he could hear - but\nin that black pirt under the fallen timher he\nhad never seen until the\neyes\ncame. At first\nthey frightened nin; then they puzzled him , and\nbis Heer changed to an immense ceniosity, the world\nbe looking foreight at them when all at once\nthey world disappear. This was when Kazan turned\nhis head. And then they would flash hach at him\nagain wt of the darknen with such startling\nSuddenness that Baree world involuntanty Shrink\ncloser to his mother who always treunded and\nShivered in a strenge way when Kazan came in.\nBarce, of course, would never know their story. He\nworld never know that Gray Wolf, his mother, was\na full-hlooded wolf, and that Kazan, his father,\nwas a dog. In hin nature was already\nnature was already beginning\nits wonderful work, but it world never go beyind\ncerria limitations. It wald tell him, in time, ,\nthat his heavtiful wolf - mother was blind, hur\nhe world never know of that terrible hattle between\nGray Wolf and the lynx in which his mother's sight\nhad been destroyed Nature could tell hin gatting\nnothing\n+\nа\n(\n"
-#> [2] "7\n9\n49\n7\nof Kazan's merciless vengeance 1 of the wonderful\nyears of their matehood of their loyalty, their\nShenge adventures in the great Canadian wilderness\ncit'culd make him arby a son of hazar.\nBut at first, and for many days, it was all\nMother. Even after his eyes opened wide and he\nhad pund his legs so that he could shonhce around\na little in the darkness, nothing existed ar buree\nfor\nhut his mother. When he was old enough to he\n.\nplaying with Shicks and mess art in the sunlight,\nhe still did not know what she looked like. But\nto him she was big and soft and warm, and she\nhicked his face with her tongue, and talked to him\nin a gentle, whimpening way that at lost made\nhim find his own voice in a faint, squeaky yap.\nAnd then came that wonderful day when the\ngreenish balls of fire that were kažan's eyes cancie\nnearer and nearer, a little at a tine, ,\ncarbiesky. Hereto pore Gray Wolf had warned hin\nhach. To he alone was the first law of her wild\nbreed during mothering time. A low snart from her\n. A\nthroat, ånd Kazan' had always stopped. But\nănd\non this day the snart did not come in aray\nWolf's throat it died away in a low, whimpering\nscond. A note of loneliness, of\ni 아\ngreat yearniny _“It's all night law,\" she was\nť keys, of a\nnow\nsaying to kázan; and katan\npowsing for a moment\nreplied with an answłni\nwswering\ndeep in his throat.\nStill slowly, as it not quite sure of what he\nЕ\nwould find, Kazan came to them, and Baree\nsnuggled closer to his mother\nas he dropped down heavily on his belly close to\naray Wolf. He was unafraid\nand nightily\nand\nvery\n.\nC\nto make ure -\nnote\nHe heard kazan\n"
+#> character(0)
 ```
 
 The
@@ -984,7 +941,7 @@ into
 
 ``` r
 stringdist::stringdist(baree_hw, baree_tx)
-#> [1] 446
+#> [1] 3215
 ```
 
 Is this high?
@@ -1003,7 +960,7 @@ and the target text itself?
 ``` r
 random_text <- paste(sample(c(letters, " "), stringr::str_length(baree_tx), replace = TRUE), collapse = "")
 stringdist::stringdist(random_text, baree_tx)
-#> [1] 2876
+#> [1] 2866
 ```
 
 It’s hardly surprising that this is

@@ -6,7 +6,11 @@ date: '2021-11-04'
 categories:
   - handwriting-recognition
 tags:
-  - ocr, computer-vision, gcp, apis, cloud-computing
+  - ocr
+  - computer-vision
+  - gcp
+  - apis
+  - cloud-computing
 draft: no
 editor_options: 
   chunk_output_type: console
