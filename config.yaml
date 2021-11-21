@@ -19,10 +19,6 @@ menu:
       url: "post/"
       weight: 2
       pre: <i class='fa fa-list'></i>
-    - name: Projects
-      url: "projects/"
-      weight: 2
-      pre: <i class='fa fa-folder'></i>
     - name: Categories
       url: "categories/"
       weight: 4
