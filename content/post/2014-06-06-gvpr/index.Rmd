@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Processing Graph Streams"
+title: "Processing Graph Streams"
 description: "Introduction to gvpr."
 author: Matthew Henderson
 date: '2014-06-06'
@@ -9,7 +9,6 @@ categories:
 tags:
   - graphviz
   - gvpr
-draft: true
 ---
 
 In this post we introduce *gvpr* a graph stream editor which belongs to the
