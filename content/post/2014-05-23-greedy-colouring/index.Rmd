@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Introduction to Greedy Colouring"
+title: "Introduction to Greedy Colouring"
 description: "Introducing Culberson's graph colouring programs."
 author: Matthew Henderson
 date: '2014-05-23'
@@ -8,7 +8,6 @@ categories:
   - graph-colouring
 tags:
   - ccli
-draft: true
 ---
 
 In the post we discuss Joseph Culberson's
