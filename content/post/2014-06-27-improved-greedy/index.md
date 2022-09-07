@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Improved Greedy Colouring of Small Graphs"
+title: "Improved Greedy Colouring of Small Graphs"
 description: "Improved greedy colouring of small graphs with Culberson's programs."
 author: Matthew Henderson
 date: '2014-06-27'
@@ -9,7 +9,6 @@ categories:
 tags:
   - ccli
   - dimacs
-draft: true
 ---
 
 In the previous post we conducted a small experiment to compare the total
