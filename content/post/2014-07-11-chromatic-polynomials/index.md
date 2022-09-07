@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Chromatic Polynomials"
+title: "Chromatic Polynomials"
 author: Matthew Henderson
 date: '2014-07-11'
 description: Computing chromatic polynomials in Python.
@@ -10,7 +10,6 @@ tags:
   - python
   - networkx
   - sympy
-draft: TRUE
 references:
 - id: bjorklundComputingTuttePolynomial2008
   abstract: >-
