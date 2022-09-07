@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Strategies for Greedy Vertex Colouring"
+title: "Strategies for Greedy Vertex Colouring"
 author: Matthew Henderson
 date: '2014-06-20'
 description: Compare greedy strategies for colouring small graphs.
@@ -9,7 +9,6 @@ categories:
 tags:
   - python
   - networkx
-draft: TRUE
 references:
 - id: readAtlasGraphsMathematics2005
   author:
