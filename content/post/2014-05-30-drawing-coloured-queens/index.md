@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Drawing Coloured Queen Graphs"
+title: "Drawing Coloured Queen Graphs"
 description: "Drawing coloured queen graphs with Graphviz."
 author: Matthew Henderson
 date: '2014-05-30'
@@ -9,7 +9,6 @@ categories:
 tags:
   - graphviz
   - dimacs
-draft: true
 ---
 
 Continuing from
