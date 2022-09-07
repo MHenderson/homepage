@@ -1,5 +1,5 @@
 ---
-title: "(WIP) A Chromatic Number Program"
+title: "A Chromatic Number Program"
 author: Matthew Henderson
 date: '2014-07-18'
 description: A script for computing the chromatic number, based on the Tutte polynomial.
@@ -10,7 +10,6 @@ tags:
   - maxima
   - bash
   - graphviz
-draft: TRUE
 ---
 
 The [chromatic polynomial][def:chromatic_polynomial] $\chi(G, \lambda)$
