@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Greedy Vertex Colouring"
+title: "Greedy Vertex Colouring"
 author: Matthew Henderson
 date: '2014-06-13'
 description: Graph colouring with NetworkX.
@@ -9,7 +9,6 @@ categories:
 tags:
   - python
   - networkx
-draft: TRUE
 references:
 - id: chartrandChromaticGraphTheory2008
   abstract: >-
