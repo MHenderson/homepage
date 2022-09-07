@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Vertex Colouring by Recursive Removal of Independent Sets of Vertices"
+title: "Vertex Colouring by Recursive Removal of Independent Sets of Vertices"
 author: Matthew Henderson
 date: '2014-07-04'
 description: An an alternative to the greedy algorithm for vertex colouring.
@@ -9,7 +9,6 @@ categories:
 tags:
   - python
   - networkx
-draft: TRUE
 references:
 - id: boppanaApproximatingMaximumIndependent1992
   abstract: >-
