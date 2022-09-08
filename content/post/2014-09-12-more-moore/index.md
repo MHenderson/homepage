@@ -1,5 +1,5 @@
 ---
-title: "(WIP) More on Moore Graphs"
+title: "More on Moore Graphs"
 description: "More on Moore graphs."
 author: Matthew Henderson
 date: '2014-09-12'
@@ -10,7 +10,6 @@ tags:
   - python
   - networkx
   - igraph
-draft: true
 references:
 - id: cameronCombinatoricsTopicsTechniques1994
   abstract: >-
