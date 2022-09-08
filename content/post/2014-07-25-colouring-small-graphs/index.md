@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Colouring Small Graphs"
+title: "Colouring Small Graphs"
 description: "Reproducing Royle's table of chromatic number distributions."
 author: Matthew Henderson
 date: '2014-07-25'
@@ -10,7 +10,6 @@ tags:
   - chromatic-number
   - graphviz
   - coreutils
-draft: true
 references:
 - id: haggardComputingTuttePolynomials2010
   abstract: >-

@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Colouring Small Graphs: Update"
+title: "Colouring Small Graphs: Update"
 description: "Reproducing the distribution of chromatic numbers for small graphs."
 author: Matthew Henderson
 date: '2014-08-08'
@@ -11,7 +11,6 @@ tags:
   - gtools
   - drake
   - coreutils
-draft: true
 references:
 - id: haggardComputingTuttePolynomials2010
   abstract: >-
