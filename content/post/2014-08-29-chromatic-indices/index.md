@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Chromatic Indices of Small Graphs"
+title: "Chromatic Indices of Small Graphs"
 description: "Chromatic indices of small graphs."
 author: Matthew Henderson
 date: '2014-08-29'
@@ -12,7 +12,6 @@ tags:
   - chromatic
   - drake
   - gtools
-draft: true
 ---
 
 In this post we compute the chromatic index of all graphs
