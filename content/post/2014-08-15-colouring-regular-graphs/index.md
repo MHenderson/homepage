@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Colouring Small Regular Graphs"
+title: "Colouring Small Regular Graphs"
 description: "Chromatic numbers of small, regular graphs."
 author: Matthew Henderson
 date: '2014-08-15'
@@ -11,7 +11,6 @@ tags:
   - drake
   - chromatic-number
   - coreutils
-draft: true
 references:
 - id: RegularGraphsPrescribed
   accessed:
