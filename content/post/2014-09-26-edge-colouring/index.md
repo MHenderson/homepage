@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Greedy Edge Colouring of Small Graphs"
+title: "Greedy Edge Colouring of Small Graphs"
 author: Matthew Henderson
 date: '2014-09-26'
 description: The efficacy of a greedy edge-colouring algorithm.
@@ -12,7 +12,6 @@ tags:
   - networkx
   - python
   - matplotlib
-draft: TRUE
 references:
 - id: chartrandChromaticGraphTheory2008
   abstract: >-

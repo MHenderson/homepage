@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Greedy Edge Colouring of Small Graphs"
+title: "Greedy Edge Colouring of Small Graphs"
 author: Matthew Henderson
 date: '2014-09-26'
 description: The efficacy of a greedy edge-colouring algorithm.
@@ -12,7 +12,6 @@ tags:
   - networkx
   - python
   - matplotlib
-draft: TRUE
 references:
 - id: chartrandChromaticGraphTheory2008
   abstract: >-
@@ -74,7 +73,7 @@ The core of our implementation is a function that visits every edge of a graph
 and assigns a colour to each edge according to a parametrised colour choice
 strategy.
 
-```{python, eval=FALSE}
+```python
 def edge_colouring(G, choice = choice_greedy):
     max_degree = max(G.degree().values())
     palette = range(0, 2*max_degree)
@@ -98,7 +97,7 @@ in graph $G$ we choose the first colour from a palette of colours which is
 not used on edges incident with either vertex $u$ or vertex $v$. The
 implementation, below, is made especially simple by Python's `Set`s.
 
-```{python, eval=FALSE}
+```python
 def choice_greedy(G, e, palette):
     used_colours = used_at(G, e[0]).union(used_at(G, e[1]))
     available_colours = set(palette).difference(used_colours)
@@ -119,7 +118,7 @@ that processes graphs in *graph6* format and returns, not the edge-colouring,
 but the number of colours used. For example, the number of colours used in a
 greedy edge-colouring of the Petersen graph is four:
 
-```{bash, eval=FALSE}
+```bash
 $ echo ICOf@pSb? | edge_colouring.py
 4
 ```
@@ -140,7 +139,7 @@ We continue to use *geng* from *nauty* to generate the graph data we are
 studying. For example, to colour all non-isomorphic, connected, simple graphs on
 three vertices and count the colour used:
 
-```{bash, eval=FALSE}
+```bash
 $ geng -qc 3 | edge_colouring.py
 2
 3
@@ -173,7 +172,7 @@ set of graphs.
 To compute total number of colours used we follow this tip on summing values in
 the console using *paste* and *bc*:
 
-```{bash, eval=FALSE}
+```bash
 $ geng -qc 3
  | edge_colouring.py
  | paste -s -d+
@@ -185,7 +184,7 @@ To compute maximum degrees we depend upon the *maxdeg* program for *gvpr*. This
 means that we have to pipe the output of *geng* through *listg* to convert it
 into *DOT* format:
 
-```{bash, eval=FALSE}
+```bash
 $ geng -qc 3
  | listg -y
  | gvpr -fmaxdeg
@@ -196,7 +195,7 @@ max degree = 2, node 0, min degree = 2, node 0
 The output from *maxdeg* contains much more information than we need and so we
 need to pipe the output through *sed* to strip out the maximum degrees:
 
-```{bash, eval=FALSE}
+```bash
 $ geng -qc 3
  | listg -y
  | gvpr -fmaxdeg
@@ -208,7 +207,7 @@ $ geng -qc 3
 Now, piping through *paste* and *bc* as before, we find the total over all
 graphs of the maximum degrees:
 
-```{bash, eval=FALSE}
+```bash
 $ geng -qc 3
  | listg -y
  | gvpr -fmaxdeg
@@ -222,7 +221,7 @@ Perhaps surprisingly, with this approach, we find a relatively small discrepancy
 between the total number of colours used and the total maximum degree. For
 example, for $n = 5$ (below) the discrepancy is 18 or 25%.
 
-```{bash, eval=FALSE}
+```bash
 $ time geng -qc 5
  | edge_colouring.py
  | paste -s -d+
@@ -234,7 +233,7 @@ user	0m0.328s
 sys	0m0.068s
 ```
 
-```{bash, eval=FALSE}
+```bash
 $ time geng -qc 5
  | listg -y
  | gvpr -fmaxdeg
@@ -251,7 +250,7 @@ sys	0m0.004s
 For $n = 10$ the discrepancy is 9189586, or less than 12% of the total of
 maximum degrees.
 
-```{bash, eval=FALSE}
+```bash
 $ time geng -qc 10
  | edge_colouring.py
  | paste -s -d+
@@ -263,7 +262,7 @@ user	131m38.614s
 sys	0m12.305s
 ```
 
-```{bash, eval=FALSE}
+```bash
 $ time geng -qc 10
  | listg -y
  | gvpr -fmaxdeg
