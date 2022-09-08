@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Euler Paths"
+title: "Euler Paths"
 author: Matthew Henderson
 date: '2014-10-17'
 description: Euler paths in multigraphs based on Biggs, Lloyd and Wilson.
@@ -8,7 +8,6 @@ categories:
   - graph-theory
 tags:
   - maxima
-draft: TRUE
 references:
 - id: eulerSolutioProblematisAd1741
   author:
