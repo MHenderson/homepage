@@ -240,8 +240,8 @@ visualised with `circo` from Graphviz after conversion to *DOT* format using
 ![Graph](figure/noname.dot.10.svg)
 ![Graph](figure/noname.dot.11.svg)
 ![Graph](figure/noname.dot.12.svg)
-Source Code
-———–
+
+# Source Code
 
 {{% gist "MHenderson" "926d745afc124a643612" %}}
 
