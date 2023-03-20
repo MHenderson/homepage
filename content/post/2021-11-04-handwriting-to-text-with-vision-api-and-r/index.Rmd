@@ -118,43 +118,37 @@ ggplot2::theme_set(hrbrthemes::theme_ipsum_rc())
 # 5. Appendix: Google Cloud Platform
 ```
 
-In this post I'll show you
+In this post I will demonstrate
 how to use
 Google Cloud Platform's
 Vision API
 to extract text from images in R.
 
-I'm mostly interested in the case when the
-text being extracted is handwritten.
-For typewritten or printed text
-I use
-[Tesseract](https://github.com/tesseract-ocr).
-
-Is it feasible to use
-Vision API for this task?
-Tesseract works very well
-with typewritten or printed text
-but does not seem to handle
-handwriting as well.
-^[Disclaimer: this might just be my lack of knowledge of Tesseract]
-Google's Vision API,
-on the other hand,
-is able to extract handwritten text
-from images.
+The motivation for using
+Vision API
+instead of,
+say,
+[Tesseract](https://github.com/tesseract-ocr),
+is that Vision API
+is,
+to some extent,
+able to extract text
+from digital images
+of handwriting.
 
 # Preparation
 
-Before doing anything in R
-you must
+The first step is to
 create a project on
-Google Cloud Platform (GCP)
+Google Cloud Platform
+(GCP)
 and enable Vision API
 for your project.
 
 In the appendix
-are
-some brief notes
-about creating
+you will find
+notes
+on creating
 a Vision-enabled
 project on GCP.
 However,
@@ -166,50 +160,46 @@ like
 [this one](https://cloud.google.com/vision/docs/setup)
 instead.
 
-After setting up things
-on GCP
+After creating a GCP project
+and enabling Vision API
 you should have
 an access token.
 
 To run any of the code below
 you must tell R
 what the access token is.
-But you have to
-be careful not to hard-code
+But be careful not to hard-code
 the access token
-in your source code.
+directly into your source code.
 The access token
-bestows on its owner
+bestows on anyone
 the power to make
 API requests
 which can incur costs
 for the owner
 of the GCP project.
 
-To avoid putting
-the access token
-in your source code
-you can
+Instead
 define
 an environment variable
 `GCLOUD_ACCESS_TOKEN`
 to be equal to the access token.
 Then you can access the value
 of the environment variable
-anywhere in your code
-with
+anywhere in your R code
+using
 `Sys.getenv("GCLOUD_ACCESS_TOKEN")`.
 
-While
+Although
 it is possible
 to use `Sys.setenv`
-to define an environment variable
+to define an environment variable,
 a better method
 is to define it
 in an `.Renviron` file.
-One benefit of this approach
-is that the environment variable
-then persists between sessions.
+Then the value of the
+environment variable
+persists between sessions.
 
 The
 {usethis}
