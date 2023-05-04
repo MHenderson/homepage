@@ -6,7 +6,7 @@ title: Home
 <link href="/rmarkdown-libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
 
 <div id="contact">
-<h1>Dr. Matthew Henderson</h1>
+<h1>mjhdata</h1>
 <ul>
 <li>
 <a href="mailto:matthew.james.henderson@gmail.com">
