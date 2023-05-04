@@ -4,12 +4,15 @@ author: "Matthew Henderson"
 date: '2023-05-04'
 description: Greedy algorithms for creating maximal Room squares in R.
 slug: maximal-room-squares
-categories: combinatorics
-tags: room-squares
+categories:
+ - combinatorics
+tags:
+ - room-squares
 editor_options:
   chunk_output_type: console
-draft: yes
-featured: no
+draft: no
+featured: yes
+image: /greedy1_example_plot-1.png
 references:
 - id: meszkaMaximalPartialRoom2021
   abstract: A partial Room square is maximal if no further pair of elements can be
