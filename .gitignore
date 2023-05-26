@@ -3,9 +3,13 @@
 .RData
 .Ruserdata
 
-public
+/public
 
 **/*_cache
 **/*cache
 
 .Renviron
+
+.DS_Store
+Thumbs.db
+.hugo_build.lock

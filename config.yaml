@@ -2,7 +2,7 @@ baseurl: "https://mjh.netlify.app/"
 languageCode: "en-us"
 title: "mjhdata"
 theme: "hugo-xmin"
-ignoreFiles: ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
+ignoreFiles: ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$", "(^|/)renv$", "renv\\.lock$"]
 footnotereturnlinkcontents: "↩"
 
 permalinks:
