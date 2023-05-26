@@ -1,0 +1,115 @@
+---
+title: "(WIP) vis.js I: Creating and Displaying Graphs"
+description: "First in a series about vis.js."
+author: Matthew Henderson
+date: '2014-03-28'
+slug: visjs-01
+categories:
+  - graph-drawing
+tags:
+  - javascript
+  - visjs
+draft: true
+---
+
+
+
+<p>This is the first post in a series about
+<a href="http://visjs.org/">vis.js</a>,
+a Javascript
+library for dynamic browser-based visualisations of graphs and timelines.</p>
+<p>vis.js has four main components <code>DataSet</code>, <code>DataView</code>, <code>Timeline</code> and
+<code>Graph</code>. In this post and subsequent posts about vis.js we will only
+consider the <code>Graph</code> component, used for creating and displaying graphs.</p>
+<p>The goal of this post is to reproduce a very simple example of a webpage with
+embedded graph visualisation. So that the code will be as simple as possible
+we will create and draw a very simple graph, the complete graph on three
+vertices \(K_{3}\).</p>
+<p>To see a live demonstration of the example we are going to recreate you
+can look
+<a href="http://bl.ocks.org/mhenderson/9767470">here</a>
+The complete source code of the example can be
+found in this
+<a href="http://gist.github.com/9767470">gist</a>
+on
+<a href="http://github.com">Github</a>
+or at the end of this post.</p>
+<div id="installing-vis.js" class="section level2">
+<h2>Installing vis.js</h2>
+<p>As vis.js is a Javascript library the easiest way to use it is by creating
+a simple webpage.</p>
+<pre class="html"><code>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;vis.js Graph demo&lt;/title&gt;
+  &lt;script src=&quot;http://visjs.org/dist/vis.js&quot;&gt;&lt;/script&gt;
+  &lt;link href=&quot;http://visjs.org/dist/vis.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div id=&quot;graph&quot;&gt;&lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>The important things to notice here are the <code>script</code> and <code>link</code> elements in
+the header and the empty <code>div</code> element in the body.</p>
+<p>The <code>script</code> element links to the vis.js source at the visjs.org website and
+<code>link</code> element links to the vis.js css file.</p>
+<p>The empty <code>div</code> serves as a container for the drawing of the <code>Graph</code> object
+we will create with vis.js.</p>
+</div>
+<div id="creating-a-graph" class="section level2">
+<h2>Creating a graph</h2>
+<p>Creating a <code>Graph</code> object in vis.js is done by calling the <code>Graph</code> function
+with arguments for the container and graph data. A third argument allows us
+to pass in options about how to render the graph.</p>
+<p>The nodes of our graph are an array of objects. Each object must have an
+<code>id</code>. A <code>label</code> property can also be given and its value will be used as a
+label when the graph is rendered. If no labels are given then vis.js uses ids
+as labels.</p>
+<pre class="javascript"><code>var nodes = [
+  {id: 1, label: &#39;a&#39;},
+  {id: 2, label: &#39;b&#39;},
+  {id: 3, label: &#39;c&#39;}
+];</code></pre>
+<p>The edges are similarly an array of objects. Each object defines a <code>from</code> and
+<code>to</code> property and represents an edge in the graph with end nodes given by the
+id values of these two properties.</p>
+<pre class="javascript"><code>var edges = [
+  {from: 1, to: 2},
+  {from: 1, to: 3},
+  {from: 2, to: 3}
+];</code></pre>
+<p>Now to create a graph in vis.js, first pack the nodes and edges into a data
+object</p>
+<pre class="javascript"><code>var data = { nodes: nodes, edges: edges };</code></pre>
+<p>and then grab the container from the document object</p>
+<pre class="javascript"><code>var container = document.getElementById(&#39;graph&#39;);</code></pre>
+<p>Finally, call the <code>Graph</code> function with <code>container</code> and <code>data</code> as the
+first two parameters.</p>
+<pre class="javascript"><code>var graph = new vis.Graph(container, data, {});</code></pre>
+<p>The third argument is for an options object. This will be introduced in a
+subsequent post. For now, we choose default options by passing an empty object.</p>
+</div>
+<div id="displaying-a-graph" class="section level2">
+<h2>Displaying a graph</h2>
+<p>Opening the finished
+<a href="http://bl.ocks.org/mhenderson/9767470">webpage</a>
+in a browser should display a dynamic,
+interactive image that looks something like:</p>
+<div class="figure">
+<img src="figure/triangle.png" alt="" />
+<p class="caption">Screenshot of triangle graph with vis.js</p>
+</div>
+<p>Unlike this static image, the drawing of \(K_{3}\) rendered by the browser
+when opening the finished
+<a href="http://bl.ocks.org/mhenderson/9767470">webpage</a>
+should respond to a variety of
+manipulations. You should be able to zoom and drag the graph around as well
+as independently manipulate node and edge components.</p>
+<p>In upcoming posts we will discuss how to set options to create different
+drawings and how to import graphs from other software packages. We will also
+explain some of theory behind the algorithms used for drawing the graph and
+the physics of modelling the motion of the graph in response to user input.</p>
+</div>
+<div id="source-code" class="section level2">
+<h2>Source code</h2>
+{{% gist "MHenderson" "9767470" %}}
+</div>

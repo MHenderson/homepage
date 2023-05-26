@@ -1,0 +1,278 @@
+---
+title: "(WIP) Testing Graph Properties"
+description: "How to be certain that file data represents a specific graph."
+author: Matthew Henderson
+date: '2014-04-04'
+slug: visjs-01
+categories:
+  - graph-theory
+tags:
+  - c
+  - igraph
+  - testing
+draft: true
+---
+
+
+
+<p>Graph formats abound. As well as documented and widely-supported formats
+like
+<a href="http://www.fim.uni-passau.de/en/fim/faculty/chairs/theoretische-informatik/projects.html">GEXF</a>,
+<a href="http://graphml.graphdrawing.org/">GML</a>
+and
+<a href="http://gexf.net/format/">GraphML</a>
+there are as many ad-hoc
+or sparsely-documented formats. The latter of these usually arising as
+the input or output language for a standalone program implementing specific
+graph algorithms.</p>
+<p>Suppose that we are trying to accomplish some task involving a
+graph and our task involves several steps and several different packages
+or programs. For an example we might be trying to colour a graph using one
+program, compute the graph’s automorphism group with another program and then
+visualise the graph using a third layout program.</p>
+<p>In this setting we are likely to export and import our graph in multiple
+formats to facilitate using those different packages and we may even be
+forced to make ad-hoc manual or scripted changes to the file representation
+of the graph, for example to augment the data with vertex properties like
+colours or weights. Under these circumstances there is some risk that the graph
+file could become corrupted or invalid in some way and no longer represent the
+graph it claims to.</p>
+<p>How can we be certain that a data file that purports to contain a certain
+graph in a specific format really does?</p>
+<div id="testing-graph-properties" class="section level2">
+<h2>Testing graph properties</h2>
+<p>As an example, consider the
+<a href="http://en.wikipedia.org/wiki/Petersen_graph">Petersen graph</a>.
+This graph
+is the smallest bridgeless cubic graph with no three-edge-colouring. We know
+some other properties of the Petersen graph, such as it has 10 vertices, 15
+edges, radius 2, diameter 2 and girth 5. So a list of testable properties for
+the Petersen graph begins something like this:</p>
+<ul>
+<li>vertices 10,</li>
+<li>edges 15,</li>
+<li>radius 2,</li>
+<li>diameter 2,</li>
+<li>girth 5,</li>
+<li>maxdegree 3,</li>
+<li>…</li>
+</ul>
+<p>A property testing program should be able to load a file purporting to
+contain a representation of the Petersen graph and test whether or not the
+it has these properties.</p>
+<p>A graph failing to have all of these properties can certainly be rejected
+as not being the Petersen graph. A graph having enough properties in common
+with such a list can be said with increasing confidence, up to and beyond
+absolute certainty, to really be the Petersen graph.</p>
+<p>A more extensive list of properties that the Petersen graph possesses can
+be found on
+[here](<a href="http://mathworld.wolfram.com/PetersenGraph.html" class="uri">http://mathworld.wolfram.com/PetersenGraph.html</a>
+on
+<a href="http://mathworld.wolfram.com/">Mathworld</a>.</p>
+<p>When it comes to storing property data for testing purposes we have at least
+three options. One is to store the properties with the graph in the same file.
+Another option is to not store the properties but to keep them in the source
+code of the testing program itself. A third option is to store properties
+externally and separately from the graph data.</p>
+<p>In a later post we will discuss in more detail why the third of these options
+is preferable. For the purposes of this tutorial our properties will be kept
+in JSON format files. Such a file representing the above list of properties
+looks like this.</p>
+<pre class="javascript"><code>{
+  &quot;name&quot;: &quot;Petersen Graph&quot;,
+  &quot;n_vertices&quot;: 10,
+  &quot;n_edges&quot;: 15,
+  &quot;radius&quot;: 2,
+  &quot;diameter&quot;: 2,
+  &quot;girth&quot;: 5,
+  &quot;maxdegree&quot;: 3,
+}</code></pre>
+<p>In the rest of this tutorial we demonstrate how to test a file in the GML
+format against such a JSON list of properties.</p>
+</div>
+<div id="testing-graph-properties-with-cunit" class="section level2">
+<h2>Testing Graph Properties with CUnit</h2>
+<p>We are going to write a program in C that takes as input a property file
+in the above JSON format and a graph in GML format and tests whether the
+graph possesses the properties in the property file.</p>
+<p>We could write a program from scratch but it benefits us to make us of a
+pre-existing test framework. There are many advantages to using a test
+framework, the most significant probably being that it greatly enhances
+code reuse. Another important feature of a test system built on a test
+framework is that all tests are run, regardless whether they succeed or fail.
+The testing isn’t halted by a failed test.</p>
+<p>There are many test systems for many different languages. We restrict our
+attention to test systems for C of which one of the most used is
+<a href="http://cunit.sourceforge.net/">CUnit</a>.</p>
+<p>There are several steps to creating a test program based on CUnit. In the
+following subsections we go through this list explaining each step in detail.</p>
+<ol style="list-style-type: decimal">
+<li>Get parameter data from the JSON property file.</li>
+<li>Compute parameters using igraph on the graph data.</li>
+<li>Express property tests as test functions.</li>
+<li>Create test suites.</li>
+<li>Add test suites to a registry</li>
+<li>Add test functions to suites.</li>
+<li>Run the tests.</li>
+</ol>
+</div>
+<div id="get-parameter-data" class="section level2">
+<h2><em>Get parameter data</em></h2>
+<p>There are numerous choices for reading data from a JSON format file. For our
+purposes the library
+<a href="http://www.digip.org/jansson/">Jansson</a>
+suffices.</p>
+<p>With Jansson the properties file can be loaded with the <code>json_load_file</code>
+command</p>
+<pre class="c"><code>#include &lt;jansson.h&gt;
+
+json_t *json = NULL;
+json_error_t error;
+
+json = json_load_file(&quot;petersen_properties.json&quot;, 0, &amp;error)</code></pre>
+<p>After the property file has been loaded we use the <code>json_object_get</code> command
+to access graph properties and store them in variables to be checked later
+against computed parameters during the test run.</p>
+<pre class="c"><code>json_t *vcount_e, *ecount_e, *girth_e, *diameter_e, *maxdegree_e, *radius_e;
+
+void get_parameter_data() {
+ vcount_e = json_object_get(json, &quot;n_vertices&quot;);
+ ecount_e = json_object_get(json, &quot;n_edges&quot;);
+ radius_e = json_object_get(json, &quot;radius&quot;);
+ diameter_e = json_object_get(json, &quot;diameter&quot;);
+ girth_e = json_object_get(json, &quot;girth&quot;);
+ maxdegree_e = json_object_get(json, &quot;maxdegree&quot;);
+}</code></pre>
+</div>
+<div id="compute-parameters" class="section level2">
+<h2><em>Compute parameters</em></h2>
+<p>The values extracted from the properties file can be thought of as expected
+parameter values for in the testing scenario (hence the <code>_e</code> suffix). Computed
+parameters from graph data ought to be in agreement with the expected values.</p>
+<p>To compute parameter values from graph data there are several possibilities,
+including writing our own routines. In this post, however, we will make use
+of the extensive
+<a href="http://igraph.sourceforge.net/">igraph</a>
+library.</p>
+<p>igraph provides an internal graph data structure, functions for reading the
+data from a file into memory and functions for computing graph parameters like
+those we are testing.</p>
+<p>To load a graph from a file in GML format use the <code>igraph_read_graph_gml</code>.</p>
+<pre class="c"><code>#include &lt;igraph.h&gt;
+
+igraph_t g;
+
+i_file = fopen(&quot;petersen.gml&quot;, &quot;r&quot;)
+igraph_read_graph_gml(&amp;g, i_file);</code></pre>
+<p>Once the graph itself is loaded we can then compute degree and distance
+parameters using the extensive functionality of igraph.</p>
+<pre class="c"><code>igraph_real_t radius;
+igraph_integer_t diameter, girth, maxdegree;
+
+void compute_all_parameters() {
+ igraph_maxdegree(&amp;g, &amp;maxdegree, igraph_vss_all(), IGRAPH_ALL, IGRAPH_NO_LOOPS);
+ igraph_radius(&amp;g, &amp;radius, IGRAPH_ALL);
+ igraph_diameter(&amp;g, &amp;diameter, 0, 0, 0, IGRAPH_UNDIRECTED, 1);
+ igraph_girth(&amp;g, &amp;girth, 0);
+}</code></pre>
+</div>
+<div id="express-property-tests" class="section level2">
+<h2><em>Express property tests</em></h2>
+<p>The tests themselves are expressed using CUnit’s wide range of assert macros.
+For our purposes we only need one of those macros, <code>CU_ASSERT_EQUAL</code> which
+tests for equality of its two arguments.</p>
+<pre class="c"><code>void test_basic_parameters(void)
+{
+ CU_ASSERT_EQUAL(igraph_vcount(&amp;g), json_integer_value(vcount_e));
+ CU_ASSERT_EQUAL(igraph_ecount(&amp;g), json_integer_value(ecount_e));
+}
+
+void test_degree_parameters(void)
+{
+ CU_ASSERT_EQUAL(maxdegree, json_integer_value(maxdegree_e));
+}
+
+void test_distance_parameters(void)
+{
+ CU_ASSERT_EQUAL(radius, json_integer_value(radius_e));
+ CU_ASSERT_EQUAL(diameter, json_integer_value(diameter_e));
+ CU_ASSERT_EQUAL(girth, json_integer_value(girth_e));
+}</code></pre>
+</div>
+<div id="create-test-suites" class="section level2">
+<h2><em>Create test suites</em></h2>
+<p>The price we pay for the reusability of testing code is that there is some
+work to be done to set up the test suites, register them with a test runner and
+then run them.</p>
+<p>The setup or init function is responsible for loading the two files. If the
+file-handling is successful then graph data can be read and both expected
+property values and actual parameters can be computed.</p>
+<pre class="c"><code>int init_suite(void)
+{
+ json_error_t error;
+ if (NULL == (i_file = fopen(&quot;petersen.gml&quot;, &quot;r&quot;)) ||
+   (NULL == (json = json_load_file(&quot;petersen_properties.json&quot;, 0, &amp;error)))) {
+  return -1;
+ }
+
+ else {
+  igraph_read_graph_gml(&amp;g, i_file);
+  get_parameter_data();
+  compute_all_parameters();
+  return 0;
+ }
+}</code></pre>
+<p>Every suite also has a teardown or clean function which is called after all of
+the tests in the suite have finished. This function is used to close files that
+need to be closed as well to initialise or destroy data structures that have
+been used in the tests.</p>
+<pre class="c"><code>int clean_suite(void)
+{
+ if (0 != fclose(i_file)) {
+  return -1;
+ }
+ else {
+  igraph_destroy(&amp;g);
+  i_file = NULL;
+  return 0;
+ }
+}</code></pre>
+</div>
+<div id="register-suites" class="section level2">
+<h2><em>Register suites</em></h2>
+<p>Once we have created setup and teardown functions for our test suite we must
+create and add the suite to the registry and give it a name. As suites
+correspond to graphs in this testing setting we name the suites after the
+graphs whose properties are under test.</p>
+<pre class="c"><code>CU_pSuite pSuite = CU_add_suite(&quot;Petersen Graph&quot;, init_suite, clean_suite);</code></pre>
+</div>
+<div id="add-tests-to-suites" class="section level2">
+<h2><em>Add tests to suites</em></h2>
+<p>With a suite created, test functions can now be added. The <code>CU_add_test</code>
+function requires the suite, a name for the test and the test itself as
+arguments. The test name is used in reporting the success or failure of tests.</p>
+<pre class="c"><code>CU_add_test(pSuite, &quot;Basic parameters.&quot;, test_basic_parameters)
+CU_add_test(pSuite, &quot;Degree parameters.&quot;, test_degree_parameters)
+CU_add_test(pSuite, &quot;Distance parameters.&quot;, test_distance_parameters)</code></pre>
+</div>
+<div id="run-tests" class="section level2">
+<h2><em>Run tests</em></h2>
+<p>CUnit provides several test runners. There are basic, non-interactive runners
+as well as console and GUI-based interactive ones. On a system with Curses we
+can make use of an especially nice Curses-based console interface for running
+and monitoring the tests.</p>
+<pre class="c"><code>CU_basic_set_mode(CU_BRM_VERBOSE);
+CU_curses_run_tests();
+CU_cleanup_registry();
+return CU_get_error();</code></pre>
+<p>When the completed test program is compiled and run the output of a successful
+run should look something like this:</p>
+<div class="figure">
+<img src="figure/curses.png" alt="" />
+<p class="caption">Screenshot of curses interface</p>
+</div>
+</div>
+<div id="source-code" class="section level2">
+<h2>Source Code</h2>
+{{% gist "MHenderson" "9953613" "petersen_tests.c" %}}
+</div>
