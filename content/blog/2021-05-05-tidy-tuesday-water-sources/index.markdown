@@ -11,7 +11,7 @@ subtitle: ''
 excerpt: "This week's Tidy Tuesday data comes from
 [Water Point Data Exchange (WPDx)](https://data.waterpointdata.org/dataset/Water-Point-Data-Exchange-WPDx-Basic-/jfkt-jmqa),
 a global platform for sharing water point data."
-draft: yes
+draft: false
 series: ~
 layout: single
 ---

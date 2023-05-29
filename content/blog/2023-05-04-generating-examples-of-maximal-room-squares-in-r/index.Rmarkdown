@@ -6,6 +6,11 @@ slug: [maximal-room-squares]
 categories:
   - combinatorics
 tags: [room-squares]
+subtitle: ''
+excerpt: ""
+draft: false
+series: ~
+layout: single
 references:
 - id: meszkaMaximalPartialRoom2021
   abstract: A partial Room square is maximal if no further pair of elements can be

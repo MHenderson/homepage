@@ -15,7 +15,7 @@ and
 [the FCC](https://www.fcc.gov/document/broadband-deployment-report-digital-divide-narrowing-substantially-0)
 by way of
 [The Verge](https://www.theverge.com/22418074/broadband-gap-america-map-county-microsoft-data)."
-draft: yes
+draft: false
 series: ~
 layout: single
 ---

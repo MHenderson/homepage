@@ -8,6 +8,11 @@ categories:
   - dataviz
 tags:
   - tidy-tuesday
+subtitle: ''
+excerpt: ""
+draft: false
+series: ~
+layout: single
 references:
 - id: rinkerSyllableSmallCollection2017
   author:

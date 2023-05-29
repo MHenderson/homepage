@@ -7,12 +7,12 @@ show_social_links: true # specify social accounts in site config
 audio_link_label: "" # leave blank to exclude
 link_list_label: "Interests" # bookmarks, elsewhere, etc.
 link_list:
-- name: Dorset
-  url: Dorset
-- name: Korea
-  url: Korea
-- name: Photography
-  url: Photography
+- name: Data Science
+  url: 
+- name: Graph Theory
+  url: 
+- name: Combinatorics
+  url:
 ---
 
 ** index doesn't contain a body, just front matter above.
