@@ -3,7 +3,10 @@
 .RData
 .Ruserdata
 
-/public
+/public/
+/resources/
+/assets/
+
 
 **/*_cache
 **/*cache
