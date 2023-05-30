@@ -5,7 +5,7 @@ action_type: text
 description: Please look at my blog.
 image_left: true
 images:
-- img/revoir.jpg
+- img/tree.jpeg
 show_action_link: true
 show_social_links: true
 subtitle: my blog and stuff
