@@ -7,7 +7,10 @@ categories:
   - combinatorics
 tags: [room-squares]
 subtitle: ''
-excerpt: ""
+excerpt: 'A partial Room square is maximal if no further pair of elements can be
+    placed into any unoccupied cell without violating the conditions that define a
+    partial Room square. This blog posts describes two approaches to creating
+    maximal partial Room squares in R.'
 draft: false
 series: ~
 layout: single
