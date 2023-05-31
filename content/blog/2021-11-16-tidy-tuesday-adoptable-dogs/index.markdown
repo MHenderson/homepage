@@ -9,7 +9,22 @@ categories:
 tags:
   - tidy-tuesday
 subtitle: ''
-excerpt: ""
+excerpt: "Tidy Tuesday
+for week fifty-one
+of 2019
+was all about
+dogs available for adoption
+in the United States
+through PetFinder.
+
+The data was collected by
+Amber Thomas
+for her piece
+[Finding Forever Homes](https://pudding.cool/2019/10/shelters/)
+which appeared
+in
+The Pudding
+in October 2019."
 draft: false
 series: ~
 layout: single

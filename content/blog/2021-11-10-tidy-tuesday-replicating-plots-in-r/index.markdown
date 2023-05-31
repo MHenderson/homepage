@@ -9,7 +9,12 @@ categories:
 tags:
   - tidy-tuesday
 subtitle: ''
-excerpt: ""
+excerpt: "Tidy Tuesday
+in week fifty of 2019
+was all about
+[this blog post](https://simplystatistics.org/2019/08/28/you-can-replicate-almost-any-plot-with-ggplot2/)
+by Rafael Irizarry
+on replicating plots in R."
 draft: false
 series: ~
 layout: single
