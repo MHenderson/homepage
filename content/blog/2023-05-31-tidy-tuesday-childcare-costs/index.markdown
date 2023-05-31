@@ -1,0 +1,17 @@
+---
+title: 'Tidy Tuesday: Childcare Costs'
+author: Matthew Henderson
+date: '2023-05-31'
+slug: tidy-tuesday-childcare-costs
+categories:
+  - dataviz
+tags:
+  - tidy-tuesday
+subtitle: ''
+excerpt: ''
+draft: yes
+series: ~
+layout: single
+---
+
+![A chloropleth map showing the median cost of childcare in the USA between 2016 and 2018. The coloured regions of the map correspond to counties.](infant-center-based.png)
