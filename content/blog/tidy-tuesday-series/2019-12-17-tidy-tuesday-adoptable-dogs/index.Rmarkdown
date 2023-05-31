@@ -28,6 +28,7 @@ in October 2019."
 draft: false
 series: ~
 layout: single
+weight: 2
 references:
 - id: rinkerSyllableSmallCollection2017
   author:
@@ -61,6 +62,16 @@ references:
   title: 'patchwork: The composer of plots'
   type: report
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+        echo = TRUE,
+     message = FALSE,
+     warning = FALSE,
+     comment = "#>",
+    collapse = TRUE
+)
+```
 
 Tidy Tuesday
 for week fifty-one
@@ -96,16 +107,16 @@ The first plot shows how
 imports
 and exports vary by state.
 I used
-Bob Rudis’s
+Bob Rudis's
 {statebins}
 package
-Rudis (2020)
+@rudisStatebinsCreateUnited2020
 for this plot
 as well as
-Thomas Lin Pedersen’s
+Thomas Lin Pedersen's
 {patchwork}
 package
-Pedersen (2020).
+@pedersenPatchworkComposerPlots2020.
 
 ![](dog-moves.png)
 
@@ -135,32 +146,10 @@ has one,
 two
 or three syllables.
 I used
-Tyler Rinker’s
+Tyler Rinker's
 {syllable}
 package
-Rinker (2017)
+@rinkerSyllableSmallCollection2017
 to do this.
 
 ## References
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-pedersenPatchworkComposerPlots2020" class="csl-entry">
-
-Pedersen, Thomas Lin. 2020. “Patchwork: The Composer of Plots.” Manual.
-
-</div>
-
-<div id="ref-rinkerSyllableSmallCollection2017" class="csl-entry">
-
-Rinker, Tyler W. 2017. “Syllable: A Small Collection of Syllable Counting Functions.” Manual. Buffalo, New York. <http://github.com/trinker/syllable>.
-
-</div>
-
-<div id="ref-rudisStatebinsCreateUnited2020" class="csl-entry">
-
-Rudis, Bob. 2020. “Statebins: Create United States Uniform Cartogram Heatmaps.” Manual. <https://gitlab.com/hrbrmstr/statebins>.
-
-</div>
-
-</div>

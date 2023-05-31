@@ -18,20 +18,10 @@ on replicating plots in R."
 draft: false
 series: ~
 layout: single
+weight: 1
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-       cache = FALSE,
-        echo = TRUE,
-     message = FALSE,
-     warning = FALSE,
-     comment = "#>",
-    collapse = TRUE,
-   fig.width = 8,
-  fig.height = 8
-)
-```
+
 
 Tidy Tuesday
 in week fifty of 2019

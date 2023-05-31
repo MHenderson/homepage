@@ -21,8 +21,8 @@ sidebar:
   author: Matthew Henderson
   categories_link: true
   description: ""
-  series_link: false
-  show_sidebar_adunit: true
+  series_link: true
+  show_sidebar_adunit: false
   tags_link: true
   text_link_label: Subscribe via RSS
   text_link_url: /index.xml

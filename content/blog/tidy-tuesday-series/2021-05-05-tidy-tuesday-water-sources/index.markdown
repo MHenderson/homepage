@@ -14,22 +14,22 @@ a global platform for sharing water point data."
 draft: false
 series: ~
 layout: single
+weight: 3
 ---
 
-This week's Tidy Tuesday data comes from
+This week’s Tidy Tuesday data comes from
 [Water Point Data Exchange (WPDx)](https://data.waterpointdata.org/dataset/Water-Point-Data-Exchange-WPDx-Basic-/jfkt-jmqa),
 a global platform for sharing water point data.
 
-Inspired by David Robinson's livestream on 4/5/21
+Inspired by David Robinson’s livestream on 4/5/21
 I created a faceted map plot
 showing the locations of different water sources
 throughout Ethiopia.
-```{r echo=FALSE}
-blogdown::shortcode('youtube', '5ub92c-5xFQ')
-```
+
+{{% youtube "5ub92c-5xFQ" %}}
 
 This was my first time
-using Thomas Lin Pedersen's
+using Thomas Lin Pedersen’s
 [{ragg}](https://ragg.r-lib.org/)
 package.
 It allowed me to use
@@ -41,9 +41,8 @@ by the work of
 [Georgios Karamanis](https://karaman.is/)
 and a tweet
 by Nicola Rennie:
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1389614216689164293')
-```
+
+{{% tweet "1389614216689164293" %}}
 
 Source code: https://github.com/MHenderson/water-sources
 
