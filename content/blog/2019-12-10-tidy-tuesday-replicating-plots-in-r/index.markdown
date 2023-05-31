@@ -1,7 +1,7 @@
 ---
 title: 'Tidy Tuesday: Replicating Plots in R'
 author: Matthew Henderson
-date: '2021-11-10'
+date: '2019-12-10'
 description: "Week 50 of 2019."
 slug: [tidy-tuesday-replicating-plots-in-r]
 categories:
