@@ -1,44 +1,18 @@
 ---
-title: Home
+action_label: Read More &rarr;
+action_link: /blog
+action_type: text
+description: ""
+image_left: true
+images:
+- img/tree.jpeg
+show_action_link: true
+show_social_links: true
+subtitle: ""
+text_align_left: false
+title: mjhdata
+type: home
 ---
 
-<link href="/rmarkdown-libs/font-awesome/css/all.min.css" rel="stylesheet" />
-<link href="/rmarkdown-libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
-
-<div id="contact">
-<h1>mjhdata</h1>
-<ul>
-<li>
-<a href="mailto:matthew.james.henderson@gmail.com">
-<i class="fa fa-envelope" role="presentation" aria-label="envelope icon"></i>
-<span>Email</span>
-</a>
-</li>
-<li>
-<a href="https://www.linkedin.com/in/matthew-henderson-2a5b26193">
-<i class="fab fa-linkedin" role="presentation" aria-label="linkedin icon"></i>
-<span>LinkedIn</span>
-</a>
-</li>
-<li>
-<a href="https://github.com/MHenderson">
-<i class="fab fa-github" role="presentation" aria-label="github icon"></i>
-<span>Github</span>
-</a>
-</li>
-<li>
-<a href="https://gitlab.com/MHenderson1">
-<i class="fab fa-gitlab" role="presentation" aria-label="gitlab icon"></i>
-<span>Gitlab</span>
-</a>
-</li>
-<li>
-<a href="https://bitbucket.com/matthew">
-<i class="fab fa-bitbucket" role="presentation" aria-label="bitbucket icon"></i>
-<span>Bitbucket</span>
-</a>
-</li>
-</ul>
-</div>
-
-# Featured Content
+** index doesn't contain a body, just front matter above.
+See index.html in the layouts folder **
