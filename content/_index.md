@@ -2,14 +2,14 @@
 action_label: Read More &rarr;
 action_link: /blog
 action_type: text
-description: Please look at my blog.
+description: ""
 image_left: true
 images:
 - img/tree.jpeg
 show_action_link: true
 show_social_links: true
-subtitle: my blog and stuff
-text_align_left: true
+subtitle: ""
+text_align_left: false
 title: mjhdata
 type: home
 ---
