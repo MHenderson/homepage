@@ -10,7 +10,7 @@ tags:
 subtitle: ''
 excerpt: "Mapping the paths of tornados in Kentucky from 1952 - 2022 with the sf packing in R and data from
   NOAA's National Weather Service Storm Prediction Center Severe Weather Maps, Graphics, and Data Page"
-draft: yes
+draft: false
 series: ~
 layout: single
 ---
