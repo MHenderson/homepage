@@ -8,43 +8,49 @@ categories:
 tags:
   - tidy-tuesday
 subtitle: ''
-excerpt: ''
+excerpt: "Mapping the paths of tornados in Kentucky from 1952 - 2022 with the sf packing in R and data from
+  NOAA's National Weather Service Storm Prediction Center Severe Weather Maps, Graphics, and Data Page"
 draft: yes
 series: ~
 layout: single
 ---
 
-the data this week was all about tornadoes.
+This week Tidy Tuesday was all about tornadoes and data came from 
+[NOAA's National Weather Service Storm Prediction Center Severe Weather Maps, Graphics, and Data Page](https://www.spc.noaa.gov/wcm/).
 
-remembering that i had been relatively close (10 miles) to the path of a particularly destructive tornado
+Having been relatively close (<20 miles) to the path of a particularly destructive tornado
 ([The 2009 U.S. event that prompted a new class of storm — super derecho](https://ca.news.yahoo.com/2009-u-event-prompted-class-085003480.html))
-in 2009
-at first i was just going to to plot all tornados paths in kentucky between sep 2007 and august 2010 when i was resident there.
+in Kentucky in 2009
+my first plan was to to plot all tornado paths in Kentucky between September 2007 and August 2010,
+the period during which I was a Kentucky resident.
+But I quickly changed my mind and simply tried to plot the path of every tornado in the dataset.
+In fact, what I was going to plot was not really the path of any tornado.
+It would just be a straight line joining the point where the tornado first touched down and where it finally dissipated.
 
-i had something basically working that combined geom_sf for plotting the counties of kentucky and geom_segment for the tornado path.
-that plot didn't work out so i started thinking about plotting all tornado paths in kentucky instead.
-that map i created was too clutterred so i added a decade variable and plotted different decades on different maps using geom_facet
-i also switched from using geom_segment to using geom_sf for the arrows.
+To draw the map I used the {{sf}} package in R.
+I used {{geom_sf}} to plot both Kentucky county boundary data from the {{tigris}} package as well as tornado paths from the NOAA data.
+
+Eventually I produced a first version that was too clutterred and hard to interpret.
+So I tried again, introducing a decade variable so that i could plot different decades on different maps using geom_facet.
 
 ![This image shows a grid of maps of the US state of Kentucky. Each map represents a different decade and is filled with coloured arrows showing the paths of tornadoes in that decade. The arrows are coloured according to the intensity of the tornado. The plot shows that during the 1980s there were relatively few tornadoes in Kentucky while in the 1970s there were a large number of very intense torndoes. In recent decades the number of tornadoes appears to have increased but there are fewer of high intensity.](ky-tornadoes-plot.png)
 
-originally the plot also had superimposed county boundaries.
-but i had to leave out the county boundaries for a couple of reasons.
-they interfered with the state outline lines.
-and they also made the plot too messy when combined with the arrows.
-i wish i could have found a way to add them subtly so they could be seen but without affecting the overall simplicity of the final plot.
+originally the final version of this plot included county boundaries.
+but i chose to remove them because they interfered with the state boundary lines and also made the plot too messy when combined with lots of arrows.
+i wish i could have found a way to add the county boundaries in a more subtle way so they could be seen but without affecting the overall simplicity of the final plot.
 
-although the final plot lacks a compelling story i think it does have some of the property of allowing the viewer to find something interesting by exploring the plot.
-for example, it seems clear that in 1970s there were a large number of powerful tornadoes, especially compared to the 1980s.
+although the final plot arguably lacks a compelling story i think it does have the property of allowing the viewer to find something interesting by exploring the plot.
 
-spending time on titles, lables and headings improved the plot quite a bit.
-and i used my favourite theme from hrbrthemes for the first time in a while.
-i was quite concerned about publishing something misleading.
-hopefully i have done a decent job by taking the extra care to label the 1950s and 2020s facets properly as well as finding space to describe the change of scale in 2007 from F to EF.
+for example, after looking at the plot for a whole it became clear to me that during the 1970s there were a large number of powerful tornadoes in kentucky, particularly in the central region of the state and especially compared to the 1980s.
+but in more recent decades it seems that western kentucky has experienced the most tornado activity in the state.
 
-This was the first time I used Github Codespaces for an entire project.
-All of the work was done on Codespaces inside a rocker/geospatial devcontainer container.
-At first I worked in RStudio but once I had established a targets pipeline I was happier working in VSCode.
+spending some time on titles, lables and headings improved the plot quite a bit.
+and i used my favourite theme from hrbrthemes for the first time in a while which always improves the overall look of the end result.
+i took a little bit of extra care in labelling the 1950s and 2020s facets properly as well as finding space to describe the change of scale in 2007 from F to EF.
+
+This was the first time I used Github Codespaces for an entire project (albeit a very small project).
+All of the work I did on this plot was done on Codespaces with the rocker/geospatial devcontainer.
+At first I worked in RStudio but after establishing a targets pipeline I was happier working in VSCode.
+The combination of renv and targets makes things especially easy.
 Resuming work inside a fresh codespace is just a matter of calling renv::restore() followed by targets::tar_make().
-Of course this is only really useful because of RStudio Package Manager.
-Installing everything from source could be frustratingly slow.
+And all the package installations are fast thanks to RStudio Package Manager.
