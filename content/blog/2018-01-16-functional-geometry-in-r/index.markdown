@@ -10,7 +10,7 @@ tags:
   - generative-art
 subtitle: ''
 excerpt: 'This post introduces funcgeo, an R package for functional geometry, by recreating Square Limit by M. Escher following the approach of Henderson (1982).'
-draft: yes
+draft: no
 series: ~
 layout: single
 references:
