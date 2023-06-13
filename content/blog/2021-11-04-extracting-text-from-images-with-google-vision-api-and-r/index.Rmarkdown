@@ -12,7 +12,7 @@ tags:
   - cloud-computing
 subtitle: ''
 excerpt: 'Using Vision API and R to extract text from images of handwriting.'
-draft: yes
+draft: no
 series: ~
 layout: single
 references:
