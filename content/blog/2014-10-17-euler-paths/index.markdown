@@ -10,7 +10,7 @@ tags:
 subtitle: ''
 excerpt: 'An implementation of multigraphs in Maxima and an approach to deciding
   whether a path in a multigraph is an Euler path or not.'
-draft: yes
+draft: no
 series: ~
 layout: single
 references:
