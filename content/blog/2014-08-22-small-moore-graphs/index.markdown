@@ -10,7 +10,7 @@ tags:
   - nauty
 subtitle: ''
 excerpt: 'Finding Moore graphs on at most ten vertices.'
-draft: yes
+draft: no
 series: ~
 layout: single
 references:
