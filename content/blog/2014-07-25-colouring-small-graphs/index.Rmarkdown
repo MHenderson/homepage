@@ -1,0 +1,275 @@
+---
+title: Colouring Small Graphs
+author: Matthew Henderson
+date: '2014-07-25'
+slug: colouring-small-graphs
+categories:
+  - graph-theory
+tags:
+  - graph-colouring
+  - chromatic-number
+  - graphviz
+  - coreutils
+subtitle: ''
+excerpt: "Reproducing Royle's table of chromatic number distributions."
+draft: no
+series: ~
+layout: single
+references:
+- id: haggardComputingTuttePolynomials2010
+  abstract: >-
+    The Tutte polynomial of a graph, also known as the partition function of the
+    q-state Potts model is a 2-variable polynomial graph invariant of
+    considerable importance in both combinatorics and statistical physics. It
+    contains several other polynomial invariants, such as the chromatic
+    polynomial and flow polynomial as partial evaluations, and various numerical
+    invariants such as the number of spanning trees as complete evaluations.
+    However despite its ubiquity, there are no widely available effective
+    computational tools able to compute the Tutte polynomial of a general graph
+    of reasonable size. In this article we describe the implementation of a
+    program that exploits isomorphisms in the computation tree to extend the
+    range of graphs for which it is feasible to compute their Tutte polynomials,
+    and we demonstrate the utility of the program by finding counterexamples to
+    a conjecture of Welsh on the location of the real flow roots of a graph.
+  accessed:
+    - year: 2021
+      month: 7
+      day: 29
+  author:
+    - family: Haggard
+      given: Gary
+    - family: Pearce
+      given: David J.
+    - family: Royle
+      given: Gordon
+  container-title: ACM Transactions on Mathematical Software
+  container-title-short: ACM Trans. Math. Softw.
+  DOI: 10.1145/1824801.1824802
+  ISSN: 0098-3500
+  issue: '3'
+  issued:
+    - year: 2010
+      month: 9
+      day: 1
+  page: 24:1–24:17
+  source: September 2010
+  title: Computing Tutte Polynomials
+  type: article-journal
+  URL: https://doi.org/10.1145/1824801.1824802
+  volume: '37'
+- id: bjorklundComputingTuttePolynomial2008
+  abstract: >-
+    The deletion-contraction algorithm is perhaps the most popular method for
+    computing a host of fundamental graph invariants such as the chromatic,
+    flow, and reliability polynomials in graph theory, the Jones polynomial of
+    an alternating link in knot theory, and the partition functions of the
+    models of Ising, Potts, and Fortuin-Kasteleyn in statistical physics. Prior
+    to this work, deletion-contraction was also the fastest known
+    general-purpose algorithm for these invariants, running in time roughly
+    proportional to the number of spanning trees in the input graph.Here, we
+    give a substantially faster algorithm that computes the Tutte polynomial-and
+    hence, all the aforementioned invariants and more-of an arbitrary graph in
+    time within a polynomial factor of the number of connected vertex sets. The
+    algorithm actually evaluates a multivariate generalization of the Tutte
+    polynomial by making use of an identity due to Fortuin and Kasteleyn. We
+    also provide a polynomial-space variant of the algorithm and give an
+    analogous result for Chung and Graham's cover polynomial.
+  author:
+    - family: Björklund
+      given: Andreas
+    - family: Husfeldt
+      given: Thore
+    - family: Kaski
+      given: Petteri
+    - family: Koivisto
+      given: Mikko
+  container-title: 2008 49th Annual IEEE Symposium on Foundations of Computer Science
+  DOI: 10.1109/FOCS.2008.40
+  event: 2008 49th Annual IEEE Symposium on Foundations of Computer Science
+  ISSN: 0272-5428
+  issued:
+    - year: 2008
+      month: 10
+  page: 677-686
+  source: IEEE Xplore
+  title: Computing the Tutte Polynomial in Vertex-Exponential Time
+  type: paper-conference
+---
+
+In
+[Chromatic Polynomials](/posts/2014-07-11-chromatic-polynomials)
+we showed how to partially reproduce the data on
+[small graph colourings](http://staffhome.ecm.uwa.edu.au/~00013890/remote/graphs#cols)
+made available by Gordon
+Royle. In that post we used NetworkX, sympy and the
+[*tutte_bhkk*](https://github.com/thorehusfeldt/tutte_bhkk)
+module of
+@bjorklundComputingTuttePolynomial2008
+to reproduce Royle's
+results up to order $n = 7$.
+
+In
+[A Chromatic Number Program](post/2014-07-18-a-chromatic-program)
+we developed a tool, `chromatic`, for computing chromatic numbers based
+on
+[*tutte*](http://homepages.ecs.vuw.ac.nz/~djp/tutte/),
+an implementation of the Tutte polynomial by
+@haggardComputingTuttePolynomials2010
+.
+
+In this post we attempt to reproduce Royle's chromatic number distribution data
+with `chromatic`.
+
+A Small Chromatic Hack
+----------------------
+
+The `chromatic` script that we introduced last week had at least one flaw. It
+was not able to correctly calculate the chromatic number of a graph with no
+edges. This seems to be due to the fact that the input format for the `tutte`
+program used to calculate the chromatic polynomial does not support empty
+(i.e. edge-less) graphs.
+
+One solution, shown below, is to calculate, using the Graphviz program `gc` the
+number of edges in the input graph. If this number is zero then we return 1
+and exit the script.
+
+    n_edges=`gc -e $file_gv\
+             | sed -n 's/\([0-9]*\) %.*/\1/p'\
+             | tr -d ' '`
+
+    if [[ ${n_edges} -eq 0 ]] ; then
+        echo 1
+        exit 1
+    fi
+
+Simulation Overview
+-------------------
+
+Most of the work in this simulation is done by a single Bash script. In addition
+to looping through the graph data computing chromatic numbers we also have to
+first convert data into the right format and, afterwards, analyse the results.
+
+More specifically, we have to do the following things:
+
+1. Convert *graph6* graph data from Brendan McKay's homepage into Graphviz
+   DOT format.
+2. Iterate through all connected graphs of order at most 7 and for each graph
+   compute the chromatic number and append it to a file of chromatic numbers
+   of all connected graphs of the same order.
+3. Analyse the distribution of chromatic numbers in the resulting results files.
+
+In the rest of this post we describe each of these steps in more detail.
+
+Data Conversion
+---------------
+
+We begin with the
+[small graph data](http://cs.anu.edu.au/~bdm/data/graphs.html)
+from Brendan McKay's
+homepage. Among the various files he has made available are a collection which
+contain all graphs of order 10 or less. These are made available in *graph6*
+format with one graph per line in files that contain all graphs of a specific
+order. A separate collection gives all of the connected graphs of order at most
+10. The latter is the collection we are going to be using.
+
+As things stand, *chromatic*, reads one graph at a time from an input file and
+that graph is expected to be in Graphviz DOT format. In the future it will be
+possible to run *chromatic* directly on *graph6* data but for now we just do
+the conversion to DOT format before running the simulation.
+
+A
+[Makefile](https://github.com/MHenderson/graphs-collection/blob/master/src/Small/Makefile)
+that converts the *graph6* data into folders of files
+in DOT format, with one file per graph, has been added to the graphs-collection
+project. So to build this data we now merely clone the *graphs-collection*
+repository and call `make` from the `src/Small` folder.
+
+Doing this creates a new folder `src/Small/output` which contains subfolders
+`n_gv` and `nc_gv` for all $2 \leq n \leq 8$. The folder `n_gv` contains all
+graphs of order $n$ in DOT format and the folder `nc_gv` contains all
+connected graphs of order $n$ in DOT format.
+
+The Main Loop
+-------------
+
+Once we have the data in DOT format our simulation is a very simple Bash script
+that takes two arguments, a lower and upper bound. The chromatic numbers of
+all (connected) graphs of orders between the lower and upper bounds are computed
+and stored in results files, one chromatic number per line, for subsequent
+analysis.
+
+    #!/bin/bash
+
+    BASEDIR=~/workspace/graphs-collection/src/Small/output
+
+    for order in `seq $1 $2`;
+    do
+     echo ${order}
+     graphs=`ls ${BASEDIR}/${order}c_gv/*`
+     for graph in ${graphs};
+     do
+      chromatic ${graph} >> ${order}c_result.txt;
+     done
+    done
+
+The `BASEDIR` variable in this script points to the output folder generated in
+the previous step.
+
+Analysis
+--------
+
+A second small Bash script now is used to process the output from the previous
+step and collate the chromatic numbers for each order. This script also takes
+two parameters as input, the upper and lower bounds on order.
+
+    #!/bin/bash
+
+    RESULTS_DIR=results/14_07_31_results
+
+    for i in `seq $1 $2`
+    do
+     echo order: $i
+     for j in `seq 1 8`
+     do
+     echo $j: `grep -c $j ${RESULTS_DIR}/${i}c_result.txt`
+     done
+    done
+
+Here `RESULT_DIR` points to the location of the folder containing the output
+from the previous step
+
+Results
+-------
+
+The data collected by the simulation described above agrees with Royle's
+table for all $n \leq 6$. For $n = 7$ we get the following numbers, which
+are obviously wrong.
+
+|  2 |   3 |   4 |  5 | 6 | 7 |
+|----|-----|-----|----|---|---|
+| 44 | 486 | 294 | 29 | 0 | 0 |
+
+We would expect that the number of connected graphs of order 7 having chromatic
+number 7 is (at least) 1. We also expect that there are connected graphs of
+order 7 having chromatic number 6. Those last two zeros, therefore, point to
+a flaw in our simulation.
+
+It seems most likely that the error was introduced in converting the data from
+*graph6* to DOT format. Our methods for converting are not designed with much
+rigour and it seems plausible that they aren't reliable for larger graphs. There
+are at least a couple of things we can do to progress and hopefully fix this
+problem.
+
+One method is to improve the reliability of our conversion tools. To do this we
+should match the conversions described in the Makefile in
+`graphs-collection` with some testing of basic parameters in the resulting
+data.
+
+Another approach is to modify `chromatic` to work with files in *graph6* one
+graph per line format.
+
+In upcoming posts we will look at both of these approaches and return to
+Royle's data with a view to reproducing his results as far as possible.
+
+References
+----------
