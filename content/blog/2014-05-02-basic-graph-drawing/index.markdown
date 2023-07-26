@@ -56,7 +56,10 @@ function which takes the graph as a parameter.
 nx.draw(G, nx.circular_layout(G))
 ```
 
-![png](img/networkx-drawing-notebook_9_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_9_0.png" alt="A drawing of the Petersen graph with a circular layout."  />
+<p class="caption">Figure 1: The Petersen graph drawn with a circular layout.</p>
+</div>
 
 Instead of using the ``draw`` function in conjunction with the
 ``circular_layout`` function we can use the ``draw_circular`` convenience
@@ -71,7 +74,10 @@ and whether the graph is displayed with labels or not.
 nx.draw_circular(G, with_labels=False, node_color='black')
 ```
 
-![png](img/networkx-drawing-notebook_11_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_11_0.png" alt="A drawing of the Petersen graph with a circular layout with black nodes."  />
+<p class="caption">Figure 2: The Petersen graph drawn with a circular layout and black nodes.</p>
+</div>
 
 As these configuration options are going to be used on several graphs it makes
 sense to put all of the option configurations into a dictionary and then pass
@@ -88,7 +94,10 @@ options = {
 nx.draw_circular(G, **options)
 ```
 
-![png](img/networkx-drawing-notebook_14_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_14_0.png" alt="A drawing of the Petersen graph with a circular layout with small black nodes and thick edges."  />
+<p class="caption">Figure 3: The Petersen graph drawn with a circular layout and some style options.</p>
+</div>
 
 This drawing is not so easily recognised as a drawing of the Petersen graph. A
 more familiar drawings shows one of the five cycles in the shape of a regular
@@ -106,7 +115,10 @@ their respective orderings requires some experimentation.
 nx.draw_shell(G, nlist=[range(5,10), range(5)], **options)
 ```
 
-![png](img/networkx-drawing-notebook_17_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_17_0.png" alt="A drawing of the Petersen graph with a layout consisting of two concentric shells of nodes."  />
+<p class="caption">Figure 4: The Petersen graph drawn with a shell layout.</p>
+</div>
 
 ## 2. Simple Layouts - graphs with few vertices
 
@@ -137,7 +149,10 @@ plt.subplot(224)
 nx.draw_spring(G, **options)
 ```
 
-![png](img/networkx-drawing-notebook_19_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_19_0.png" alt="Four drawings of the Petersen graph with different layouts."  />
+<p class="caption">Figure 5: The Petersen graph drawn with four different layouts.</p>
+</div>
 
 The ``plt.subplot`` command will be familiar to anyone with Matlab experience.
 It takes an integer argument whose first two digits are interpreted as a number
@@ -171,7 +186,10 @@ G = nx.dodecahedral_graph()
 nx.draw_shell(G, nlist = [[2,3,4,5,6],[8,1,0,19,18,17,16,15,14,7],[9,10,11,12,13]], **options_1)
 ```
 
-![png](img/networkx-drawing-notebook_25_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_25_0.png" alt="The dodecahedral graph drawn with nodes in three concentric shells of 5, 10 and 5 nodes."  />
+<p class="caption">Figure 6: The dodecahedral graph drawn with a shell layout.</p>
+</div>
 
 ## 4. Graphs with many more nodes
 
@@ -196,7 +214,10 @@ G = nx.barabasi_albert_graph(100, 3)
 nx.draw_circular(G, **options_2)
 ```
 
-![png](img/networkx-drawing-notebook_31_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_31_0.png" alt="A random graph on 100 nodes drawn with a circular layout."  />
+<p class="caption">Figure 7: A random graph on 100 nodes drawn with a circular layout.</p>
+</div>
 
 ## 5. Graphs with many edges
 
@@ -219,7 +240,10 @@ G = nx.complete_bipartite_graph(25,26)
 nx.draw_shell(G, nlist=[range(0,25), range(25,51)], **options_3)
 ```
 
-![png](img/networkx-drawing-notebook_35_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_35_0.png" alt="A drawing of a bipartite graph with nodes in two concentric shells."  />
+<p class="caption">Figure 8: A shell layout drawing of a bipartite graph on 51 vertices.</p>
+</div>
 
 Admittedly, this drawing conveys little information about the graph. It is hard
 even to see which nodes in the inner shell are connected to nodes in the outer
@@ -242,7 +266,10 @@ G = nx.random_lobster(100, 0.9, 0.9)
 nx.draw_spring(G, iterations=10000, **options_2)
 ```
 
-![png](img/networkx-drawing-notebook_39_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_39_0.png" alt="A drawing of a random lobster graph on 100 vertices."  />
+<p class="caption">Figure 9: A random lobster graph on 100 vertices drawn with a spring layout.</p>
+</div>
 
 In a
 [previous post](/post/2014/05/02/networkx)
@@ -265,7 +292,10 @@ arrows unless we set the ``arrows`` keyword argument to ``False``.
 nx.draw(G, pos, arrows=False, **options_2)
 ```
 
-![png](img/networkx-drawing-notebook_43_0.png)
+<div class="figure" style="text-align: center">
+<img src="img/networkx-drawing-notebook_43_0.png" alt="A drawing of a random lobster graph on 100 vertices."  />
+<p class="caption">Figure 10: A random lobster graph on 100 vertices drawn with a custom layout created in Gephi.</p>
+</div>
 
 This drawing nearly has it all. The chosen layout almost conveys the planarity
 and lobsterity of the graph clearly. With a little manual adjustment we could
