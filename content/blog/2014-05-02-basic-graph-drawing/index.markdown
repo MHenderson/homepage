@@ -266,3 +266,7 @@ This drawing is an improvement on the previous one.
 The chosen layout almost succeeds in conveying both the planarity and lobsterity of the graph.
 With a little manual adjustment we could probably eliminate all edge-crossings.
 Other nice properties of this layout are that there are only a few different edge lengths and nodes are evenly distributed over a symmetrical area.
+
+# Code 
+
+https://github.com/MHenderson/graph-drawing
