@@ -39,9 +39,7 @@ I was also inspired
 by the work of
 [Georgios Karamanis](https://karaman.is/)
 and a tweet
-by Nicola Rennie:
-
-{{% tweet "1389614216689164293" %}}
+by Nicola Rennie.
 
 Source code: https://github.com/MHenderson/water-sources
 
