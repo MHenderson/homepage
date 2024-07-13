@@ -220,7 +220,14 @@ Now we can combine the colouring with drawing by the *twopi* program.
 
 The resulting drawing with coloured nodes looks like this:
 
-![Drawing of the Frucht graph.](img/frucht.svg)
+<div class="figure" style="text-align: center">
+
+<img src="img/frucht.png" alt="A 3-colouring of the Fruct graph."  />
+<p class="caption">
+<span id="fig:frucht-colouring"></span>Figure 1: A 3-colouring of the Frucht graph.
+</p>
+
+</div>
 
 ## References
 

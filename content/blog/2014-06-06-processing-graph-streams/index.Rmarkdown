@@ -231,7 +231,7 @@ The resulting drawing with coloured nodes looks like this:
 #| fig.align="center",
 #| fig.alt="A 3-colouring of the Fruct graph.",
 #| echo=FALSE
-knitr::include_graphics("featured.png")
+knitr::include_graphics("img/frucht.png")
 ```
 
 ## References
