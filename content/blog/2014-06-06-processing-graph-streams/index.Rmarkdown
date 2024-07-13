@@ -224,7 +224,15 @@ Now we can combine the colouring with drawing by the *twopi* program.
 
 The resulting drawing with coloured nodes looks like this:
 
-![Drawing of the Frucht graph.](img/frucht.svg)
+
+```{r}
+#| frucht-colouring,
+#| fig.cap="A 3-colouring of the Frucht graph.",
+#| fig.align="center",
+#| fig.alt="A 3-colouring of the Fruct graph.",
+#| echo=FALSE
+knitr::include_graphics("featured.png")
+```
 
 ## References
 
