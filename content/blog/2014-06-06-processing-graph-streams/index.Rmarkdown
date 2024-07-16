@@ -10,7 +10,9 @@ tags:
   - graphviz
   - gvpr
 subtitle: ''
-excerpt: 'An introduction to gvpr.'
+excerpt: 'Introducing gvpr, a graph stream editor from the Graphviz library, by
+  presenting a pipeline to apply vertex colourings to graphs in DOT format before
+  visualising them with Graphviz.'
 draft: no
 series: ~
 layout: single
