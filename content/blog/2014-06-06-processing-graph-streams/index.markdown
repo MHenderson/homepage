@@ -18,42 +18,29 @@ series: ~
 layout: single
 ---
 
-In this post we introduce *gvpr* a graph stream editor from the
-[Graphviz](http://www.graphviz.org/)
-software library.
+*gvpr* is a graph stream editor from the [Graphviz](http://www.graphviz.org/) software library.
 
-For an introduction to Graphviz *gvpr* is not an obvious place to start, so
-first a another program from Graphviz, *gc*, is demonstrated. After that
-*gvpr* is introduced by showing how *gc* can be implemented in *gvpr*.
+As an introduction to Graphviz, *gvpr* is probably not an obvious place to start.
+So first of all we'll look at a another program from Graphviz, *gc*, which is like a graph version of the Coreutils program *wp*.
 
-In
-[Drawing Coloured Queen Graphs](blog/drawing-coloured-queen-graphs/)
-we faced the problem of applying a colouring found by Culberson's colouring
-programs to a graph file in DOT format. In that post we used
-an ad-hoc solution based on a Bash script and *Sed*. Here we use *gvpr* for the
-same purpose.
+After that we'll show how *gc* can be re-implemented as a *gvpr* program.
+
+In the last section we'll show use to use *gvpr* to apply a colouring found by using Joe Culberson's colouring programs to a graph file in DOT format.
+In an [earlier post](blog/drawing-coloured-queen-graphs/) we had devised an ad-hoc solution based on Bash and *Sed*.
 
 # Counting Components with *gc*
 
-[GNU Coreutils](https://www.gnu.org/software/coreutils/)
-is a collection of programs available on any Linux
-or Unix-based operating system and contains a program
-[*wc*](https://www.gnu.org/software/coreutils/manual/html_node/wc-invocation.html#wc-invocation)
-used to count words, lines, or characters in a document.
+[GNU Coreutils](https://www.gnu.org/software/coreutils/) is a collection of programs available on any Linux or Unix-based operating system and contains a program [*wc*](https://www.gnu.org/software/coreutils/manual/html_node/wc-invocation.html#wc-invocation) that can be used to count words, lines, or characters in a document.
 
-As an example of wc, here we calculate the number of lines, words and characters
-in the *man* page for *wc*.
+For example, to calculate the number of lines, words and characters in the *man* page for *wc*:
 
     $ man wc | wc
          70     252    2133
 
-The Graphviz program, *gc*, can be thought of as a graph analogue of *wc*. If
-a graph is stored in DOT format then we can count the nodes and edges in
-the graph with *gc*.
+The Graphviz program, *gc*, is a graph analogue of *wc*.
+For graphs in DOT format *gc* can count the number of nodes and edges.
 
-For example, the number of nodes
-in the
-[Tutte graph](https://raw.githubusercontent.com/MHenderson/graphs-collection/master/src/Cl    assic/Tutte/tutte.gv):
+For example, the number of nodes in the [Tutte graph](https://raw.githubusercontent.com/MHenderson/graphs-collection/master/src/Classic/Tutte/tutte.gv):
 
     $ curl -s gv/tutte.gv | gc -n
           46 %1 (<stdin>)
@@ -63,8 +50,7 @@ To calculate the number of edges change the `-n` switch to `-e`:
     $ curl -s gv/tutte.gv | gc -e
           69 %1 (<stdin>)
 
-As with *wc*, *gc* can be used with multiple graphs and provides total
-counts over all input graphs.
+As with *wc*, if *gc* is given multiple graphs it provides total counts over all input graphs.
 
     $ cat gv/*.gv | gc -e
           69 %1 (<stdin>)
@@ -72,23 +58,16 @@ counts over all input graphs.
           21 %179 (<stdin>)
          108 total
 
-*gc* can do a few other things beside count nodes and vertices. It can also
-count components and clusters (subgraphs that are labelled as
-clusters).
-
-For anything more sophisticated than counting objects
-belonging to a graph we need to write another program. *Sed* and *AWK* are good
-choices. *gvpr* which has a similar approach but is purposely designed for processing
-graph data in DOT format.
+*gc* can do a few other things beside count nodes and vertices.
+It can also count components and clusters (subgraphs labelled as clusters).
 
 ## Implementing *gc* in *gvpr*
 
-*gvpr* is an *AWK* for graphs in DOT format. It is a stream editor which
-can be easily customised for processing graph data in user-defined ways.
+*gvpr* is like *AWK* but for graphs.
+It is a stream editor which can be easily customised for processing graph data in user-defined ways.
 
-There are several simple examples of programs written in *gvpr* in the
-[*gvpr* manual](http://www.graphviz.org/pdf/gvpr.1.pdf).
-One such programs is the following *gc* clone.
+There are several simple examples of programs written in *gvpr* in the [*gvpr* manual](http://www.graphviz.org/pdf/gvpr.1.pdf).
+One example is the following *gc* clone:
 
     BEGIN { int n, e; int tot_n = 0; int tot_e = 0;}
     BEG_G {
@@ -100,10 +79,7 @@ One such programs is the following *gc* clone.
     }
     END { printf("%d nodes %d edges total\n", tot_n, tot_e) }
 
-If the above code is in a file called `gv` and that file is located in a folder
-on one of the paths in the `GPRPATH` environment variable then we can invoke
-it in by calling `gvpr` with the filename `gv` as the argument of the `-f`
-switch.
+If the above code is in a file called `gv` and that file is located in a folder on one of the paths in the `GPRPATH` environment variable then it can be invoked by calling `gvpr` and passing the filename `gv` as the argument of the `-f` option.
 
     $ cat gv/*.gv | gvpr -fgc
     46 nodes 69 edges %1
@@ -111,66 +87,55 @@ switch.
     14 nodes 21 edges %179
     72 nodes 108 edges total
 
-`gv` works in the following way.
+## Programming with *gvpr*
 
-First *gvpr* processes the input graphs one at a time. Before doing any
-processing, though, it calls the action
-of the `BEGIN` clause. For `gv` this merely has the effect of
-initialising some variables used for counting edges and vertices.
+This is roughly how `gv` works.
 
-Next *gvpr* moves onto processing the first graph. Once it has processed the
-first graph it moves onto the second, and so on, until the last graph has been
-processed at which point it calls the action of the `END` clause. In the `gc`
-program this prints out the total number of edges and vertices over all of
-the graphs.
+*gvpr* processes input graphs one at a time.
+But before processing any graphs it calls the action of the `BEGIN` clause.
+For the `gv` program the `BEGIN` clause is used to initialise some variables used for counting edges and vertices.
 
-When *gvpr* processes each graph it first sets the variable `$` to the current
-graph and then it calls the action of the `BEGIN_G` clause. It will then do some
-processing of nodes and edges (explained next) before calling
-the action of the `END_G` clause after each graph. In this case, when a graph is
-processed by *gvpr* we count the number of edges and vertices, print those
-numbers out and add them to the total edge and vertex count.
+Next *gvpr* moves onto processing the first graph. 
 
-The innermost processing that *gvpr* does is to consider every node and edge.
-Any number of `N` and `E` clauses can be implemented to create some specific
-behaviours at nodes and edges. For example, we might provide actions to weight
-a node or edge with a particular value or other or we might set attributes,
-like the position of a vertex according to the result of a layout algorithm.
+When *gvpr* processes a graph it first sets the `$` variable to the current graph before calling the action of the `BEGIN_G` clause.
+In the case of *gv*, the `BEGIN_G` clause action calculates the number of edges and vertices of the current graph, prints them out and adds them to the total edge and vertex count.
 
-`N` and `E` clauses both support predicate-action pairs. This means that
-the action will only be run if the predicate belonging to the predicate-action
-pair is satisfied as well as the main `N` or `E` clause (which is only true
-when we have encountered a node or edge).
+Having processed the first graph, *gvpr* now repeats the same process for the second graph, third graph and so on.
+
+After the last graph has been processed, *gvpr* calls the action of the `END` clause.
+For the `gc` program the `END` clause just prints out the total number of edges and vertices in all input graphs.
+
+## Processing nodes and edges
+
+In the next section we show how to use *gvpr* to take the output of a colouring from *ccli* and apply it to the vertices of a graph before passing it to one of Graphviz's layout programs for drawing.
+In this section we introduce the `N` and `E` clauses.
+
+Any number of `N` and `E` clauses can be added to a *gvpr* program to create specific behaviour at nodes and edges.
+For example, providing actions to weight a node or edge with a particular value or setting other attributes like the position of a vertex computed by a particular layout algorithm.
+
+`N` and `E` clauses support predicate-action pairs.
+If a predicate-action pair is specified then an action will only be run if the predicate belonging to the predicate-action pair is satisfied as well as the main `N` or `E` clause (which is only true when we have encountered a node or edge).
 
     N [ predicate ]{ action }
     E [ predicate ]{ action }
 
-In the next section we consider a different application of *gvpr*. We show
-how it can be used to take the output of a colouring from *ccli* and apply
-it to the vertices of a graph which can then be passed to one of the layout
-programs for drawing.
-
 ## Colouring Vertices with *gvpr*
 
-Our implementation of applying a colouring to a graph in DOT format in
-*gvpr* is just three lines of code.
+Applying a colouring to a graph in DOT format can be implemented in three lines of *gvpr* code.
 
     BEG_G { setDflt($, "N", 'colorscheme', 'set13') }
     N { aset($, 'style', 'filled') }
     N { aset($, 'color', ARGV[$.name]) }
 
-The basic structure is familiar from the *gc*-like implementation above. We
-have three clauses, a `BEG_G` clause and two `N` clauses. The action for
-each clause is a call to one of two different functions `setDflt` and `aset`.
+There are three clauses: a `BEG_G` clause and two `N` clauses.
+The actions for all three clauses call one of two different functions: `setDflt` and `aset`.
 
-The `setDflt` function sets the default value of an attribute . As we call this
-function in the body of the `BEG_G` clause the built-in variable `$` is set
-to the current graph. In this case we are setting the default value of the
-`colorscheme` attribute for nodes to the `set13` colour scheme. Graphviz
-provides
-[several different colour schemes](http://www.graphviz.org/doc/info/colors.html).
-The following
-quotation from the *gvpr* manual explains how colour schemes work.
+The `setDflt` function sets the default value of an attribute.
+In the action of the `BEG_G` clause the built-in variable `$` represents the current graph.
+The effect of this action is to set the default value of the `colorscheme` attribute for nodes to the `set13` colour scheme.
+
+Graphviz provides [several different colour schemes](http://www.graphviz.org/doc/info/colors.html).
+The following quotation from the *gvpr* manual explains how colour schemes work.
 
 > This attribute specifies a color scheme namespace. If defined, it specifies
 > the context for interpreting color names. In particular, if a color value
@@ -179,27 +144,24 @@ quotation from the *gvpr* manual explains how colour schemes work.
 > naming is used. For example, if colorscheme=bugn9, then color=7 is
 > interpreted as "/bugn9/7".
 
-The `aset` function sets the value of an attribute. As we use the `aset` function
-in the body of actions that belong to `N` clauses we are going to be setting
-attributes of nodes. When *gvpr* is processing nodes is assigns the current
-node to the built-in variable `$`. So the syntax `aset($, x, y)` assigns the
-value `y` to the attribute `x`.
+The `aset` function sets the value of an attribute.
+In the body of actions belonging to `N` clauses `aset` will set attributes of nodes.
+When *gvpr* processes nodes `$` represents the current node.
+So the syntax `aset($, x, y)` assigns the value `y` to the attribute `x`.
 
-We set two attributes for every node. We set the `style` attribute to `filled`
-so that when the output graph is rendered by one of the drawing programs in
-Graphviz the nodes will be drawn as filled-in shapes, making the colour visible.
-The other attribute we set for each node is the `color`. In this case, the
-`color` is set to a value which is determined by the corresponding value of
-`ARGV`.
+We set two attributes for every node.
+We set the `style` attribute to `filled` so that when the output graph is rendered by one of the drawing programs in Graphviz the nodes will be drawn as filled-in shapes, making the colour visible.
+The other attribute we set for each node is the `color`.
+In this case, the `color` is set to a value which is determined by the corresponding value of `ARGV`.
 
-To use our program, call *gvpr* with the `colour` program as the argument
-of the `-f` switch. Then to provide the vertex colouring we pass a string
-to *gvpr* as the argument of the `-a` switch (this is then available inside
-of a *gvpr* program as the value of the `ARGV` variable.
+## Example: Colouring the Frucht graph with *gvpr*
+
+To use the above `colour` program, call *gvpr* with `colour` as the argument of the `-f` option.
+To provide a vertex-colouring pass a string to *gvpr* as the argument of the `-a` option (this is then available inside of a *gvpr* program as the value of the `ARGV` variable).
 
     gvpr -f colour -a '1 2 3 1 2 3 2 3 1 3 1 2' gv/frucht.gv > frucht.gv.col
 
-Now we can combine the colouring with drawing by the *twopi* program.
+Now applying a colouring to the Frucht graph and drawing it using *twopi* can be done in a pipeline with two steps:
 
     gvpr -c -f colour -a '1 2 3 1 2 3 2 3 1 3 1 2' gv/frucht.gv |\
     twopi -s\
@@ -211,9 +173,6 @@ Now we can combine the colouring with drawing by the *twopi* program.
           -Nlabel=\
           -Nshape=circle\
           -o png/frucht.png
-
-The resulting drawing with coloured nodes looks like this:
-
 
 <div class="figure" style="text-align: center">
 <img src="img/frucht.png" alt="A 3-colouring of the Fruct graph."  />
