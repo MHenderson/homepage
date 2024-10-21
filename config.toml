@@ -28,7 +28,7 @@ enableEmoji = true
     style = "github"
 
 [params]
-  version = "v0.1.0.9000"
+  version = "v0.1.0.9001"
   orgName = "Matthew Henderson"
   orgLocal = ""
   description = "My website."
